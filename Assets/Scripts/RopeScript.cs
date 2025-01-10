@@ -67,6 +67,7 @@ public class RopeScript : MonoBehaviour
     void CreateNode()
     {
         Debug.Log("1 " + player.transform.position + " " + lastNode.transform.position);
+        //두 점 사이 거리 계산
         createPos = player.transform.position - lastNode.transform.position;
         Debug.Log("2 " + createPos);
         createPos.Normalize();

@@ -246,7 +246,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
@@ -506,7 +506,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJump: 0
   throwHook: {fileID: 1321020968}
-  jumpPower: 5
+  jumpPower: 10
 --- !u!1001 &1504387783
 PrefabInstance:
   m_ObjectHideFlags: 0

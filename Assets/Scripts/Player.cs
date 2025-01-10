@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
 
     public bool isJump = false;
+    bool canBoost = true;
 
     public ThrowHook throwHook;
 
@@ -24,18 +25,64 @@ public class Player : MonoBehaviour
         {
             if (!throwHook.IsHookEnabled())
             {
-                rigid.velocity = new Vector2(-5, rigid.velocity.y);
+                if (rigid.velocity.x < -5)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x + Time.deltaTime, rigid.velocity.y);
+                }
+                else
+                {
+                    rigid.velocity = new Vector2(-5, rigid.velocity.y);
+                }
             }
-                rigid.AddForce(new Vector2(-1, 0));
+            else
+            {
+                if (rigid.velocity.x > 0)
+                {
+                    Debug.Log("reverse " + -rigid.velocity.x);
+                    rigid.velocity = new Vector2(-rigid.velocity.x, rigid.velocity.y);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
+                {
+                    //canBoost = false;
+                    rigid.AddForce(new Vector2(-30, 0), ForceMode2D.Impulse);
+                }
+                else
+                {
+                    rigid.AddForce(new Vector2(-1, 0));
+                }
+            }
+
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             if (!throwHook.IsHookEnabled())
             {
-                rigid.velocity = new Vector2(5, rigid.velocity.y);
+                if (rigid.velocity.x < -5)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x - Time.deltaTime, rigid.velocity.y);
+                }
+                else
+                {
+                    rigid.velocity = new Vector2(5, rigid.velocity.y);
+                }
             }
-                rigid.AddForce(new Vector2(1, 0));
+            else
+            {
+                if (rigid.velocity.x < 0)
+                {
+                    rigid.velocity = new Vector2(-rigid.velocity.x, rigid.velocity.y);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
+                {
+                    //canBoost = false;
+                    rigid.AddForce(new Vector2(30, 0), ForceMode2D.Impulse);
+                }
+                else
+                {
+                    rigid.AddForce(new Vector2(1, 0));
+                }
+            }
         }
 
 
@@ -62,6 +109,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    void SetMoveSpeed()
+    {
+
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
