@@ -20,8 +20,8 @@ public class RopeScript : MonoBehaviour
 
     GameObject obj;
     Vector2 createPos;
-    bool done = false;
-    bool triggered = false;
+    bool done = false; //생성이 다 되었는가
+    bool triggered = false; //갈고리가 닿았는가
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +42,7 @@ public class RopeScript : MonoBehaviour
             //transform.position = Vector2.MoveTowards(transform.position, dest, speed);
             transform.Translate(0, -speed, 0);
 
-
+            Debug.Log("Dist " + Vector2.Distance(player.transform.position, transform.position));
             if (Vector2.Distance(player.transform.position, transform.position) >= limitDist)
             {
                 Destroy(gameObject);
@@ -92,7 +92,7 @@ public class RopeScript : MonoBehaviour
         {
             triggered = true;
             done = true;
-
+            player.GetComponent<Player>().SetBoost(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
         }
     }

@@ -504,7 +504,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.3
   m_AngularDrag: 0.05
   m_GravityScale: 2
   m_Material: {fileID: 0}
@@ -599,7 +599,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isJump: 0
   throwHook: {fileID: 1321020968}
+  boostCool: 2
   jumpPower: 10
+  groundMoveSpeed: 5
+  swingSpeed: 2
 --- !u!1001 &1504387783
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -37,6 +37,7 @@ public class ThrowHook : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Destroy(curHook);
+            gameObject.GetComponent<Player>().SetBoost(false);
         }
     }
 
