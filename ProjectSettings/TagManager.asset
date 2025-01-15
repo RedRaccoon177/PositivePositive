@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - Ground
+  - SideWall
+  - Monster
   layers:
   - Default
   - TransparentFX
