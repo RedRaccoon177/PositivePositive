@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class WormRotation : MonoBehaviour
 {
-    public GameObject zombieInfo;
+    GameObject zombieInfo;
+    public GameObject ZombieInfo
+    {
+        set
+        {
+            zombieInfo = value;
+        }
+    }
+
     float radius;
     float rotationSpeed;
     float angle;
@@ -22,9 +30,6 @@ public class WormRotation : MonoBehaviour
         float ran = angle * Mathf.Deg2Rad; 
         float x = zombieInfo.transform.position.x + (radius * Mathf.Cos(ran));
         float y = zombieInfo.transform.position.y + (radius * Mathf.Sin(ran));
-        Debug.Log(x);
-        Debug.Log(y);
-
         transform.position = new Vector3(x, y, 0);
     }
 

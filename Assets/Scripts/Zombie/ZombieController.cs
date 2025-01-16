@@ -1,13 +1,16 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class ZombieController : MonoBehaviour
 {
+    public Collider2D zombieCollider;
     Animator animator;
     Rigidbody2D rigid;
     State zombieState;
     [SerializeField] GameObject playerInfo;
     [SerializeField] GameObject wormShieldPrefab;
+    [SerializeField] GameObject jumpSkillRange;
 
     public GameObject WormShieldPrefab
     {
@@ -27,33 +30,56 @@ public class ZombieController : MonoBehaviour
             return playerInfo;
         }
     }
+    public GameObject JumpSkillRange
+    {
+        get
+        {
+            return jumpSkillRange;
+        }
+        set
+        {
+            jumpSkillRange = value;
+        }
+    }
 
-    //public LayerMask playerLayer;
     public short directionX { get; set; }
     public short directionY { get; set; }
-
-    //public Transform target;
+    public Vector2 mapBounds;
     public Vector2 mosterToPlayer;
+    // ______________ ป๓ลย ___________________
     public Jump jump { get; private set; }
     public JumpReady jumpReady { get; private set; } 
     public Walk walk { get; private set; }
     public Defalut defalut { get; private set; }
-
+    // _____________________________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
 
-    public SetActive setActive;
+    public float distance;
+    public RaycastHit2D ray2d;
 
     public bool jumpOn=false;
 
+    public int wormShieldCount { get; set; }
+    public int wormShieldMaxCount { get; set; }
+    public float deltaTime { get; set; }
 
     public void ChangeState(State newState)
     {
         zombieState = newState;
         zombieState.Enter(this);
+        deltaTime = 0;
     }
     void Start()
     {
+        distance = 100f;
+        
+        //jumpSkillRange = Instantiate(jumpSkillRange);
+        //jumpSkillRange.transform.SetParent(transform);
+
+
+        wormShieldCount = 0;
+        wormShieldMaxCount = 5;
         //______________________
         jump = new Jump();
         jumpReady = new JumpReady();
@@ -61,6 +87,7 @@ public class ZombieController : MonoBehaviour
         defalut = new Defalut();
         //_____________________
         //setActive = new SetActive();
+        zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         ChangeState(defalut);
@@ -82,11 +109,13 @@ public class ZombieController : MonoBehaviour
             zombieState.FixUpdate(this);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (zombieState != null)
         {
             zombieState.OnTriggerEnter2D(this, collision);
         }
+        
     }
+
 }
