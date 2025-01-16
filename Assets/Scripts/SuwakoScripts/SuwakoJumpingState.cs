@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpingState : State
+public class SuwakoJumpingState : SuwakoState
 {
     bool isJump = true;
 
@@ -17,20 +17,6 @@ public class JumpingState : State
             suwako.RiORLe = -1;
         }
         suwako.animator.SetBool("IsJump", true);
-    }
-
-    public override void Update(SuwakoController suwako)
-    {
-        //떨어지기 시작
-        if (suwako.rb.velocity.y < 0)
-        {
-            suwako.animator.SetBool("IsJump", false);
-            suwako.ChangeState(suwako.fallingState);
-        }
-    }
-
-    public override void FixUpdate(SuwakoController suwako)
-    {
         if (suwako.RiORLe == -1)
         {
             suwako.transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -47,23 +33,18 @@ public class JumpingState : State
         }
     }
 
-    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)
+    public override void Update(SuwakoController suwako)
     {
-
-    }
-
-    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider)
-    {
-        if (collider.tag == "Wall")
+        //떨어지기 시작
+        if (suwako.rb.velocity.y < 0)
         {
-            suwako.GetComponent<BoxCollider2D>().isTrigger = true;
+            suwako.animator.SetBool("IsJump", false);
+            suwako.ChangeState(suwako.fallingState);
         }
     }
-    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider)
-    {
-        if (collider.tag == "Wall")
-        {
-            suwako.GetComponent<BoxCollider2D>().isTrigger = false;
-        }
-    }
+
+    public override void FixUpdate(SuwakoController suwako) { }
+    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision) { }
+    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider) { }
+    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider) { }
 }

@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SuwakoBullet0Controller : MonoBehaviour
+{
+    //ÃÑ¾ËÀÌ ³ª¾Æ°¡´Â Èû.
+
+    //
+
+
+
+
+
+
+
+
+
+}

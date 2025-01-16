@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
-abstract public class State
+abstract public class SuwakoState
 {
     virtual public void Enter(SuwakoController suwako) { }
     virtual public void Update(SuwakoController suwako) { }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingState : State
+public class SuwakoFlyingState : SuwakoState
 {
     int flyingState = 0;
     float flyingTime = 0;
@@ -61,22 +61,7 @@ public class FlyingState : State
             flyingState = 1;
         }
     }
-    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)
-    {
-    }
-    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider)
-    {
-        if (collider.tag == "Wall")
-        {
-            suwako.GetComponent<BoxCollider2D>().isTrigger = true;
-        }
-    }
-    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider)
-    {
-        if (collider.tag == "Wall")
-        {
-            suwako.GetComponent<BoxCollider2D>().isTrigger = false;
-        }
-    }
-
+    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision) { }
+    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider) { }
+    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider) { }
 }
