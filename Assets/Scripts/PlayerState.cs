@@ -29,7 +29,7 @@ public class GroundMoveLeft : MoveLeft
         {
             if (player.Rigid.velocity.x < -player.groundMoveSpeed)
             {
-                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x + Time.deltaTime, player.Rigid.velocity.y);
+                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x + Time.deltaTime / 2, player.Rigid.velocity.y);
             }
             else
             {
@@ -45,9 +45,9 @@ public class GroundMoveRight : MoveRight
     {
         if ((player.isWall && player.facingRight == 1) == false)
         {
-            if (player.Rigid.velocity.x < -player.groundMoveSpeed)
+            if (player.Rigid.velocity.x > player.groundMoveSpeed)
             {
-                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x - Time.deltaTime, player.Rigid.velocity.y);
+                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x - Time.deltaTime / 2, player.Rigid.velocity.y);
             }
             else
             {
@@ -61,7 +61,7 @@ public class GroundShift : Shift
 {
     public void Shift(Player player)
     {
-
+        //아무기능없음
     }
 }
 
@@ -135,6 +135,16 @@ public class RopeSpace : Space
     public void Space(Player player)
     {
         //돌진구현하기
+        Debug.Log("Charge");
+        if (player.GetCanCharge() == true)
+        {
+            if (player.throwHook.GetCurHook()?.GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody != null)
+            {
+                player.throwHook.GetCurHook().GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
+            }
+            player.SetCanCharge(false);
+            player.StartCoroutine(player.HookCharge(player.transform.position, player.throwHook.GetCurHook().transform.position, 0.2f));
+        }
     }
 }
 
