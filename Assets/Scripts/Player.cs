@@ -22,16 +22,20 @@ public class Player : MonoBehaviour
     RopeActs ropeActs;
     GroundActs groundActs;
     PlayerActs playerActs;
+    Animator animator;
 
+    public int HP;
     public bool isJump = false;
     public bool isWall = false;
     bool isWallJumping = false;
-    bool canBoost = true;
+    [SerializeField] bool canBoost = true;
     bool canSwingCharge = false;
+    float startScaleX;
     [SerializeField] bool isCharging = false;
 
     public ThrowHook throwHook;
     public float boostCool = 2.0f;
+    public float boostPower;
     float curBoostCool;
     public float jumpPower;
     public float groundMoveSpeed;
@@ -43,6 +47,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        startScaleX = transform.localScale.x;
         curBoostCool = boostCool;
 
         ropeActs = new RopeActs();
@@ -59,7 +66,9 @@ public class Player : MonoBehaviour
             playerActs = ropeActs;
             curBoostCool += Time.deltaTime;
             rigid.drag = 0;
+            rigid.freezeRotation = false;
             canSwingCharge = true;
+            SetAnimState("IsSwing", true);
             if (curBoostCool > boostCool)
             {
                 canBoost = true;
@@ -68,8 +77,20 @@ public class Player : MonoBehaviour
         else
         {
             rigid.drag = 0.3f;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            rigid.freezeRotation = true;
+            SetAnimState("IsSwing", false);
             playerActs = groundActs;
             canSwingCharge = false;
+        }
+
+        if (rigid.velocity.y < 0)
+        {
+            SetAnimState("IsFall", true);
+        }
+        else
+        {
+            SetAnimState("IsFall", false);
         }
 
         if (isWallJumping == false)
@@ -92,6 +113,12 @@ public class Player : MonoBehaviour
                 facingRight = 1;
             }
 
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                ThrowRopeAnim();
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 playerActs.ShiftAct(this);
@@ -99,6 +126,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.A))
             {
+                SetAnimState("IsWalk", false);
                 if (!throwHook.IsHookEnabled() && !isJump)
                 {
                     rigid.velocity = new Vector2(0, rigid.velocity.y);
@@ -107,6 +135,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyUp(KeyCode.D))
             {
+                SetAnimState("IsWalk", false);
                 if (!throwHook.IsHookEnabled() && !isJump)
                 {
                     rigid.velocity = new Vector2(0, rigid.velocity.y);
@@ -130,9 +159,28 @@ public class Player : MonoBehaviour
                 playerActs.SpaceAct(this);
             }
         }
+
+        if (facingRight == -1)
+        {
+            transform.localScale = new Vector3(startScaleX * -1, transform.localScale.y, transform.localScale.z);
+        }
+        else if (facingRight == 1)
+        {
+            transform.localScale = new Vector3(startScaleX, transform.localScale.y, transform.localScale.z);
+        }
     }
 
-    public IEnumerator HookCharge(Vector3 playerPos, Vector3 hookPos, float chargeTime)
+    public void SetAnimState(string param, bool state)
+    {
+        animator.SetBool(param, state);
+    }
+
+    public void ThrowRopeAnim()
+    {
+        animator.SetTrigger("ThrowRope");
+    }
+
+    public IEnumerator HookCharge(Vector3 playerPos, Vector3 hookPos)
     {
         Debug.Log("dist " + Vector2.Distance(playerPos, hookPos));
         if (Vector2.Distance(playerPos, hookPos) >= 0.55f)
@@ -141,7 +189,7 @@ public class Player : MonoBehaviour
             //float startTime = Time.time;
             int childIndex = (int)(Vector2.Distance(transform.position, hookPos) / 2) - 1;
             //Vector2 direction = (hookPos - rigid.transform.position).normalized;
-            Vector2 vel = (hookPos - playerPos).normalized / Time.deltaTime;
+            Vector2 vel = (hookPos - playerPos).normalized * boostPower / Time.deltaTime;
             Debug.Log("velo " + vel);
             while (isCharging)
             {
@@ -153,9 +201,11 @@ public class Player : MonoBehaviour
                 if (childIndex >= 0 && throwHook.GetCurHook().transform.childCount > childIndex && throwHook.GetCurHook().transform.GetChild(childIndex) != null)
                 {
                     Destroy(throwHook.GetCurHook().transform.GetChild(childIndex).gameObject);
+                    throwHook.GetCurHook().GetComponent<RopeScript>().SetLineRenderCount(childIndex);
                 }
                 yield return null;
             }
+            throwHook.transform.position = hookPos;
             throwHook.GetCurHook().GetComponent<HingeJoint2D>().connectedBody = rigid;
         }
     }
@@ -189,6 +239,25 @@ public class Player : MonoBehaviour
     public void SetCanCharge(bool state)
     {
         canSwingCharge = state;
+    }
+
+    public void GetHit(int damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+        {
+            HP = 0;
+            //죽기
+            return;
+        }
+
+        
+    }
+
+    IEnumerator HitReact()
+    {
+        rigid.velocity = new Vector2();
+        yield return null;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

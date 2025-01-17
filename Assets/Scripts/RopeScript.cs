@@ -18,6 +18,7 @@ public class RopeScript : MonoBehaviour
     public GameObject node;
     public GameObject player;
     public GameObject lastNode;
+    public LineRenderer lineRenderer;
 
     GameObject obj;
     Vector2 createPos;
@@ -25,13 +26,17 @@ public class RopeScript : MonoBehaviour
     bool done = false; //생성이 다 되었는가
     bool triggered = false; //갈고리가 닿았는가
 
+    int vertexCount = 2;
+    public List<GameObject> nodes = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.Find("Player");
+        //player = GameObject.Find("Player");
 
-        lastNode = transform.gameObject;
+        lastNode = gameObject;
+        nodes.Add(gameObject);
 
         float angle = Mathf.Atan2(player.transform.position.y - dest.y, player.transform.position.x - dest.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
@@ -76,8 +81,11 @@ public class RopeScript : MonoBehaviour
             if (lastNode.GetComponent<HingeJoint2D>()?.connectedBody == null)
             {
                 lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+                lastNode.GetComponent<HingeJoint2D>().useLimits = true;
+
             }
         }
+        RenderLine();
     }
 
     // Update is called once per frame
@@ -88,6 +96,24 @@ public class RopeScript : MonoBehaviour
             //rb.velocity = new Vector2(transform.up.x * speed, transform.up.y * speed);
             transform.Translate(0, speed, 0);
         }
+    }
+
+    public void SetLineRenderCount(int count)
+    {
+        lineRenderer.positionCount = count;
+    }
+
+    void RenderLine()
+    {
+        lineRenderer.positionCount = vertexCount;
+
+        int i;
+        for (i = 0; i < nodes.Count; i++)
+        {
+            lineRenderer.SetPosition(i, nodes[i].transform.position);
+        }
+
+        lineRenderer.SetPosition(i, player.transform.position);
     }
 
     void CreateNode()
@@ -107,9 +133,14 @@ public class RopeScript : MonoBehaviour
 
         obj.transform.SetParent(transform);
 
+        float angle = Mathf.Atan2(player.transform.position.y - dest.y, player.transform.position.x - dest.x) * Mathf.Rad2Deg;
+        obj.transform.rotation = Quaternion.AngleAxis(angle -180, Vector3.forward);
+
         lastNode.GetComponent<HingeJoint2D>().connectedBody = obj.GetComponent<Rigidbody2D>();
 
         lastNode = obj;
+        nodes.Add(obj);
+        vertexCount++;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -120,8 +151,9 @@ public class RopeScript : MonoBehaviour
             transform.position = dest;
             triggered = true;
             done = true;
-            player.GetComponent<Player>().SetBoost(true);
+            player.GetComponentInParent<Player>().SetBoost(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+
         }
     }
 }

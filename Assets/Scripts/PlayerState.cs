@@ -27,6 +27,7 @@ public class GroundMoveLeft : MoveLeft
     {
         if ((player.isWall && player.facingRight == -1) == false)
         {
+            player.SetAnimState("IsWalk", true);
             if (player.Rigid.velocity.x < -player.groundMoveSpeed)
             {
                 player.Rigid.velocity = new Vector2(player.Rigid.velocity.x + Time.deltaTime / 2, player.Rigid.velocity.y);
@@ -45,6 +46,7 @@ public class GroundMoveRight : MoveRight
     {
         if ((player.isWall && player.facingRight == 1) == false)
         {
+            player.SetAnimState("IsWalk", true);
             if (player.Rigid.velocity.x > player.groundMoveSpeed)
             {
                 player.Rigid.velocity = new Vector2(player.Rigid.velocity.x - Time.deltaTime / 2, player.Rigid.velocity.y);
@@ -143,7 +145,7 @@ public class RopeSpace : Space
                 player.throwHook.GetCurHook().GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
             }
             player.SetCanCharge(false);
-            player.StartCoroutine(player.HookCharge(player.transform.position, player.throwHook.GetCurHook().transform.position, 0.2f));
+            player.StartCoroutine(player.HookCharge(player.throwHook.transform.position, player.throwHook.GetCurHook().transform.position));
         }
     }
 }

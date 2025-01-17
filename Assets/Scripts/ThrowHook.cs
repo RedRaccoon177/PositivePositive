@@ -30,6 +30,7 @@ public class ThrowHook : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.parent.GetComponent<Player>().SetBoost(true);
             rayDir = (dest - (Vector2)transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, 10, LayerMask.GetMask("Platforms"));
             Debug.DrawRay(transform.position, transform.up, new Color(0, 1, 0));
@@ -44,13 +45,14 @@ public class ThrowHook : MonoBehaviour
                     dest = hit.point;
                 }
                 curHook.GetComponent<RopeScript>().dest = dest;
+                curHook.GetComponent<RopeScript>().player = gameObject;
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             Destroy(curHook);
-            gameObject.GetComponent<Player>().SetBoost(false);
+            transform.parent.GetComponent<Player>().SetBoost(false);
         }
     }
 
