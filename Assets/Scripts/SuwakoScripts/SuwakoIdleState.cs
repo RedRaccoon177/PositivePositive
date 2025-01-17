@@ -52,8 +52,6 @@ public class SuwakoIdleState : SuwakoState
         {
             suwako.ChangeState(suwako.skill0_ShootingBullet);
         }
-
-
     }
 
     public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)

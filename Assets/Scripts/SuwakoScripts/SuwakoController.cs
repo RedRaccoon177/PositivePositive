@@ -11,7 +11,7 @@ public class SuwakoController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
-
+    
     //움직임 상태 스크립트들
     public SuwakoIdleState idleState { get; private set; }
     public SuwakoWalkFrontState walkFrontState { get; private set; }
@@ -19,14 +19,8 @@ public class SuwakoController : MonoBehaviour
     public SuwakoJumpingState jumpingState { get; private set; }
     public SuwakoFallingState fallingState { get; private set; }
 
-
     //스킬 상태 스크립트들
     public SuwakoSkill0_ShootingBullet skill0_ShootingBullet {  get; private set; }
-
-    //스킬의 프리펩들
-    public GameObject[] bullets; 
-
-
 
     //스와코 탄알 발사하는 곳 위치
     public Transform bullet0Fire { get; private set; }
@@ -77,7 +71,6 @@ public class SuwakoController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
-        bullet0Fire = transform.GetChild(3);
 
         //움직임 상태 스크립트들
         idleState = new SuwakoIdleState();
