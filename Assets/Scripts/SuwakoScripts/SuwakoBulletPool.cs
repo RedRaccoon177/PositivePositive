@@ -12,7 +12,6 @@ public class SuwakoBulletPool : MonoBehaviour
     //풀저장소도 프리펩에 의해 갯수 늘릴수 있도록 설계해야함.
     private Queue<GameObject>[] pools; // 풀 저장소
 
-
     private void Start()
     {
         bulletPoolInstace = this;
@@ -26,7 +25,7 @@ public class SuwakoBulletPool : MonoBehaviour
         }
 
         //각 100개씩 만듬과 동시에, 풀 저장소에 넣는다.
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 200; i++)
         {
             for(int bulletNums = 0; bulletNums < bullets.Length; bulletNums++)
             {

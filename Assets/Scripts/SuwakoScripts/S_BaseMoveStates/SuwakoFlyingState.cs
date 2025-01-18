@@ -61,7 +61,4 @@ public class SuwakoFlyingState : SuwakoState
             flyingState = 1;
         }
     }
-    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision) { }
-    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider) { }
-    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider) { }
 }

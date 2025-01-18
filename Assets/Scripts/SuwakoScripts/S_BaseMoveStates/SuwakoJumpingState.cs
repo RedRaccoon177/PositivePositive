@@ -5,7 +5,6 @@ using UnityEngine;
 public class SuwakoJumpingState : SuwakoState
 {
     bool isJump = true;
-
     public float bounceMultiplier = 1.0f; // ∆®±Ë πË¿≤
 
     public override void Enter(SuwakoController suwako)
@@ -32,7 +31,6 @@ public class SuwakoJumpingState : SuwakoState
             isJump = false;
         }
     }
-
     public override void Update(SuwakoController suwako)
     {
         //∂≥æÓ¡ˆ±‚ Ω√¿€
@@ -42,9 +40,4 @@ public class SuwakoJumpingState : SuwakoState
             suwako.ChangeState(suwako.fallingState);
         }
     }
-
-    public override void FixUpdate(SuwakoController suwako) { }
-    public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision) { }
-    public override void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider) { }
-    public override void OnTriggerExit2D(SuwakoController suwako, Collider2D collider) { }
 }

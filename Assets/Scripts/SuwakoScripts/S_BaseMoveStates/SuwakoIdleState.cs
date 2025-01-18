@@ -9,21 +9,24 @@ public class SuwakoIdleState : SuwakoState
 
     public override void Enter(SuwakoController suwako)
     {
+        suwako.animator.SetInteger("IsSkills", 0);
+        suwako.animator.SetInteger("IsFalling", 0);
         suwako.animator.SetBool("IsIdle", true);
+        suwako.animator.SetBool("IsLanding", false);
 
         //idle 상태 3초간 유지를 위한 식
         idleTime = Time.time + 3;
         whatState = 0;
 
         //false로 다시 바꿔야함.
-        isIdle = true;
+        isIdle = false;
     }
     public override void Update(SuwakoController suwako)
     {
         if (isIdle == true)
         {
             //상태를 랜덤값으로 돌려라
-            whatState = Random.Range(7, 8);
+            whatState = Random.Range(6, 8);
         }
 
         if (whatState == 0)

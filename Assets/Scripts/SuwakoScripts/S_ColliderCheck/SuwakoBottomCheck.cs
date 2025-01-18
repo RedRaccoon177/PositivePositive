@@ -11,12 +11,11 @@ public class SuwakoBottomCheck : MonoBehaviour
         suwako = GetComponentInParent<SuwakoController>();
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Ground" || collision.tag == "Wall")
         {
-            suwako.falling = 2;
+            suwako.landing = true;
         }
     }
 }
