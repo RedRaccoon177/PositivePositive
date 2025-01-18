@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,22 +9,23 @@ public class ZombieController : MonoBehaviour
     public Collider2D zombieCollider;
     Animator animator;
     Rigidbody2D rigid;
-    State zombieState;
+    ZombieState zombieState;
+    public ZombieObjectPooling zomObjPool { get; set; }
     [SerializeField] GameObject playerInfo;
-    [SerializeField] GameObject wormShieldPrefab;
+    //[SerializeField] GameObject wormShieldPrefab;
     [SerializeField] GameObject jumpSkillRange;
 
-    public GameObject WormShieldPrefab
-    {
-        get
-        {
-            return wormShieldPrefab;
-        }
-        set
-        {
-            wormShieldPrefab = value;
-        }
-    }
+    //public GameObject WormShieldPrefab
+    //{
+    //    get
+    //    {
+    //        return wormShieldPrefab;
+    //    }
+    //    set
+    //    {
+    //        wormShieldPrefab = value;
+    //    }
+    //}
     public GameObject PlayerInfo
     {
         get
@@ -44,54 +47,59 @@ public class ZombieController : MonoBehaviour
 
     public short directionX { get; set; }
     public short directionY { get; set; }
-    public Vector2 mapBounds;
-    public Vector2 mosterToPlayer;
     // ______________ 상태 ___________________
-    public Jump jump { get; private set; }
-    public JumpReady jumpReady { get; private set; } 
-    public Walk walk { get; private set; }
-    public Defalut defalut { get; private set; }
-    // _____________________________________
+    public ZombieJump jump { get; private set; }
+    public ZombieJumpReady jumpReady { get; private set; } 
+    public ZombieWalk walk { get; private set; }
+    public ZombieIdle idle { get; private set; }
+    // ___________ 컴포넌트 _____________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
-
+    // ___________ 점프 기능 _____________________
     public float distance;
     public RaycastHit2D ray2d;
-
+    public Vector2 mapBounds;
+    public Vector2 mosterToPlayer;
     public bool jumpOn=false;
+    // ______________ 스킬 1 WormShield ___________________
 
-    public int wormShieldCount { get; set; }
-    public int wormShieldMaxCount { get; set; }
+    public int wormMaxCount { get; set; }
+    public int wormHaveCount{ get; set; }
+    public bool wormCreated { get; set; }
+    
+
+
     public float deltaTime { get; set; }
+    public int randState;
+    public int randDirect;
 
-    public void ChangeState(State newState)
+
+    public void ChangeState(ZombieState newState)
     {
         zombieState = newState;
         zombieState.Enter(this);
         deltaTime = 0;
     }
+    //public ZombieObjectPooling zzombieObjectPooling { get; set; }
+    //public GameObject wwormPool;
     void Start()
     {
+        zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
+        wormHaveCount = 0;
+        wormMaxCount = 4;
+
         distance = 100f;
-        
-        //jumpSkillRange = Instantiate(jumpSkillRange);
-        //jumpSkillRange.transform.SetParent(transform);
-
-
-        wormShieldCount = 0;
-        wormShieldMaxCount = 5;
         //______________________
-        jump = new Jump();
-        jumpReady = new JumpReady();
-        walk = new Walk();
-        defalut = new Defalut();
+        jump = new ZombieJump();
+        jumpReady = new ZombieJumpReady();
+        walk = new ZombieWalk();
+        idle = new ZombieIdle();
         //_____________________
-        //setActive = new SetActive();
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        ChangeState(defalut);
-
+        zomObjPool.CreatObject();
+        ChangeState(idle);
     }
 
     void Update()
@@ -113,9 +121,13 @@ public class ZombieController : MonoBehaviour
     {
         if (zombieState != null)
         {
-            zombieState.OnTriggerEnter2D(this, collision);
+            zombieState.OnCollisionEnter2D(this, collision);
         }
-        
+
+    }
+    public void CorutinPlay(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
     }
 
 }
