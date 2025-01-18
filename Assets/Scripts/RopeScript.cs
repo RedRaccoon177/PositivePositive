@@ -71,7 +71,7 @@ public class RopeScript : MonoBehaviour
             else if (done == false)
             {
                 done = true;
-
+                player.GetComponentInParent<Player>().IsHookAttach(true);
                 lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
             }
         }
@@ -81,6 +81,7 @@ public class RopeScript : MonoBehaviour
             if (lastNode.GetComponent<HingeJoint2D>()?.connectedBody == null)
             {
                 lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+                player.GetComponentInParent<Player>().IsHookAttach(true);
                 lastNode.GetComponent<HingeJoint2D>().useLimits = true;
 
             }
@@ -101,6 +102,11 @@ public class RopeScript : MonoBehaviour
     public void SetLineRenderCount(int count)
     {
         lineRenderer.positionCount = count;
+    }
+
+    public bool GetDone()
+    {
+        return done;
     }
 
     void RenderLine()
@@ -152,6 +158,7 @@ public class RopeScript : MonoBehaviour
             triggered = true;
             done = true;
             player.GetComponentInParent<Player>().SetBoost(true);
+            player.GetComponentInParent<Player>().IsHookAttach(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
 
         }

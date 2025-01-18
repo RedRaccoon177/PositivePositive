@@ -16,7 +16,11 @@ public class ThrowHook : MonoBehaviour
     }
     public bool IsHookEnabled()
     {
-        return curHook != null;
+        if (curHook != null)
+        {
+            return curHook.GetComponent<RopeScript>().GetDone();
+        }
+        return false;
     }
 
     // Start is called before the first frame update
@@ -27,7 +31,7 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && transform.parent.GetComponent<Player>().blockMove == false)
         {
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.parent.GetComponent<Player>().SetBoost(true);
@@ -53,6 +57,7 @@ public class ThrowHook : MonoBehaviour
         {
             Destroy(curHook);
             transform.parent.GetComponent<Player>().SetBoost(false);
+            transform.parent.GetComponent<Player>().IsHookAttach(false);
         }
     }
 

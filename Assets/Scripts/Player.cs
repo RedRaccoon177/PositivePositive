@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,16 +24,20 @@ public class Player : MonoBehaviour
     GroundActs groundActs;
     PlayerActs playerActs;
     Animator animator;
+    [SerializeField] SpriteRenderer playerSprite;
 
     public int HP;
     public bool isJump = false;
     public bool isWall = false;
-    bool isWallJumping = false;
+    public bool blockMove = false;
+    [SerializeField] bool isHit = false;
     [SerializeField] bool canBoost = true;
     bool canSwingCharge = false;
     float startScaleX;
     [SerializeField] bool isCharging = false;
 
+    [SerializeField] float invincibleTime;
+    [SerializeField] float moveDelay;
     public ThrowHook throwHook;
     public float boostCool = 2.0f;
     public float boostPower;
@@ -61,29 +66,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (throwHook.IsHookEnabled())
+
+        if (curBoostCool > boostCool)
         {
-            playerActs = ropeActs;
-            curBoostCool += Time.deltaTime;
-            rigid.drag = 0;
-            rigid.freezeRotation = false;
-            canSwingCharge = true;
-            SetAnimState("IsSwing", true);
-            if (curBoostCool > boostCool)
-            {
-                canBoost = true;
-            }
+            canBoost = true;
         }
         else
         {
-            rigid.drag = 0.3f;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            rigid.freezeRotation = true;
-            SetAnimState("IsSwing", false);
-            playerActs = groundActs;
-            canSwingCharge = false;
+            curBoostCool += Time.deltaTime;
         }
-
         if (rigid.velocity.y < 0)
         {
             SetAnimState("IsFall", true);
@@ -93,7 +84,7 @@ public class Player : MonoBehaviour
             SetAnimState("IsFall", false);
         }
 
-        if (isWallJumping == false)
+        if (blockMove == false)
         {
             if (isWall == true)
             {
@@ -170,6 +161,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void IsHookAttach(bool state)
+    {
+        if (state == true)
+        {
+            playerActs = ropeActs;
+            curBoostCool += Time.deltaTime;
+            rigid.drag = 0;
+            rigid.freezeRotation = false;
+            canSwingCharge = true;
+            SetAnimState("IsSwing", true);
+            if (curBoostCool > boostCool)
+            {
+                canBoost = true;
+            }
+        }
+        else
+        {
+            rigid.drag = 0.3f;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            rigid.freezeRotation = true;
+            SetAnimState("IsSwing", false);
+            playerActs = groundActs;
+            canSwingCharge = false;
+        }
+    }
+
     public void SetAnimState(string param, bool state)
     {
         animator.SetBool(param, state);
@@ -187,8 +204,13 @@ public class Player : MonoBehaviour
         {
             isCharging = true;
             //float startTime = Time.time;
-            int childIndex = (int)(Vector2.Distance(transform.position, hookPos) / 2) - 1;
+
+            Vector2 rayDir = ((Vector2)hookPos - (Vector2)throwHook.transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(throwHook.transform.position, rayDir, 50, LayerMask.GetMask("Platforms"));
             //Vector2 direction = (hookPos - rigid.transform.position).normalized;
+
+            int childIndex = (int)(Vector2.Distance(transform.position, hookPos) / 2) - 1;
+
             Vector2 vel = (hookPos - playerPos).normalized * boostPower / Time.deltaTime;
             Debug.Log("velo " + vel);
             while (isCharging)
@@ -205,16 +227,17 @@ public class Player : MonoBehaviour
                 }
                 yield return null;
             }
-            throwHook.transform.position = hookPos;
+            throwHook.transform.position = hit.point
+                ;
             throwHook.GetCurHook().GetComponent<HingeJoint2D>().connectedBody = rigid;
         }
     }
 
     public IEnumerator WallJump()
     {
-        isWallJumping = true;
+        blockMove = true;
         yield return new WaitForSeconds(0.2f);
-        isWallJumping = false;
+        blockMove = false;
     }
 
     public bool GetCanBoost()
@@ -243,21 +266,47 @@ public class Player : MonoBehaviour
 
     public void GetHit(int damage)
     {
-        HP -= damage;
-        if (HP <= 0)
+        if (isHit == false)
         {
-            HP = 0;
-            //죽기
-            return;
+            HP -= damage;
+            if (HP <= 0)
+            {
+                HP = 0;
+                animator.SetTrigger("Die");
+                throwHook.enabled = false;
+                enabled = false;
+                //게임오버 띄우기
+                return;
+            }
+            Debug.Log("아프다");
+            StartCoroutine(PlayerBlink());
+            StartCoroutine(HitReact());
         }
+    }
 
-        
+    IEnumerator PlayerBlink()
+    {
+        isHit = true;
+        float delay = invincibleTime / 5 / 2;
+        for (int i = 0; i < 5; i++)
+        {
+            playerSprite.color = new Color(1, 1, 1, 0.3f);
+            yield return new WaitForSeconds(delay);
+            playerSprite.color = new Color(1, 1, 1, 0.8f);
+            yield return new WaitForSeconds(delay);
+        }
+        playerSprite.color = new Color(1, 1, 1, 1);
+        isHit = false;
     }
 
     IEnumerator HitReact()
     {
-        rigid.velocity = new Vector2();
-        yield return null;
+        blockMove = true;
+        SetAnimState("IsHit", true);
+        rigid.velocity = new Vector2(groundMoveSpeed * -facingRight, rigid.velocity.y);
+        yield return new WaitForSeconds(1f);
+        SetAnimState("IsHit", false);
+        blockMove = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -271,6 +320,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             isWall = true;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            GetHit(1);
+            Destroy(collision.gameObject);
         }
     }
 
