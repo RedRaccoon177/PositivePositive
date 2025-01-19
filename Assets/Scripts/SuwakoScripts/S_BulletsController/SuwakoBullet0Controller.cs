@@ -13,7 +13,7 @@ public class SuwakoBullet0Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Bullet")
+        if (collision.tag != "Bullet"||collision.tag != "Monster")
         {
             OnBulletDestroy(gameObject);
         }

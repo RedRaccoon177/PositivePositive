@@ -3,7 +3,8 @@ Shader "Custom/TransparentBlack"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Threshold ("Black Threshold", Range(0, 1)) = 0.1 // 범위 추가
+        _Color ("Color", Color) = (1, 1, 1, 1) // 머티리얼 컬러 추가
+        _Threshold ("Black Threshold", Range(0, 1)) = 0.1
     }
     SubShader
     {
@@ -22,6 +23,7 @@ Shader "Custom/TransparentBlack"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            float4 _Color; // 추가된 _Color 프로퍼티
             float _Threshold;
 
             struct appdata_t
@@ -46,11 +48,15 @@ Shader "Custom/TransparentBlack"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                // 텍스처 색상 가져오기
                 fixed4 texColor = tex2D(_MainTex, i.texcoord);
+
+                // 스프라이트 렌더러의 Color 알파값 적용
+                texColor *= _Color;
 
                 // 검은색에 가까운 픽셀 투명 처리
                 float brightness = (texColor.r + texColor.g + texColor.b) / 3.0;
-                if (brightness < _Threshold) // 밝기가 임계값보다 작으면
+                if (brightness < _Threshold)
                 {
                     texColor.a = 0; // 투명화
                 }

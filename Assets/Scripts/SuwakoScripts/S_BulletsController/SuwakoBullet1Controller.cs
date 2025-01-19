@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SuwakoBullet1Controller : MonoBehaviour
 {
     int bulletNum = 1;
     SuwakoBulletPool pool;
+    string[] excludedTags = { "Bullet", "Monster", "Untagged" };
+
     private void Start()
     {
         pool = SuwakoBulletPool.bulletPoolInstace;
@@ -13,7 +16,7 @@ public class SuwakoBullet1Controller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Bullet")
+        if (!excludedTags.Contains(collision.tag))
         {
             OnBulletDestroy(gameObject);
         }

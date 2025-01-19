@@ -22,6 +22,7 @@ public class SuwakoController : MonoBehaviour
 
     //스킬 상태 스크립트들
     public SuwakoSkill0_ShootingBullet skill0_ShootingBullet {  get; private set; }
+    public SuwakoSkill1_JumpORFlyShootingBullet skill1_JumpORFlyShootingBullet {  get; private set; }
 
     //스와코 탄알 발사하는 곳 위치
     public Transform bullet0Fire { get; private set; }
@@ -34,7 +35,6 @@ public class SuwakoController : MonoBehaviour
     float _flyingPower = 2;
     //점프 파워
     float _jumpPower = 10;
-
 
     //낙하 중 순간들
     public int falling { get; set; }
@@ -76,6 +76,11 @@ public class SuwakoController : MonoBehaviour
 
     void Start()
     {
+        foreach (Transform child in transform)
+        {
+
+        }
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -90,6 +95,7 @@ public class SuwakoController : MonoBehaviour
 
         //스킬 상태 스크립트들
         skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();
+        skill1_JumpORFlyShootingBullet = new SuwakoSkill1_JumpORFlyShootingBullet();
 
 
         //상태 스타트문

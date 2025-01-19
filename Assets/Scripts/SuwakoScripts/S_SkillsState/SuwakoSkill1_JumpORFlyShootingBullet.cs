@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
@@ -9,59 +11,68 @@ public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
     //오브젝트 풀링
     SuwakoBulletPool pool;
 
-    //발사대의 위치
-    Transform startTransform;
-    //날라갈 곳의 위치
-    Transform targetTransform;
+    //부모객체의 위치
+    Transform parentTransform;
+    //자식객체의 위치
+    Transform childTransform;
     float speedPower = 10;
 
     //각 발사 각도들
-    int angle = 5;
+    int angle = 10;
     bool changeState = false;
+
+    int count;
 
     public override void Enter(SuwakoController suwako)
     {
-        //스와코 애니메이션 attackCa실행
-        suwako.animator.SetInteger("IsSkills", 1);
+        suwako.animator.SetInteger("IsSkills", 2);
         pool = SuwakoBulletPool.bulletPoolInstace;
-
         angle = 10;
         changeState = false;
+        count = 0;
+
+        suwako.StartCoroutine(ShootBulletSkill1(suwako));
     }
 
     public override void Update(SuwakoController suwako)
     {
         if (changeState == true)
         {
-            suwako.ChangeState(suwako.idleState);
+            suwako.ChangeState(suwako.fallingState);
         }
-        else if (suwako.isSkill0End == true)
+        else if (changeState == false)
         {
-            ShootBulletSkill0(suwako);
+            suwako.rb.velocity = new Vector2(0, 0);
         }
     }
 
     public void MoveToAttack(GameObject bullet)
     {
-        Vector2 direction = (targetTransform.position - startTransform.position).normalized;
+        Vector2 direction = (childTransform.position - parentTransform.position).normalized;
 
         bullet.GetComponent<Rigidbody2D>().AddForce(direction * speedPower, ForceMode2D.Impulse);
     }
 
-    public void ShootBulletSkill0(SuwakoController suwako)
+    IEnumerator ShootBulletSkill1(SuwakoController suwako)
     {
-        for (int i = 0; i < 16; i++)
+        while (count < 5)
         {
-            //좌표들
-            startTransform = suwako.gameObject.transform.GetChild(4);
-            targetTransform = suwako.gameObject.transform.GetChild(4).transform.GetChild(0);
+            for (int i = 0; i < 36; i++)
+            {
+                
+                //좌표들
+                parentTransform = suwako.gameObject.transform.GetChild(5);
+                childTransform = suwako.gameObject.transform.GetChild(5).transform.GetChild(0);
 
-            //오브젝트풀링으로 총알 만듬
-            GameObject bullet = pool.GetObject(bulletNum);
-            bullet.transform.position = startTransform.position;
-            startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
+                //오브젝트풀링으로 총알 만듬
+                GameObject bullet = pool.GetObject(bulletNum);
+                bullet.transform.position = childTransform.position;
+                parentTransform.rotation = Quaternion.Euler(0, 0, i * angle);
 
-            MoveToAttack(bullet);
+                MoveToAttack(bullet);
+            }
+            count++;
+            yield return new WaitForSeconds(1f); // 1초 대기
         }
         changeState = true;
     }

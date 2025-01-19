@@ -18,7 +18,7 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
     float speedPower = 10;
 
     //각 발사 각도들
-    int angle = 5;
+    int angle = 10;
     bool changeState = false;
 
     public override void Enter(SuwakoController suwako)
@@ -61,8 +61,18 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
             //오브젝트풀링으로 총알 만듬
             GameObject bullet = pool.GetObject(bulletNum);
             bullet.transform.position = startTransform.position;
-            startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
-
+            if (suwako.RiORLe == -1)
+            {
+                startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
+            }
+            else if (suwako.RiORLe == 1)
+            {
+                startTransform.rotation = Quaternion.Euler(0, 0, -(i * angle) + 50);
+            }
+            else 
+            {
+                startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
+            }
             MoveToAttack(bullet);
         }
         changeState = true;
