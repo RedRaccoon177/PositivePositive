@@ -30,9 +30,11 @@ public class Player : MonoBehaviour
     public bool isJump = false;
     public bool isWall = false;
     public bool blockMove = false;
-    [SerializeField] bool isHit = false;
+    [SerializeField] bool isInvincible = false;
     [SerializeField] bool canBoost = true;
     bool canSwingCharge = false;
+    [SerializeField] bool attackMode = false;
+    GameObject attackingEnemy;
     float startScaleX;
     [SerializeField] bool isCharging = false;
 
@@ -86,68 +88,82 @@ public class Player : MonoBehaviour
 
         if (blockMove == false)
         {
-            if (isWall == true)
+            if (attackMode == false)
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * -0.5f);
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                playerActs.MoveLeftAct(this);
-                facingRight = -1;
-
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                playerActs.MoveRightAct(this);
-                facingRight = 1;
-            }
-
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                ThrowRopeAnim();
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                playerActs.ShiftAct(this);
-            }
-
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-                SetAnimState("IsWalk", false);
-                if (!throwHook.IsHookEnabled() && !isJump)
+                if (isWall == true)
                 {
-                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * -0.5f);
+                }
+
+                if (Input.GetKey(KeyCode.A))
+                {
+                    playerActs.MoveLeftAct(this);
+                    facingRight = -1;
+
+                }
+
+                if (Input.GetKey(KeyCode.D))
+                {
+                    playerActs.MoveRightAct(this);
+                    facingRight = 1;
+                }
+
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ThrowRopeAnim();
+                }
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    playerActs.ShiftAct(this);
+                }
+
+                if (Input.GetKeyUp(KeyCode.A))
+                {
+                    SetAnimState("IsWalk", false);
+                    if (!throwHook.IsHookEnabled() && !isJump)
+                    {
+                        rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    }
+                }
+
+                if (Input.GetKeyUp(KeyCode.D))
+                {
+                    SetAnimState("IsWalk", false);
+                    if (!throwHook.IsHookEnabled() && !isJump)
+                    {
+                        rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (Time.timeScale <= 0.6f)
+                    {
+                        Time.timeScale = 1f;
+                    }
+                    else
+                    {
+                        Time.timeScale = 0.5f;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    playerActs.SpaceAct(this);
                 }
             }
-
-            if (Input.GetKeyUp(KeyCode.D))
+            else
             {
-                SetAnimState("IsWalk", false);
-                if (!throwHook.IsHookEnabled() && !isJump)
+                transform.position = Vector2.Lerp(transform.position, attackingEnemy.transform.position, 0.5f);
+                if (Input.GetMouseButtonDown(0))
                 {
-                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    Vector2 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
+                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * boostPower / Time.deltaTime;
+                    rigid.velocity = vel;
+                    attackMode = false;
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (Time.timeScale <= 0.6f)
-                {
-                    Time.timeScale = 1f;
-                }
-                else
-                {
-                    Time.timeScale = 0.5f;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                playerActs.SpaceAct(this);
             }
         }
 
@@ -227,8 +243,7 @@ public class Player : MonoBehaviour
                 }
                 yield return null;
             }
-            throwHook.transform.position = hit.point
-                ;
+            throwHook.transform.position = hit.point;
             throwHook.GetCurHook().GetComponent<HingeJoint2D>().connectedBody = rigid;
         }
     }
@@ -264,9 +279,24 @@ public class Player : MonoBehaviour
         canSwingCharge = state;
     }
 
+    public void AttackEnemy(GameObject enemy)
+    {
+        attackMode = true;
+        isInvincible = true;
+        attackingEnemy = enemy;
+        if (throwHook.GetCurHook()?.GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody != null)
+        {
+            throwHook.GetCurHook().GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
+        }
+        SetCanCharge(false);
+        Destroy(throwHook.GetCurHook());
+        SetBoost(false);
+        IsHookAttach(false);
+    }
+
     public void GetHit(int damage)
     {
-        if (isHit == false)
+        if (isInvincible == false)
         {
             HP -= damage;
             if (HP <= 0)
@@ -286,7 +316,7 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerBlink()
     {
-        isHit = true;
+        isInvincible = true;
         float delay = invincibleTime / 5 / 2;
         for (int i = 0; i < 5; i++)
         {
@@ -296,7 +326,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
         playerSprite.color = new Color(1, 1, 1, 1);
-        isHit = false;
+        isInvincible = false;
     }
 
     IEnumerator HitReact()
@@ -325,7 +355,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             GetHit(1);
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 

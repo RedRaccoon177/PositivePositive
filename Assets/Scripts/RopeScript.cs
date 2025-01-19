@@ -46,13 +46,17 @@ public class RopeScript : MonoBehaviour
     {
         if (triggered == false)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms", "Enemy"));
             Debug.DrawRay(transform.position, transform.up, new Color(1, 0, 0));
             if (hit.collider != null)
             {
                 colPos = transform.position;
                 Debug.Log(hit.collider.name);
                 triggered = true;
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    player.GetComponentInParent<Player>().AttackEnemy(hit.collider.gameObject);
+                }
             }
             //transform.Translate(0, speed, 0);
 
@@ -76,7 +80,7 @@ public class RopeScript : MonoBehaviour
             }
         }
         else
-        { 
+        {
             transform.position = dest;
             if (lastNode.GetComponent<HingeJoint2D>()?.connectedBody == null)
             {
@@ -140,7 +144,7 @@ public class RopeScript : MonoBehaviour
         obj.transform.SetParent(transform);
 
         float angle = Mathf.Atan2(player.transform.position.y - dest.y, player.transform.position.x - dest.x) * Mathf.Rad2Deg;
-        obj.transform.rotation = Quaternion.AngleAxis(angle -180, Vector3.forward);
+        obj.transform.rotation = Quaternion.AngleAxis(angle - 180, Vector3.forward);
 
         lastNode.GetComponent<HingeJoint2D>().connectedBody = obj.GetComponent<Rigidbody2D>();
 
@@ -149,9 +153,9 @@ public class RopeScript : MonoBehaviour
         vertexCount++;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision != null && (collision.CompareTag("Ground") || collision.CompareTag("Wall")))
+        if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy")))
         {
             rb.velocity = Vector2.zero;
             transform.position = dest;
@@ -161,6 +165,11 @@ public class RopeScript : MonoBehaviour
             player.GetComponentInParent<Player>().IsHookAttach(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
 
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                player.GetComponentInParent<Player>().AttackEnemy(collision.gameObject);
+            }
         }
     }
+
 }
