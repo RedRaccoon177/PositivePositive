@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class testScripts : MonoBehaviour
 {
-    public Transform target; // ÀÌµ¿ÇÒ ¸ñÇ¥ ÁöÁ¡
-    public float duration = 5f; // ÀÌµ¿¿¡ °É¸± ½Ã°£
+    public Transform target; // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
+    public float duration = 5f; // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½É¸ï¿½ ï¿½Ã°ï¿½
 
     void Start()
     {
@@ -14,16 +14,16 @@ public class testScripts : MonoBehaviour
 
     IEnumerator MoveOverTime(Vector3 destination, float time)
     {
-        Vector3 start = transform.position; // ÇöÀç À§Ä¡
-        float elapsed = 0f; // °æ°ú ½Ã°£
+        Vector3 start = transform.position; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+        float elapsed = 0f; // ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
         while (elapsed < time)
         {
-            transform.position = Vector3.Lerp(start, destination, elapsed / time); // Á¡ÁøÀûÀ¸·Î ÀÌµ¿
-            elapsed += Time.deltaTime; // °æ°ú ½Ã°£ ´©Àû
-            yield return null; // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±â
+            transform.position = Vector3.Lerp(start, destination, elapsed / time); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+            elapsed += Time.deltaTime; // ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
+            yield return null; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
 
-        transform.position = destination; // Á¤È®È÷ µµÂø ÁöÁ¡À¸·Î ÀÌµ¿
+        transform.position = destination; // ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
     }
 }
