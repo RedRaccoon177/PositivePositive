@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 
 public class ZombieJumpReady : ZombieState
@@ -25,7 +25,7 @@ public class ZombieJumpReady : ZombieState
     public void PrintJumpRange(ZombieController zombie)
     {
         // 레이 캐스트로 사거리 끝 (벽) 좌표 구하기
-        zombie.ray2d = Physics2D.Raycast(zombie.transform.position, zombie.mosterToPlayer, zombie.distance, LayerMask.GetMask("Wall"));
+        zombie.ray2d = Physics2D.Raycast(zombie.transform.position, zombie.mosterToPlayer, zombie.distance, LayerMask.GetMask("Platforms"));
         if (zombie.ray2d == true)
         {
             zombie.mapBounds = zombie.ray2d.point;

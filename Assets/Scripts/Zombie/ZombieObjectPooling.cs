@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieObjectPooling : MonoBehaviour
 {
-    public GameObject wormPrefab; // 재사용할 프리팹
-    private Queue<GameObject> pool = new Queue<GameObject>(); // 풀 저장소
-    public int poolMaxCount = 6;
+    public GameObject wormPrefab;// 재사용할 프리팹
+    public Queue<GameObject> pool = new Queue<GameObject>(); // 풀 저장소
+    public int poolMaxCount = 4;
 
     /// <summary>
     /// 오브젝트 비활성화 후 pool에 담기
@@ -29,7 +29,7 @@ public class ZombieObjectPooling : MonoBehaviour
         }
         for (int i = 0; i <  poolMaxCount; i++)
         {
-            var obj = Instantiate(wormPrefab);
+            var obj = Instantiate(wormPrefab,gameObject.transform);
             obj.SetActive(false);
             obj.GetComponent<RotationCircle>().centerRotation = gameObject;
             obj.GetComponent<RotationCircle>().num = i;
@@ -46,7 +46,7 @@ public class ZombieObjectPooling : MonoBehaviour
     /// </summary>
     public void AllActiveTrue()
     {
-           // Debug.Log(pool.Count);    
+        // Debug.Log(pool.Count);    
         if (pool.Count < 4)
         {
             return;
@@ -59,6 +59,16 @@ public class ZombieObjectPooling : MonoBehaviour
                 obj.SetActive(true);
                 StartSetting(obj, i);
             }
+        }
+    }
+    public void AllActiveFalse()
+    {
+        Debug.Log("아ㅏㅏ");
+        for (int i = 2; i < poolMaxCount + 2; i++)
+        {
+            Debug.Log(gameObject.transform.GetChild(i).gameObject.name  + ": i");
+            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            pool.Enqueue(gameObject.transform.GetChild(i).gameObject);
         }
     }
     /// <summary>
