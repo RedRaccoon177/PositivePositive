@@ -19,7 +19,7 @@ public class ZombieWalk : ZombieState
     //}
     public override void Enter(ZombieController zombie)
     {
-        Debug.Log("1§±§§§∑");
+        Debug.Log("1„ÖÅ„Ñ¥„Öá");
         zombie.Animator.SetBool("IsWalk", true);
         RandomMoveRange(zombie);
     }
@@ -41,7 +41,11 @@ public class ZombieWalk : ZombieState
     }
     public override void OnCollisionEnter2D(ZombieController zombie, Collision2D collision)
     {
-        DirectionChangeWall(zombie);
+
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Ground")
+        {
+        DirectionChangeWall(zombie);    
+        }
     }
     void ResetDiectionRange()
     {
