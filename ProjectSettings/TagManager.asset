@@ -6,9 +6,7 @@ TagManager:
   tags:
   - Wall
   - Ground
-  - SideWall
-  - Monster
-  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,9 +14,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Platforms
+  - Enemy
+  - Wall
+  - Player
+  - Zombie
   - 
   - 
   - 
