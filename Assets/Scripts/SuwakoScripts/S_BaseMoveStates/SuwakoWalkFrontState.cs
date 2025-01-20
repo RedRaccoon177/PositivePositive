@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +8,12 @@ public class SuwakoWalkFrontState : SuwakoState
     {
         suwako.animator.SetTrigger("IsWalkFront");
         suwako.RiORLe = Random.Range(0, 2) == 0 ? -1 : 1;
-        //¿ìÃø¿¡¼­ ÁÂ·Î
+        //ìš°ì¸¡ì—ì„œ ì¢Œë¡œ
         if (suwako.RiORLe == -1)
         {
             suwako.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        //ÁÂÃø¿¡¼­ ¿ì·Î
+        //ì¢Œì¸¡ì—ì„œ ìš°ë¡œ
         else if (suwako.RiORLe == 1)
         {
             suwako.transform.rotation = new Quaternion(0, 180, 0, 0);

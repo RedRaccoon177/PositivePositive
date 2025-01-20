@@ -1,28 +1,28 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RiverBulletFadeEffect : MonoBehaviour
 {
     [SerializeField]
-    float duration = 1f; // ¼±¸íÇØÁö´Â µ¥ °É¸®´Â ½Ã°£
+    float duration = 1f; // ì„ ëª…í•´ì§€ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
-    private Renderer[] childRenderers; // ¸ğµç ÀÚ½ÄÀÇ Renderer ¹è¿­
+    private Renderer[] childRenderers; // ëª¨ë“  ìì‹ì˜ Renderer ë°°ì—´
 
     void Start()
     {
-        // ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ Renderer ÄÄÆ÷³ÍÆ®¸¦ ¸ğµÎ °¡Á®¿À±â
+        // ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ Renderer ì»´í¬ë„ŒíŠ¸ë¥¼ ëª¨ë‘ ê°€ì ¸ì˜¤ê¸°
         childRenderers = GetComponentsInChildren<Renderer>();
 
-        // ¸ğµç ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ »ö»óÀ» ÃÊ±âÈ­
+        // ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ ìƒ‰ìƒì„ ì´ˆê¸°í™”
         foreach (var renderer in childRenderers)
         {
             Color startColor = renderer.material.color;
-            startColor.a = 0f; // ¾ËÆÄ°ª(Åõ¸íµµ)À» 0À¸·Î ¼³Á¤
+            startColor.a = 0f; // ì•ŒíŒŒê°’(íˆ¬ëª…ë„)ì„ 0ìœ¼ë¡œ ì„¤ì •
             renderer.material.color = startColor;
         }
 
-        // ÄÚ·çÆ¾ ½ÃÀÛ
+        // ì½”ë£¨í‹´ ì‹œì‘
         StartCoroutine(FadeIn(duration));
     }
 
@@ -30,36 +30,36 @@ public class RiverBulletFadeEffect : MonoBehaviour
     {
         float elapsedTime = 0f;
 
-        // ÃÊ±â »ö»ó°ú ¸ñÇ¥ »ö»óÀ» °¢°¢ ÀúÀå
+        // ì´ˆê¸° ìƒ‰ìƒê³¼ ëª©í‘œ ìƒ‰ìƒì„ ê°ê° ì €ì¥
         Dictionary<Renderer, Color> initialColors = new Dictionary<Renderer, Color>();
         Dictionary<Renderer, Color> targetColors = new Dictionary<Renderer, Color>();
 
         foreach (var renderer in childRenderers)
         {
-            // ÃÊ±â »ö»ó ÀúÀå
+            // ì´ˆê¸° ìƒ‰ìƒ ì €ì¥
             initialColors[renderer] = renderer.material.color;
 
-            // ¸ñÇ¥ »ö»ó º¹»ç ÈÄ ¾ËÆÄ°ª ¼³Á¤
+            // ëª©í‘œ ìƒ‰ìƒ ë³µì‚¬ í›„ ì•ŒíŒŒê°’ ì„¤ì •
             Color targetColor = renderer.material.color;
-            targetColor.a = 1f; // ¾ËÆÄ°ª 1·Î ¼³Á¤
+            targetColor.a = 1f; // ì•ŒíŒŒê°’ 1ë¡œ ì„¤ì •
             targetColors[renderer] = targetColor;
         }
 
         while (elapsedTime < time)
         {
-            float t = elapsedTime / time; // ºñÀ² °è»ê (0 ~ 1)
+            float t = elapsedTime / time; // ë¹„ìœ¨ ê³„ì‚° (0 ~ 1)
 
-            // ¸ğµç RendererÀÇ »ö»óÀ» ¼±Çü º¸°£À¸·Î º¯°æ
+            // ëª¨ë“  Rendererì˜ ìƒ‰ìƒì„ ì„ í˜• ë³´ê°„ìœ¼ë¡œ ë³€ê²½
             foreach (var renderer in childRenderers)
             {
                 renderer.material.color = Color.Lerp(initialColors[renderer], targetColors[renderer], t);
             }
 
-            elapsedTime += Time.deltaTime; // ½Ã°£ ´©Àû
-            yield return null; // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±â
+            elapsedTime += Time.deltaTime; // ì‹œê°„ ëˆ„ì 
+            yield return null; // ë‹¤ìŒ í”„ë ˆì„ê¹Œì§€ ëŒ€ê¸°
         }
 
-        // ¸ğµç RendererÀÇ ÃÖÁ¾ »ö»ó ¼³Á¤
+        // ëª¨ë“  Rendererì˜ ìµœì¢… ìƒ‰ìƒ ì„¤ì •
         foreach (var renderer in childRenderers)
         {
             renderer.material.color = targetColors[renderer];

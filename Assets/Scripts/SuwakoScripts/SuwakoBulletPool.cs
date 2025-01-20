@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +7,10 @@ public class SuwakoBulletPool : MonoBehaviour
     public static SuwakoBulletPool bulletPoolInstace;
 
     [SerializeField]
-    public GameObject[] bullets; // Àç»ç¿ëÇÒ ÇÁ¸®ÆÕ
+    public GameObject[] bullets; // ì¬ì‚¬ìš©í•  í”„ë¦¬íŒ¹
 
-    //Ç®ÀúÀå¼Òµµ ÇÁ¸®Æé¿¡ ÀÇÇØ °¹¼ö ´Ã¸±¼ö ÀÖµµ·Ï ¼³°èÇØ¾ßÇÔ.
-    private Queue<GameObject>[] pools; // Ç® ÀúÀå¼Ò
+    //í’€ì €ì¥ì†Œë„ í”„ë¦¬í©ì— ì˜í•´ ê°¯ìˆ˜ ëŠ˜ë¦´ìˆ˜ ìˆë„ë¡ ì„¤ê³„í•´ì•¼í•¨.
+    private Queue<GameObject>[] pools; // í’€ ì €ì¥ì†Œ
 
     private void Start()
     {
@@ -20,11 +20,11 @@ public class SuwakoBulletPool : MonoBehaviour
 
         for (int i = 0; i < bullets.Length; i++)
         {
-            // °¢ Å¥ ÃÊ±âÈ­
+            // ê° í ì´ˆê¸°í™”
             pools[i] = new Queue<GameObject>();
         }
 
-        //°¢ 100°³¾¿ ¸¸µë°ú µ¿½Ã¿¡, Ç® ÀúÀå¼Ò¿¡ ³Ö´Â´Ù.
+        //ê° 100ê°œì”© ë§Œë“¬ê³¼ ë™ì‹œì—, í’€ ì €ì¥ì†Œì— ë„£ëŠ”ë‹¤.
         for (int i = 0; i < 100; i++)
         {
             for(int bulletNums = 0; bulletNums < bullets.Length; bulletNums++)
@@ -36,24 +36,24 @@ public class SuwakoBulletPool : MonoBehaviour
         }
     }
 
-    // Ç®¿¡¼­ ¿ÀºêÁ§Æ® °¡Á®¿À±â
+    // í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ ê°€ì ¸ì˜¤ê¸°
     public GameObject GetObject(int bulletNum)
     {
         if (pools[bulletNum].Count > 0)
         {
             var obj = pools[bulletNum].Dequeue();
-            obj.SetActive(true); // ¿ÀºêÁ§Æ® È°¼ºÈ­
+            obj.SetActive(true); // ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
             return obj;
         }
 
-        // Ç®¿¡ ¿ÀºêÁ§Æ®°¡ ¾øÀ¸¸é »õ·Î »ı¼º
+        // í’€ì— ì˜¤ë¸Œì íŠ¸ê°€ ì—†ìœ¼ë©´ ìƒˆë¡œ ìƒì„±
         return Instantiate(bullets[bulletNum]);
     }
 
-    // ¿ÀºêÁ§Æ® Ç®·Î ¹İÈ¯ÇÏ±â
+    // ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ë°˜í™˜í•˜ê¸°
     public void ReturnObject(GameObject obj, int k)
     {
-        obj.SetActive(false); // ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
-        pools[k].Enqueue(obj); // Ç®¿¡ ¹İÈ¯
+        obj.SetActive(false); // ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
+        pools[k].Enqueue(obj); // í’€ì— ë°˜í™˜
     }
 }

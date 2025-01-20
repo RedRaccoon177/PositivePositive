@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,7 +14,7 @@ abstract public class SuwakoState
     virtual public void OnTriggerEnter2D(SuwakoController suwako, Collider2D collider) { }
     virtual public void OnTriggerExit2D(SuwakoController suwako, Collider2D collider) { }
 
-    //°ø¿ë ½Ã°£ È°¿ë
+    //ê³µìš© ì‹œê°„ í™œìš©
     public float time { get; set; }
 
 }

@@ -1,13 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SuwakoJumpingState : SuwakoState
 {
     bool isJump = true;
-    public float bounceMultiplier = 1.0f; // Æ¨±è ¹èÀ²
+    public float bounceMultiplier = 1.0f; // íŠ•ê¹€ ë°°ìœ¨
 
-    //skill1 (0ÀÌ¸é ½ºÅ³ »ç¿ëx, 1ÀÌ¸é ½ºÅ³ »ç¿ë)
+    //skill1 (0ì´ë©´ ìŠ¤í‚¬ ì‚¬ìš©x, 1ì´ë©´ ìŠ¤í‚¬ ì‚¬ìš©)
     int isSkill1 = 0;
 
     public override void Enter(SuwakoController suwako)
@@ -30,7 +30,7 @@ public class SuwakoJumpingState : SuwakoState
             suwako.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
 
-        //Á¡ÇÁ ½ÇÇà
+        //ì í”„ ì‹¤í–‰
         if (isJump == true)
         {
             suwako.rb.AddForce(new Vector2(5 * suwako.RiORLe, suwako.jumpPower), ForceMode2D.Impulse);
@@ -39,7 +39,7 @@ public class SuwakoJumpingState : SuwakoState
     }
     public override void Update(SuwakoController suwako)
     {
-        //¶³¾îÁö±â ½ÃÀÛ
+        //ë–¨ì–´ì§€ê¸° ì‹œì‘
         if (suwako.rb.velocity.y < 0)
         {
             suwako.animator.SetBool("IsJump", false);

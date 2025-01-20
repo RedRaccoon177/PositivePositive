@@ -1,35 +1,54 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UmbrageGrow : MonoBehaviour
 {
-    public Vector3 targetScale = new Vector3(10f, 10f, 10f); // ÃÖÁ¾ Å©±â
-    public float duration = 1f; // Ä¿Áö´Â µ¥ °É¸®´Â ½Ã°£
+    Vector3 targetScaleUP = new Vector3(10f, 10f, 10f); // ì„±ì¥ ìµœì¢… í¬ê¸°
+    Vector3 targetScaleDown = new Vector3(0f, 0f, 0f);  // ì„±ì¥ ì´í›„ ë‹¤ì‹œ ì¤„ì´ê¸°
+    float duration = 1f; // ì»¤ì§€ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
+
+    public bool isGrow = true;
+
+    SuwakoController suwako;
 
     void Start()
     {
-        StartCoroutine(ScaleOverTime(targetScale, duration));
+        suwako = GetComponent<SuwakoController>();
+        isGrow = true;
+    }
+
+    void Update()
+    {
+        if (isGrow == true)
+        {
+            StartCoroutine(ScaleOverTime(targetScaleUP, duration));
+        }
+        else if (isGrow == false)
+        {
+            StartCoroutine(ScaleOverTime(targetScaleDown, duration));
+        }
     }
 
     IEnumerator ScaleOverTime(Vector3 target, float time)
     {
-        Vector3 initialScale = transform.localScale; // ÇöÀç Å©±â
+        Vector3 initialScale = transform.localScale; // í˜„ì¬ í¬ê¸°
         float elapsedTime = 0f;
 
         while (elapsedTime < time)
         {
-            // ÇöÀç ½Ã°£ ºñÀ² °è»ê
+            // í˜„ì¬ ì‹œê°„ ë¹„ìœ¨ ê³„ì‚°
             float t = elapsedTime / time;
 
-            // ¼±Çü º¸°£À¸·Î Å©±â º¯°æ
+            // ì„ í˜• ë³´ê°„ìœ¼ë¡œ í¬ê¸° ë³€ê²½
             transform.localScale = Vector3.Lerp(initialScale, target, t);
 
-            elapsedTime += Time.deltaTime; // ½Ã°£ ´©Àû
-            yield return null; // ´ÙÀ½ ÇÁ·¹ÀÓ±îÁö ´ë±â
+            elapsedTime += Time.deltaTime; // ì‹œê°„ ëˆ„ì 
+            yield return null; // ë‹¤ìŒ í”„ë ˆì„ê¹Œì§€ ëŒ€ê¸°
         }
 
-        // ÃÖÁ¾ Å©±â ¼³Á¤ (Á¤¹Ğµµ ¹®Á¦ ¹æÁö)
+        // ìµœì¢… í¬ê¸° ì„¤ì • (ì •ë°€ë„ ë¬¸ì œ ë°©ì§€)
         transform.localScale = target;
     }
+
 }
