@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -8,13 +8,13 @@ public class RotationCircle : MonoBehaviour
     
     public GameObject centerRotation { get; set; }
     //public ZombieObjectPooling objectPool;
-    // ¹İÁö¸§
+    // ë°˜ì§€ë¦„
     public float radius { get; set; }
-    // ¿ø ½ºÇÇµå
+    // ì› ìŠ¤í”¼ë“œ
     public float rotationSpeed { get; set; }
-    // °¢µµ
+    // ê°ë„
     float angle;
-    // Worm°ú Worm »çÀÌÀÇ °¢µµ
+    // Wormê³¼ Worm ì‚¬ì´ì˜ ê°ë„
     public float angleX;
     public float angleY;
     public int num;
@@ -39,7 +39,7 @@ public class RotationCircle : MonoBehaviour
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    // ÇÃ·¹ÀÌ¾î ·ÎÇÁ¿Í ´ê¾ÒÀ»¶§·Î ¹Ù²ã¾ß ÇÔ
+    //    // í”Œë ˆì´ì–´ ë¡œí”„ì™€ ë‹¿ì•˜ì„ë•Œë¡œ ë°”ê¿”ì•¼ í•¨
     //    if (collision.gameObject.tag == "Wall")
     //    {
     //        OnWormDestroy(gameObject);
@@ -48,7 +48,7 @@ public class RotationCircle : MonoBehaviour
 
     //public void OnWormDestroy(GameObject wormShield)
     //{
-    //    // ¿ÀºêÁ§Æ® Ç®·Î ¹İÈ¯
+    //    // ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ë°˜í™˜
     //     objectPool.ReturnObject(wormShield);
     //}
 

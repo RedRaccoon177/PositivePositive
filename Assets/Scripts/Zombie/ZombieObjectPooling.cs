@@ -1,25 +1,25 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieObjectPooling : MonoBehaviour
 {
-    public GameObject wormPrefab; // Àç»ç¿ëÇÒ ÇÁ¸®ÆÕ
-    private Queue<GameObject> pool = new Queue<GameObject>(); // Ç® ÀúÀå¼Ò
+    public GameObject wormPrefab; // ì¬ì‚¬ìš©í•  í”„ë¦¬íŒ¹
+    private Queue<GameObject> pool = new Queue<GameObject>(); // í’€ ì €ì¥ì†Œ
     public int poolMaxCount = 6;
 
     /// <summary>
-    /// ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­ ÈÄ pool¿¡ ´ã±â
+    /// ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™” í›„ poolì— ë‹´ê¸°
     /// </summary>
     /// <param name="obj"></param>
     public void ReturnObject(GameObject obj)
     {
-        obj.SetActive(false); // ¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­
-        pool.Enqueue(obj); // Ç®¿¡ ¹İÈ¯
+        obj.SetActive(false); // ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™”
+        pool.Enqueue(obj); // í’€ì— ë°˜í™˜
     }
 
 
     /// <summary>
-    /// ¸ğµç Wormµé ÀÎ½ºÅÏ½ºÈ­ ½ÃÅ°°í ºñÈ°¼ºÈ­
+    /// ëª¨ë“  Wormë“¤ ì¸ìŠ¤í„´ìŠ¤í™” ì‹œí‚¤ê³  ë¹„í™œì„±í™”
     /// </summary>
     public void CreatObject()
     {
@@ -42,7 +42,7 @@ public class ZombieObjectPooling : MonoBehaviour
         }
     }
     /// <summary>
-    /// ¸ğµç Wormµé È°¼ºÈ­
+    /// ëª¨ë“  Wormë“¤ í™œì„±í™”
     /// </summary>
     public void AllActiveTrue()
     {
@@ -62,10 +62,10 @@ public class ZombieObjectPooling : MonoBehaviour
         }
     }
     /// <summary>
-    /// ¸ó½ºÅÍ ÁÖº¯À» µµ´Â wormµé 90, 180, 270, 360µµ À§Ä¡¿¡ »ı¼ºµÇ°Ô ÇÏ´Â ÇÔ¼ö
+    /// ëª¬ìŠ¤í„° ì£¼ë³€ì„ ë„ëŠ” wormë“¤ 90, 180, 270, 360ë„ ìœ„ì¹˜ì— ìƒì„±ë˜ê²Œ í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
     /// <param name="obj"></param>
-    /// <param name="i"> ¼ø¼­ </param>
+    /// <param name="i"> ìˆœì„œ </param>
     public void StartSetting(GameObject obj, int i)
     {
         obj.GetComponent<RotationCircle>().CreatWormShield(i);
