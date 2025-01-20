@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public class SuwakoFrontCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "SideWall")
+        if (collision.tag == "Ground" || collision.tag == "Wall")
         {
             if (suwako.RiORLe == -1)
             {

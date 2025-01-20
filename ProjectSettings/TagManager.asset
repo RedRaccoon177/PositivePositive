@@ -6,9 +6,10 @@ TagManager:
   tags:
   - Wall
   - Ground
-  - SideWall
-  - Monster
+  - Enemy
   - Bullet
+  - WeakPoint
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Platforms
+  - WeakPoint
+  - Player
   - 
   - 
   - 
