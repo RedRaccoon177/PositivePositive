@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,8 +12,17 @@ public class ZombieController : MonoBehaviour
     ZombieState zombieState;
     public ZombieObjectPooling zomObjPool { get; set; }
     [SerializeField] GameObject playerInfo;
+    [SerializeField] GameObject wormPrepeb;
     [SerializeField] GameObject jumpSkillRange;
     [SerializeField] GameObject blackHoleSkillPrepeb;
+
+    public GameObject WormPrepeb
+    {
+        get
+        {
+            return wormPrepeb;
+        }
+    }
     
     public GameObject BlackHoleSkillPrepeb
     {
@@ -91,6 +100,7 @@ public class ZombieController : MonoBehaviour
     }
     void Start()
     {
+        gameObject.GetComponent<ZombieObjectPooling>().wormPrefab = wormPrepeb;
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
         wormHaveCount = 0;
         wormMaxCount = 4;

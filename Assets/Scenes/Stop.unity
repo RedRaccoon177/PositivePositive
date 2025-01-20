@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -582,8 +582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017886648206f6f4ab89c7021ef56358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  textBlack: {r: 0, g: 0, b: 0, a: 0}
+  textWhite: {r: 0, g: 0, b: 0, a: 0}
+  imageGrean: {r: 0.092, g: 0.2196079, b: 0.2196079, a: 1}
 --- !u!1 &1291224395
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +665,7 @@ GameObject:
   - component: {fileID: 1465831990}
   - component: {fileID: 1465831989}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: "\uBA54\uB274"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -784,7 +785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -865,8 +866,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017886648206f6f4ab89c7021ef56358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  textBlack: {r: 0, g: 0, b: 0, a: 0}
+  textWhite: {r: 0, g: 0, b: 0, a: 0}
+  imageGrean: {r: 0.092, g: 0.2196079, b: 0.2196079, a: 1}
 --- !u!1 &1732861243
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +883,7 @@ GameObject:
   - component: {fileID: 1732861245}
   - component: {fileID: 1732861248}
   m_Layer: 5
-  m_Name: Setting
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,7 +922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1001,8 +1003,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017886648206f6f4ab89c7021ef56358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightedColor: {r: 0, g: 0, b: 0, a: 0}
+  textBlack: {r: 0, g: 0, b: 0, a: 0}
+  textWhite: {r: 0, g: 0, b: 0, a: 0}
+  imageGrean: {r: 0.092, g: 0.2196079, b: 0.2196079, a: 1}
 --- !u!1 &2065018495
 GameObject:
   m_ObjectHideFlags: 0
