@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class SuwakoTopCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Wall")
+        if (collision.tag == "Ground" || collision.tag == "Wall")
         {
             suwako.GetComponent<BoxCollider2D>().isTrigger = true;
         }
@@ -24,7 +24,7 @@ public class SuwakoTopCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if( collision.tag == "Wall")
+        if (collision.tag == "Ground" || collision.tag == "Wall")
         {
             suwako.GetComponent<BoxCollider2D>().isTrigger = false;
         }

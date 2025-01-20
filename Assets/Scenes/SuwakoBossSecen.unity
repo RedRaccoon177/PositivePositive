@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 325457391}
   - component: {fileID: 325457390}
   - component: {fileID: 325457392}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -521,9 +521,9 @@ GameObject:
   - component: {fileID: 1339823348}
   - component: {fileID: 1339823350}
   - component: {fileID: 1339823349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SideWallR
-  m_TagString: SideWall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -651,9 +651,9 @@ GameObject:
   - component: {fileID: 1688314360}
   - component: {fileID: 1688314362}
   - component: {fileID: 1688314361}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SideWallL
-  m_TagString: SideWall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 2001773639}
   - component: {fileID: 2001773638}
   - component: {fileID: 2001773640}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Roop
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -996,9 +996,9 @@ GameObject:
   - component: {fileID: 2029887467}
   - component: {fileID: 2029887469}
   - component: {fileID: 2029887468}
-  m_Layer: 0
-  m_Name: Roop (1)
-  m_TagString: Wall
+  m_Layer: 6
+  m_Name: Plat
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1012,7 +1012,7 @@ Transform:
   m_GameObject: {fileID: 2029887466}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.25, y: 2.01, z: 0.02059073}
+  m_LocalPosition: {x: 14.8, y: 7.8, z: 0.02059073}
   m_LocalScale: {x: 5.2581334, y: 1.0182055, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
