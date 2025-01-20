@@ -23,8 +23,8 @@ public class ZombieIdle : ZombieState
         zombie.deltaTime += Time.deltaTime;
         if (zombie.deltaTime > 3)
         {
+            zombie.zomObjPool.AllActiveFalse();
             zombie.deltaTime = 0;
-            zombie.zomObjPool.AllActiveFalse(zombie.WormPrepeb);
             Debug.Log("시간 조건문");
             zombie.deltaTime = 0;
             if (zombie.randState == 0)

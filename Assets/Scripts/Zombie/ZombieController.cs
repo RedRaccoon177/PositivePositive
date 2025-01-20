@@ -23,7 +23,7 @@ public class ZombieController : MonoBehaviour
             return wormPrepeb;
         }
     }
-    
+
     public GameObject BlackHoleSkillPrepeb
     {
         get
@@ -62,12 +62,14 @@ public class ZombieController : MonoBehaviour
         }
     }
 
+    public int zombieHp;
     public short directionX { get; set; }
     public short directionY { get; set; }
     // ______________ 상태 ___________________
+    public ZombieHitted zombieHitted { get; set; }
     public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
-    public ZombieJumpReady jumpReady { get; private set; } 
+    public ZombieJumpReady jumpReady { get; private set; }
     public ZombieWalk walk { get; private set; }
     public ZombieIdle idle { get; private set; }
     // ___________ 컴포넌트 _____________________
@@ -78,13 +80,13 @@ public class ZombieController : MonoBehaviour
     public RaycastHit2D ray2d { get; set; }
     public Vector2 mapBounds { get; set; }
     public Vector2 mosterToPlayer;
-    public bool jumpOn=false;
+    public bool jumpOn = false;
     // ______________ 스킬 1 WormShield ___________________
 
     public int wormMaxCount { get; set; }
-    public int wormHaveCount{ get; set; }
+    public int wormHaveCount { get; set; }
     public bool wormCreated { get; set; }
-    
+
 
 
     public float deltaTime { get; set; }
@@ -100,13 +102,13 @@ public class ZombieController : MonoBehaviour
     }
     void Start()
     {
-        gameObject.GetComponent<ZombieObjectPooling>().wormPrefab = wormPrepeb;
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
         wormHaveCount = 0;
         wormMaxCount = 4;
-
+        zombieHp = 20;
         distance = 100f;
         //______________________
+        zombieHitted = new ZombieHitted();
         jump = new ZombieJump();
         jumpReady = new ZombieJumpReady();
         walk = new ZombieWalk();
@@ -148,4 +150,12 @@ public class ZombieController : MonoBehaviour
         StartCoroutine(coroutine);
     }
 
+    public void IncreaseHp()
+    {
+        zombieHp -= 1;
+    }
+    public void DecreaseHp()
+    {
+        zombieHp += 1;
+    }
 }

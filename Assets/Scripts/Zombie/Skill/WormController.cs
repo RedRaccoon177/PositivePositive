@@ -12,10 +12,13 @@ public class WormController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 플레이어 로프
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log(" 벽 닿음");
-            zombieInfo.ChangeState(zombieInfo.idle);
+            zombieInfo.DecreaseHp();
+            //objPooling.ReturnObject(gameObject);
+            // 옵저버
+            zombieInfo.ChangeState(zombieInfo.zombieHitted);
         }
     }
 
