@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,5 +65,4 @@ public class RiverBulletFadeEffect : MonoBehaviour
             renderer.material.color = targetColors[renderer];
         }
     }
-
 }

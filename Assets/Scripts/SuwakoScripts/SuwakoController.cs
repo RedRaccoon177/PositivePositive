@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,11 +7,37 @@ using UnityEngine.UIElements;
 public class SuwakoController : MonoBehaviour
 {
     //유닛 가장 필요한 변수들
-    SuwakoState currentState;
+    public SuwakoState currentState;
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
-    
+
+    [SerializeField]
+    float _suwakoHP = 20;
+    public float suwakoHP 
+    {
+        get => _suwakoHP; 
+        set 
+        {
+            if (_suwakoHP >= 0)
+            {
+                _suwakoHP = value;
+            }
+            else if (_suwakoHP < 0)
+            {
+                _suwakoHP = 0;
+            }
+
+        }
+    }
+    float maxHealth = 20;
+
+    float monsterHPfillAmount;
+
+
+    //공격 받았을 때 상태 스크립트들
+    public SuwakoGetHitState GetHitState { get; private set; }
+
     //움직임 상태 스크립트들
     public SuwakoIdleState idleState { get; private set; }
     public SuwakoWalkFrontState walkFrontState { get; private set; }
@@ -74,6 +100,22 @@ public class SuwakoController : MonoBehaviour
         currentState.Enter(this);
     }
 
+    private void Awake()
+    {
+        //
+        GetHitState = new SuwakoGetHitState();
+
+        //움직임 상태 스크립트들
+        idleState = new SuwakoIdleState();
+        walkFrontState = new SuwakoWalkFrontState();
+        flyingState = new SuwakoFlyingState();
+        jumpingState = new SuwakoJumpingState();
+        fallingState = new SuwakoFallingState();
+        landingState = new SuwakoLandingState();
+
+        monsterHPfillAmount = suwakoHP / maxHealth;
+    }
+
     void Start()
     {
         foreach (Transform child in transform)
@@ -85,13 +127,6 @@ public class SuwakoController : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        //움직임 상태 스크립트들
-        idleState = new SuwakoIdleState();
-        walkFrontState = new SuwakoWalkFrontState();
-        flyingState = new SuwakoFlyingState();
-        jumpingState = new SuwakoJumpingState();
-        fallingState = new SuwakoFallingState();
-        landingState = new SuwakoLandingState();
 
         //스킬 상태 스크립트들
         skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();

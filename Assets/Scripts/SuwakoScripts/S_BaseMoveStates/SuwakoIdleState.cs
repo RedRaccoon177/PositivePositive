@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class SuwakoIdleState : SuwakoState
@@ -30,7 +30,7 @@ public class SuwakoIdleState : SuwakoState
         if (isIdle == true)
         {
             //상태를 랜덤값으로 돌려라
-            whatState = Random.Range(0, 1);
+            whatState = Random.Range(8, 9);
         }
 
         if (whatState == 0)
@@ -59,6 +59,12 @@ public class SuwakoIdleState : SuwakoState
         {
             suwako.ChangeState(suwako.skill0_ShootingBullet);
         }
+        else if( whatState == 8)
+        {
+            suwako.ChangeState(suwako.GetHitState);
+        } 
+
+
     }
 
     public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)
