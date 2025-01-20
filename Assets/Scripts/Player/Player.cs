@@ -156,13 +156,14 @@ public class Player : MonoBehaviour
             }
             else
             {
-                transform.position = Vector2.Lerp(transform.position, attackingEnemy.transform.position, 0.5f);
+                transform.position = Vector2.Lerp(transform.position, attackingEnemy.transform.position, 0.2f);
                 if (Input.GetMouseButtonDown(0))
                 {
                     Vector2 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * boostPower / Time.deltaTime;
+                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * (boostPower / Time.deltaTime);
                     rigid.velocity = vel;
                     attackMode = false;
+                    isInvincible = false;
                 }
             }
         }

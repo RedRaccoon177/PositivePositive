@@ -36,7 +36,7 @@ public class ThrowHook : MonoBehaviour
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.parent.GetComponent<Player>().SetBoost(true);
             rayDir = (dest - (Vector2)transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, 10, LayerMask.GetMask("Platforms", "Enemy"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, 10, LayerMask.GetMask("Platforms", "WeakPoint"));
             Debug.DrawRay(transform.position, transform.up, new Color(0, 1, 0));
 
             curHook = Instantiate(hook, transform.position, Quaternion.identity);
