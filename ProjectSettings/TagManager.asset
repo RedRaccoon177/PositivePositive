@@ -16,7 +16,9 @@ TagManager:
   - UI
   - Platforms
   - Enemy
-  - 
+  - Wall
+  - Player
+  - Zombie
   - 
   - 
   - 
