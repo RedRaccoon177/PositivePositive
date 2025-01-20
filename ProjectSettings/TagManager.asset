@@ -7,6 +7,9 @@ TagManager:
   - Wall
   - Ground
   - Enemy
+  - Bullet
+  - WeakPoint
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -15,8 +18,8 @@ TagManager:
   - Water
   - UI
   - Platforms
-  - Enemy
-  - 
+  - WeakPoint
+  - Player
   - 
   - 
   - 
