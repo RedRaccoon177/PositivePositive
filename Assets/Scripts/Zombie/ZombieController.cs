@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,22 +55,22 @@ public class ZombieController : MonoBehaviour
 
     public short directionX { get; set; }
     public short directionY { get; set; }
-    // ______________ »óÅÂ ___________________
+    // ______________ ìƒíƒœ ___________________
     public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
     public ZombieJumpReady jumpReady { get; private set; } 
     public ZombieWalk walk { get; private set; }
     public ZombieIdle idle { get; private set; }
-    // ___________ ÄÄÆ÷³ÍÆ® _____________________
+    // ___________ ì»´í¬ë„ŒíŠ¸ _____________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
-    // ___________ Á¡ÇÁ ±â´É _____________________
+    // ___________ ì í”„ ê¸°ëŠ¥ _____________________
     public float distance { get; set; }
     public RaycastHit2D ray2d { get; set; }
     public Vector2 mapBounds { get; set; }
     public Vector2 mosterToPlayer;
     public bool jumpOn=false;
-    // ______________ ½ºÅ³ 1 WormShield ___________________
+    // ______________ ìŠ¤í‚¬ 1 WormShield ___________________
 
     public int wormMaxCount { get; set; }
     public int wormHaveCount{ get; set; }

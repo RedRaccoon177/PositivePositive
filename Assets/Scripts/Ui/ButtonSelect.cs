@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,36 +8,36 @@ using UnityEngine.UI;
 public class ButtonSelect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
-    private Text buttonText;  // ¹öÆ° ÀÌ¹ÌÁö
-    public Color normalColor; // ±âº» »ö»ó (Èò»ö)
-    public Color highlightedColor; // ¸¶¿ì½º ¿Ã·ÈÀ» ¶§ »ö»ó (³ì»ö)
+    private Text buttonText;  // ë²„íŠ¼ ì´ë¯¸ì§€
+    public Color normalColor; // ê¸°ë³¸ ìƒ‰ìƒ (í°ìƒ‰)
+    public Color highlightedColor; // ë§ˆìš°ìŠ¤ ì˜¬ë ¸ì„ ë•Œ ìƒ‰ìƒ (ë…¹ìƒ‰)
 
     void Start()
     {
-        // ¹öÆ°ÀÇ Image ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        // ë²„íŠ¼ì˜ Image ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         buttonText = transform.GetChild(0).GetComponent<Text>();
         normalColor = Color.black;
         highlightedColor = Color.white;
     }
 
 
-    // »ö»ó º¯°æ (¸¶¿ì½º ¿Ã·ÈÀ» ¶§)
+    // ìƒ‰ìƒ ë³€ê²½ (ë§ˆìš°ìŠ¤ ì˜¬ë ¸ì„ ë•Œ)
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("¸¶¿ì½º ¿Ã¶ó°¨");
+        Debug.Log("ë§ˆìš°ìŠ¤ ì˜¬ë¼ê°");
         if (buttonText != null)
         {
-            buttonText.color = highlightedColor;  // »ö»ó º¯°æ (³ì»ö)
+            buttonText.color = highlightedColor;  // ìƒ‰ìƒ ë³€ê²½ (ë…¹ìƒ‰)
         }
     }
 
-    // »ö»ó µÇµ¹¸®±â (¸¶¿ì½º ¹ş¾î³¯ ¶§)
+    // ìƒ‰ìƒ ë˜ëŒë¦¬ê¸° (ë§ˆìš°ìŠ¤ ë²—ì–´ë‚  ë•Œ)
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("¸¶¿ì½º ³»·Á°¨");
+        Debug.Log("ë§ˆìš°ìŠ¤ ë‚´ë ¤ê°");
         if (buttonText != null)
         {
-            buttonText.color = normalColor;  // ¿ø·¡ »ö»óÀ¸·Î º¯°æ (Èò»ö)
+            buttonText.color = normalColor;  // ì›ë˜ ìƒ‰ìƒìœ¼ë¡œ ë³€ê²½ (í°ìƒ‰)
         }
     }
 

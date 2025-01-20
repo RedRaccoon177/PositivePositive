@@ -1,4 +1,4 @@
-
+ï»¿
 using UnityEngine;
 
 public class ZombieJumpReady : ZombieState
@@ -7,9 +7,9 @@ public class ZombieJumpReady : ZombieState
     {
         zombie.Animator.SetTrigger("JumpReady");
         zombie.mosterToPlayer = zombie.PlayerInfo.transform.position - zombie.transform.position;
-        // 180µµ ´õÇÑ ÀÌÀ¯ - À¯´ÏÆ¼ ³» ÁÂÇ¥°è¿¡¼­ ½Ã°è¹æÇâÀ¸·Î °¢µµÈ¸ÀüÀ» ÇÏ´Âµ¥, ±×°ÍÀ» ÀÌ¿ëÇØ ³» ÀÌ¹ÌÁöÀÇ ±âÁØÀÎ 180µµ¸¦ ´õÇØÁÖ¾ú´Ù.
+        // 180ë„ ë”í•œ ì´ìœ  - ìœ ë‹ˆí‹° ë‚´ ì¢Œí‘œê³„ì—ì„œ ì‹œê³„ë°©í–¥ìœ¼ë¡œ ê°ë„íšŒì „ì„ í•˜ëŠ”ë°, ê·¸ê²ƒì„ ì´ìš©í•´ ë‚´ ì´ë¯¸ì§€ì˜ ê¸°ì¤€ì¸ 180ë„ë¥¼ ë”í•´ì£¼ì—ˆë‹¤.
         zombie.transform.rotation = Quaternion.Euler(0, 0, 180 + Mathf.Atan2(zombie.mosterToPlayer.y, zombie.mosterToPlayer.x) * Mathf.Rad2Deg);
-        // º¤ÅÍ Å©±â 1·Î
+        // ë²¡í„° í¬ê¸° 1ë¡œ
         zombie.mosterToPlayer.Normalize();
         PrintJumpRange(zombie);
     }
@@ -24,19 +24,19 @@ public class ZombieJumpReady : ZombieState
     }
     public void PrintJumpRange(ZombieController zombie)
     {
-        // ·¹ÀÌ Ä³½ºÆ®·Î »ç°Å¸® ³¡ (º®) ÁÂÇ¥ ±¸ÇÏ±â
+        // ë ˆì´ ìºìŠ¤íŠ¸ë¡œ ì‚¬ê±°ë¦¬ ë (ë²½) ì¢Œí‘œ êµ¬í•˜ê¸°
         zombie.ray2d = Physics2D.Raycast(zombie.transform.position, zombie.mosterToPlayer, zombie.distance, LayerMask.GetMask("Wall"));
         if (zombie.ray2d == true)
         {
             zombie.mapBounds = zombie.ray2d.point;
         }
-        // Á»ºñ À§Ä¡¿Í »ç°Å¸® ³¡ »çÀÌÀÇ °Å¸® ÃøÁ¤
+        // ì¢€ë¹„ ìœ„ì¹˜ì™€ ì‚¬ê±°ë¦¬ ë ì‚¬ì´ì˜ ê±°ë¦¬ ì¸¡ì •
         float distance = Vector2.Distance(zombie.mapBounds, zombie.transform.position);
-        // ±æÀÌ¿¡ µû¸¥ ºñÀ² ¸ÂÃçÁÖ±â
+        // ê¸¸ì´ì— ë”°ë¥¸ ë¹„ìœ¨ ë§ì¶°ì£¼ê¸°
         float length = distance / 10;
-        // »ç°Å¸® ¹Ú½º ±æÀÌ ´Ã·ÁÁÖ±â
+        // ì‚¬ê±°ë¦¬ ë°•ìŠ¤ ê¸¸ì´ ëŠ˜ë ¤ì£¼ê¸°
         zombie.JumpSkillRange.transform.localScale = new Vector3(distance / 10, 0.3f, 0);
-        // »ç°Å¸® ¹Ú½º Áß½É ÁÂÇ¥ ÀÌµ¿ÇØ¼­ º¸½º¿¡°Ô ¸ÂÃçÁÖ±â
+        // ì‚¬ê±°ë¦¬ ë°•ìŠ¤ ì¤‘ì‹¬ ì¢Œí‘œ ì´ë™í•´ì„œ ë³´ìŠ¤ì—ê²Œ ë§ì¶°ì£¼ê¸°
         zombie.JumpSkillRange.transform.position = new Vector2(zombie.transform.position.x + (length * zombie.mosterToPlayer.x *5), zombie.transform.position.y + (length * zombie.mosterToPlayer.y *5));
         zombie.JumpSkillRange.SetActive(true);
 
@@ -73,9 +73,9 @@ public class ZombieJump : ZombieState
     {
         if (collision.gameObject.tag == "Wall")
         {
-            //Debug.Log("´êÀ½");
-            // ·¹ÀÌÄ³½ºÆ®
-            // °¨ÁöµÇ¾ú´Ù¸é!
+            //Debug.Log("ë‹¿ìŒ");
+            // ë ˆì´ìºìŠ¤íŠ¸
+            // ê°ì§€ë˜ì—ˆë‹¤ë©´!
             // if (zombie.ray2d.collider != null)
             // {
             zombie.Animator.SetBool("IsJump", false);
