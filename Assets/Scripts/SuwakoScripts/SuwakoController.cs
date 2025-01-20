@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,13 +6,13 @@ using UnityEngine.UIElements;
 
 public class SuwakoController : MonoBehaviour
 {
-    //À¯´Ö °¡Àå ÇÊ¿äÇÑ º¯¼öµé
+    //ìœ ë‹› ê°€ì¥ í•„ìš”í•œ ë³€ìˆ˜ë“¤
     SuwakoState currentState;
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
     
-    //¿òÁ÷ÀÓ »óÅÂ ½ºÅ©¸³Æ®µé
+    //ì›€ì§ì„ ìƒíƒœ ìŠ¤í¬ë¦½íŠ¸ë“¤
     public SuwakoIdleState idleState { get; private set; }
     public SuwakoWalkFrontState walkFrontState { get; private set; }
     public SuwakoFlyingState flyingState { get; private set; }
@@ -20,32 +20,32 @@ public class SuwakoController : MonoBehaviour
     public SuwakoFallingState fallingState { get; private set; }
     public SuwakoLandingState landingState { get; private set; }
 
-    //½ºÅ³ »óÅÂ ½ºÅ©¸³Æ®µé
+    //ìŠ¤í‚¬ ìƒíƒœ ìŠ¤í¬ë¦½íŠ¸ë“¤
     public SuwakoSkill0_ShootingBullet skill0_ShootingBullet {  get; private set; }
     public SuwakoSkill1_JumpORFlyShootingBullet skill1_JumpORFlyShootingBullet {  get; private set; }
 
-    //½º¿ÍÄÚ Åº¾Ë ¹ß»çÇÏ´Â °÷ À§Ä¡
+    //ìŠ¤ì™€ì½” íƒ„ì•Œ ë°œì‚¬í•˜ëŠ” ê³³ ìœ„ì¹˜
     public Transform bullet0Fire { get; private set; }
 
-    //ÁÂ¿ì ÀÌµ¿ º¯¼ö
+    //ì¢Œìš° ì´ë™ ë³€ìˆ˜
     float _xORy = 5;
-    //Àü¹æÀ¸·Î Á¡ÇÁ º¯¼ö
+    //ì „ë°©ìœ¼ë¡œ ì í”„ ë³€ìˆ˜
     float _frontJumpPower = 5;
-    //³¯¾Æ´Ù´Ï´Â ÆÄ¿ö
+    //ë‚ ì•„ë‹¤ë‹ˆëŠ” íŒŒì›Œ
     float _flyingPower = 2;
-    //Á¡ÇÁ ÆÄ¿ö
+    //ì í”„ íŒŒì›Œ
     float _jumpPower = 10;
 
-    //³«ÇÏ Áß ¼ø°£µé
+    //ë‚™í•˜ ì¤‘ ìˆœê°„ë“¤
     public int falling { get; set; }
 
-    //ÂøÁö Áß
+    //ì°©ì§€ ì¤‘
     public bool landing { get; set; }
 
-    //°ø¿ë ÁÂ¿ì È°¿ë
+    //ê³µìš© ì¢Œìš° í™œìš©
     public int RiORLe { get; set; }
 
-    //ÇÁ·ÎÆÛÆ¼µé
+    //í”„ë¡œí¼í‹°ë“¤
     public float xORy
     {
         get => _xORy;
@@ -63,11 +63,11 @@ public class SuwakoController : MonoBehaviour
         get => _jumpPower;
     }
 
-    //¾Ö´Ï¸ŞÀÌ¼ÇÀ» À§ÇÑ º¯¼öµé
+    //ì• ë‹ˆë©”ì´ì…˜ì„ ìœ„í•œ ë³€ìˆ˜ë“¤
     public bool isSkill0End =false;
     public bool isLanding =false;
 
-    //»óÅÂ º¯È¯
+    //ìƒíƒœ ë³€í™˜
     public void ChangeState(SuwakoState newstate)
     {
         currentState = newstate;
@@ -85,7 +85,7 @@ public class SuwakoController : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        //¿òÁ÷ÀÓ »óÅÂ ½ºÅ©¸³Æ®µé
+        //ì›€ì§ì„ ìƒíƒœ ìŠ¤í¬ë¦½íŠ¸ë“¤
         idleState = new SuwakoIdleState();
         walkFrontState = new SuwakoWalkFrontState();
         flyingState = new SuwakoFlyingState();
@@ -93,43 +93,43 @@ public class SuwakoController : MonoBehaviour
         fallingState = new SuwakoFallingState();
         landingState = new SuwakoLandingState();
 
-        //½ºÅ³ »óÅÂ ½ºÅ©¸³Æ®µé
+        //ìŠ¤í‚¬ ìƒíƒœ ìŠ¤í¬ë¦½íŠ¸ë“¤
         skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();
         skill1_JumpORFlyShootingBullet = new SuwakoSkill1_JumpORFlyShootingBullet();
 
 
-        //»óÅÂ ½ºÅ¸Æ®¹®
+        //ìƒíƒœ ìŠ¤íƒ€íŠ¸ë¬¸
         ChangeState(idleState);
     }
 
     void Update()
     {
         Debug.Log(currentState);
-        //»óÅÂ Update
+        //ìƒíƒœ Update
         currentState.Update(this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //»óÅÂ OnCollisionEnter2D
+        //ìƒíƒœ OnCollisionEnter2D
         currentState.OnCollisionEnter2D(this, collision);
     }
 
     void FixedUpdate()
     {
-        //»óÅÂ FixUpdate
+        //ìƒíƒœ FixUpdate
         currentState.FixUpdate(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Æ®¸®°Å Enter
+        //íŠ¸ë¦¬ê±° Enter
         currentState.OnTriggerEnter2D(this, collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Æ®¸®°Å Exit
+        //íŠ¸ë¦¬ê±° Exit
         currentState.OnTriggerExit2D(this, collision);
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
@@ -6,18 +6,18 @@ using UnityEngine;
 
 public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
 {
-    //¸î¹øÂ° ÃÑ¾ËÀ» »ç¿ë ÇÒ °ÍÀÎÁö º¯¼ö
+    //ëª‡ë²ˆì§¸ ì´ì•Œì„ ì‚¬ìš© í•  ê²ƒì¸ì§€ ë³€ìˆ˜
     int bulletNum = 1;
-    //¿ÀºêÁ§Æ® Ç®¸µ
+    //ì˜¤ë¸Œì íŠ¸ í’€ë§
     SuwakoBulletPool pool;
 
-    //ºÎ¸ğ°´Ã¼ÀÇ À§Ä¡
+    //ë¶€ëª¨ê°ì²´ì˜ ìœ„ì¹˜
     Transform parentTransform;
-    //ÀÚ½Ä°´Ã¼ÀÇ À§Ä¡
+    //ìì‹ê°ì²´ì˜ ìœ„ì¹˜
     Transform childTransform;
     float speedPower = 10;
 
-    //°¢ ¹ß»ç °¢µµµé
+    //ê° ë°œì‚¬ ê°ë„ë“¤
     int angle = 10;
     bool changeState = false;
 
@@ -60,11 +60,11 @@ public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
             for (int i = 0; i < 36; i++)
             {
                 
-                //ÁÂÇ¥µé
+                //ì¢Œí‘œë“¤
                 parentTransform = suwako.gameObject.transform.GetChild(5);
                 childTransform = suwako.gameObject.transform.GetChild(5).transform.GetChild(0);
 
-                //¿ÀºêÁ§Æ®Ç®¸µÀ¸·Î ÃÑ¾Ë ¸¸µë
+                //ì˜¤ë¸Œì íŠ¸í’€ë§ìœ¼ë¡œ ì´ì•Œ ë§Œë“¬
                 GameObject bullet = pool.GetObject(bulletNum);
                 bullet.transform.position = childTransform.position;
                 parentTransform.rotation = Quaternion.Euler(0, 0, i * angle);
@@ -72,7 +72,7 @@ public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
                 MoveToAttack(bullet);
             }
             count++;
-            yield return new WaitForSeconds(1f); // 1ÃÊ ´ë±â
+            yield return new WaitForSeconds(1f); // 1ì´ˆ ëŒ€ê¸°
         }
         changeState = true;
     }

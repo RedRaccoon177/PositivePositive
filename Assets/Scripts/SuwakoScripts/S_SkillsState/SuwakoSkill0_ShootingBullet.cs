@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,24 +6,24 @@ using UnityEngine.Pool;
 
 public class SuwakoSkill0_ShootingBullet : SuwakoState
 {
-    //¸î¹øÂ° ÃÑ¾ËÀ» »ç¿ë ÇÒ °ÍÀÎÁö º¯¼ö
+    //ëª‡ë²ˆì§¸ ì´ì•Œì„ ì‚¬ìš© í•  ê²ƒì¸ì§€ ë³€ìˆ˜
     int bulletNum = 0;
-    //¿ÀºêÁ§Æ® Ç®¸µ
+    //ì˜¤ë¸Œì íŠ¸ í’€ë§
     SuwakoBulletPool pool;
 
-    //¹ß»ç´ëÀÇ À§Ä¡
+    //ë°œì‚¬ëŒ€ì˜ ìœ„ì¹˜
     Transform startTransform;
-    //³¯¶ó°¥ °÷ÀÇ À§Ä¡
+    //ë‚ ë¼ê°ˆ ê³³ì˜ ìœ„ì¹˜
     Transform targetTransform;
     float speedPower = 10;
 
-    //°¢ ¹ß»ç °¢µµµé
+    //ê° ë°œì‚¬ ê°ë„ë“¤
     int angle = 10;
     bool changeState = false;
 
     public override void Enter(SuwakoController suwako)
     {
-        //½º¿ÍÄÚ ¾Ö´Ï¸ŞÀÌ¼Ç attackCa½ÇÇà
+        //ìŠ¤ì™€ì½” ì• ë‹ˆë©”ì´ì…˜ attackCaì‹¤í–‰
         suwako.animator.SetInteger("IsSkills", 1);
         pool = SuwakoBulletPool.bulletPoolInstace;
 
@@ -54,11 +54,11 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
     {
         for (int i = 0; i < 16; i++)
         {
-            //ÁÂÇ¥µé
+            //ì¢Œí‘œë“¤
             startTransform = suwako.gameObject.transform.GetChild(4);
             targetTransform = suwako.gameObject.transform.GetChild(4).transform.GetChild(0);
 
-            //¿ÀºêÁ§Æ®Ç®¸µÀ¸·Î ÃÑ¾Ë ¸¸µë
+            //ì˜¤ë¸Œì íŠ¸í’€ë§ìœ¼ë¡œ ì´ì•Œ ë§Œë“¬
             GameObject bullet = pool.GetObject(bulletNum);
             bullet.transform.position = startTransform.position;
             if (suwako.RiORLe == -1)

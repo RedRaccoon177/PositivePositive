@@ -1,22 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class SuwakoSkill2_RiverFlowing : SuwakoState
 {
-    //¸î¹øÂ° ÃÑ¾ËÀ» »ç¿ë ÇÒ °ÍÀÎÁö º¯¼ö
+    //ëª‡ë²ˆì§¸ ì´ì•Œì„ ì‚¬ìš© í•  ê²ƒì¸ì§€ ë³€ìˆ˜
     int bulletNum = 3;
-    //¿ÀºêÁ§Æ® Ç®¸µ
+    //ì˜¤ë¸Œì íŠ¸ í’€ë§
     SuwakoBulletPool pool;
 
-    //¹ß»ç´ëÀÇ À§Ä¡
+    //ë°œì‚¬ëŒ€ì˜ ìœ„ì¹˜
     Transform startTransform;
-    //³¯¶ó°¥ °÷ÀÇ À§Ä¡
+    //ë‚ ë¼ê°ˆ ê³³ì˜ ìœ„ì¹˜
     Transform targetTransform;
     float speed = 20;
 
-    //ÄÚ·çÆ¾ Ä³½Ì
+    //ì½”ë£¨í‹´ ìºì‹±
     WaitForSeconds delay = new WaitForSeconds(0.8f);
 
     public override void Enter(SuwakoController suwako)
@@ -25,7 +25,7 @@ public class SuwakoSkill2_RiverFlowing : SuwakoState
         pool = SuwakoBulletPool.bulletPoolInstace;
 
 
-        //½º¿ÍÄÚ ¾Ö´Ï¸ŞÀÌ¼Ç IsRiverSkill
+        //ìŠ¤ì™€ì½” ì• ë‹ˆë©”ì´ì…˜ IsRiverSkill
         suwako.animator.SetInteger("IsRiverSkill", 1);
 
         //suwako.StopCoroutine(ShootBulletSkill0(suwako));
@@ -42,14 +42,14 @@ public class SuwakoSkill2_RiverFlowing : SuwakoState
         while (true)
         {
             yield return delay;
-            // Ç®¿¡¼­ ¿ÀºêÁ§Æ® °¡Á®¿À±â
+            // í’€ì—ì„œ ì˜¤ë¸Œì íŠ¸ ê°€ì ¸ì˜¤ê¸°
             for (int i = 0; i < 7; i++)
             {
-                //ÁÂÇ¥µé
+                //ì¢Œí‘œë“¤
                 startTransform = suwako.gameObject.transform.GetChild(6);
                 targetTransform = suwako.gameObject.transform.GetChild(6).transform.GetChild(0);
 
-                //¿ÀºêÁ§Æ®Ç®¸µÀ¸·Î ÃÑ¾Ë ¸¸µë
+                //ì˜¤ë¸Œì íŠ¸í’€ë§ìœ¼ë¡œ ì´ì•Œ ë§Œë“¬
                 GameObject bullet = pool.GetObject(bulletNum);
                 bullet.transform.position = startTransform.position;
 

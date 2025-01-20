@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class SuwakoIdleState : SuwakoState
@@ -18,18 +18,18 @@ public class SuwakoIdleState : SuwakoState
         suwako.animator.SetInteger("IsRiverSkill", 0);
 
 
-        //idle »óÅÂ 3ÃÊ°£ À¯Áö¸¦ À§ÇÑ ½Ä
+        //idle ìƒíƒœ 3ì´ˆê°„ ìœ ì§€ë¥¼ ìœ„í•œ ì‹
         idleTime = Time.time + 3;
         whatState = 0;
 
-        //false·Î ´Ù½Ã ¹Ù²ã¾ßÇÔ.
+        //falseë¡œ ë‹¤ì‹œ ë°”ê¿”ì•¼í•¨.
         isIdle = false;
     }
     public override void Update(SuwakoController suwako)
     {
         if (isIdle == true)
         {
-            //»óÅÂ¸¦ ·£´ı°ªÀ¸·Î µ¹·Á¶ó
+            //ìƒíƒœë¥¼ ëœë¤ê°’ìœ¼ë¡œ ëŒë ¤ë¼
             whatState = Random.Range(0, 1);
         }
 
@@ -42,17 +42,17 @@ public class SuwakoIdleState : SuwakoState
         }
         else if (1 <= whatState && whatState <= 4)
         {
-            //ÁÂ¿ì·Î ÀÌµ¿ÇÏ´Â »óÅÂ
+            //ì¢Œìš°ë¡œ ì´ë™í•˜ëŠ” ìƒíƒœ
             suwako.ChangeState(suwako.walkFrontState);
         }
         else if (whatState == 5)
         {
-            //³¯¾Æ ¿À¸£´Â »óÅÂ
+            //ë‚ ì•„ ì˜¤ë¥´ëŠ” ìƒíƒœ
             suwako.ChangeState(suwako.flyingState);
         }
         else if (whatState == 6)
         {
-            //Á¡ÇÁÇÑ »óÅÂ
+            //ì í”„í•œ ìƒíƒœ
             suwako.ChangeState(suwako.jumpingState);
         }
         else if(whatState == 7)
@@ -63,7 +63,7 @@ public class SuwakoIdleState : SuwakoState
 
     public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)
     {
-        //¶¥¿¡ ´êÀ¸¸é ¸¶Âû·ÂÀ» 0À¸·Î ¸¸µé ÀåÄ¡
+        //ë•…ì— ë‹¿ìœ¼ë©´ ë§ˆì°°ë ¥ì„ 0ìœ¼ë¡œ ë§Œë“¤ ì¥ì¹˜
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Wall")
         {
             suwako.rb.velocity = new Vector2();

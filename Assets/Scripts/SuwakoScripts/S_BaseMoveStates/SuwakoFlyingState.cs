@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class SuwakoFlyingState : SuwakoState
     float flyingTime = 0;
     bool isCorret = false;
 
-    //skill1 (0ÀÌ¸é ½ºÅ³ »ç¿ëx, 1ÀÌ¸é ½ºÅ³ »ç¿ë)
+    //skill1 (0ì´ë©´ ìŠ¤í‚¬ ì‚¬ìš©x, 1ì´ë©´ ìŠ¤í‚¬ ì‚¬ìš©)
     int isSkill1 = 0;
 
     public override void Enter(SuwakoController suwako)
@@ -31,12 +31,12 @@ public class SuwakoFlyingState : SuwakoState
             isCorret = false;
         }
 
-        //³¯°í ÀÖ´Â ÁßÀÌ¸é
+        //ë‚ ê³  ìˆëŠ” ì¤‘ì´ë©´
         if (flyingState == 0)
         {
             suwako.animator.SetInteger("IsFlying", 2);
         }
-        //³ª´Â °ÍÀÌ ³¡³ª¸é
+        //ë‚˜ëŠ” ê²ƒì´ ëë‚˜ë©´
         else if (flyingState == 1)
         {
             if (isSkill1 == 0)
@@ -52,7 +52,7 @@ public class SuwakoFlyingState : SuwakoState
     }
     public override void FixUpdate(SuwakoController suwako)
     {
-        //5ÃÊµ¿¾È ½ÇÇà µÇ´Ù°¡ 5ÃÊ°¡ Áö³ª¸é ½ºÅ¾
+        //5ì´ˆë™ì•ˆ ì‹¤í–‰ ë˜ë‹¤ê°€ 5ì´ˆê°€ ì§€ë‚˜ë©´ ìŠ¤íƒ‘
         if (isCorret == true)
         {
             flyingState = 0;

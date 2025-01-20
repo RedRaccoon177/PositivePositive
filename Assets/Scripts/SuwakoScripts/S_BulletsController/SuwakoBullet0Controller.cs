@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ public class SuwakoBullet0Controller : MonoBehaviour
 
     public void OnBulletDestroy(GameObject bullet)
     {
-        // ¿ÀºêÁ§Æ® Ç®·Î ¹İÈ¯
+        // ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ë°˜í™˜
         pool.ReturnObject(bullet, bulletNum);
     }
 }
