@@ -11,7 +11,7 @@ public class ZombieIdle : ZombieState
         zombie.Rigid.velocity = Vector3.zero;
         zombie.directionX = 0;
         zombie.directionY = 0;
-        zombie.randState = UnityEngine.Random.Range(0, 1);
+        zombie.randState = UnityEngine.Random.Range(0, 3);
         //Debug.Log(zombie.randState);
         zombie.CorutinPlay(IdleWait(zombie));
         //zombie.StartCoroutine(IdleWait(zombie));
@@ -23,12 +23,15 @@ public class ZombieIdle : ZombieState
         if (zombie.randState == 0)
         {
             zombie.ChangeState(zombie.walk);
-            //Debug.Log("걷는상태");
         }
         else if (zombie.randState == 1)
         {
             zombie.ChangeState(zombie.jumpReady);
             //Debug.Log("스킬상태");
+        }
+        else if (zombie.randState == 2)
+        {
+            zombie.ChangeState(zombie.skillBlackHole);
         }
     }
 

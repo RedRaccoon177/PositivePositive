@@ -12,8 +12,16 @@ public class ZombieController : MonoBehaviour
     ZombieState zombieState;
     public ZombieObjectPooling zomObjPool { get; set; }
     [SerializeField] GameObject playerInfo;
-    //[SerializeField] GameObject wormShieldPrefab;
     [SerializeField] GameObject jumpSkillRange;
+    [SerializeField] GameObject blackHoleSkillPrepeb;
+    
+    public GameObject BlackHoleSkillPrepeb
+    {
+        get
+        {
+            return blackHoleSkillPrepeb;
+        }
+    }
 
     //public GameObject WormShieldPrefab
     //{
@@ -48,6 +56,7 @@ public class ZombieController : MonoBehaviour
     public short directionX { get; set; }
     public short directionY { get; set; }
     // ______________ 상태 ___________________
+    public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
     public ZombieJumpReady jumpReady { get; private set; } 
     public ZombieWalk walk { get; private set; }
@@ -56,9 +65,9 @@ public class ZombieController : MonoBehaviour
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
     // ___________ 점프 기능 _____________________
-    public float distance;
-    public RaycastHit2D ray2d;
-    public Vector2 mapBounds;
+    public float distance { get; set; }
+    public RaycastHit2D ray2d { get; set; }
+    public Vector2 mapBounds { get; set; }
     public Vector2 mosterToPlayer;
     public bool jumpOn=false;
     // ______________ 스킬 1 WormShield ___________________
@@ -80,8 +89,6 @@ public class ZombieController : MonoBehaviour
         zombieState.Enter(this);
         deltaTime = 0;
     }
-    //public ZombieObjectPooling zzombieObjectPooling { get; set; }
-    //public GameObject wwormPool;
     void Start()
     {
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
@@ -94,6 +101,7 @@ public class ZombieController : MonoBehaviour
         jumpReady = new ZombieJumpReady();
         walk = new ZombieWalk();
         idle = new ZombieIdle();
+        skillBlackHole = new ZombieSkillBlackHole();
         //_____________________
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();

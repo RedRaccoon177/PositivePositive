@@ -3,32 +3,40 @@ using UnityEngine;
 
 public class ZombieObjectPooling : MonoBehaviour
 {
-    public GameObject wormprefab; // 재사용할 프리팹
+    public GameObject wormPrefab; // 재사용할 프리팹
     private Queue<GameObject> pool = new Queue<GameObject>(); // 풀 저장소
-    public int poolMaxCount = 4;
+    public int poolMaxCount = 6;
 
-    // 오브젝트 비활서화 후 pool에 담기
+    /// <summary>
+    /// 오브젝트 비활성화 후 pool에 담기
+    /// </summary>
+    /// <param name="obj"></param>
     public void ReturnObject(GameObject obj)
     {
         obj.SetActive(false); // 오브젝트 비활성화
         pool.Enqueue(obj); // 풀에 반환
     }
+
+
     /// <summary>
     /// 모든 Worm들 인스턴스화 시키고 비활성화
     /// </summary>
     public void CreatObject()
     {
-        if (wormprefab == null)
+        if (wormPrefab == null)
         {
             Debug.Log("null");
         }
         for (int i = 0; i <  poolMaxCount; i++)
         {
-            var obj = Instantiate(wormprefab);
+            var obj = Instantiate(wormPrefab);
             obj.SetActive(false);
-            obj.GetComponent<WormRotation>().zombieInfo = gameObject;
-            obj.GetComponent<WormRotation>().num = i;
-            obj.GetComponent<WormRotation>().objectPool = this;
+            obj.GetComponent<RotationCircle>().centerRotation = gameObject;
+            obj.GetComponent<RotationCircle>().num = i;
+            obj.GetComponent<RotationCircle>().radius = 5f;
+            obj.GetComponent<RotationCircle>().rotationSpeed = 50f;
+            obj.GetComponent<WormController>().objPooling = this;
+            //obj.GetComponent<RotationCircle>().objectPool = this;
             //StartSetting(obj, i);
             pool.Enqueue(obj);
         }
@@ -60,8 +68,8 @@ public class ZombieObjectPooling : MonoBehaviour
     /// <param name="i"> 순서 </param>
     public void StartSetting(GameObject obj, int i)
     {
-        obj.GetComponent<WormRotation>().CreatWormShield(i);
-        obj.transform.position = new Vector2(obj.GetComponent<WormRotation>().angleX, obj.GetComponent<WormRotation>().angleY);
+        obj.GetComponent<RotationCircle>().CreatWormShield(i);
+        obj.transform.position = new Vector2(obj.GetComponent<RotationCircle>().angleX, obj.GetComponent<RotationCircle>().angleY);
 
     }
 }

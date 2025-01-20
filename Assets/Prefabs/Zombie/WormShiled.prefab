@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 2336476661845275275}
   - component: {fileID: 3361828581750029347}
   - component: {fileID: 5509052046798599626}
-  - component: {fileID: 4291768896246152080}
+  - component: {fileID: 5889845367926989213}
+  - component: {fileID: -4400022791848699739}
   m_Layer: 0
   m_Name: WormShiled
   m_TagString: Untagged
@@ -181,7 +182,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4291768896246152080
+--- !u!114 &5889845367926989213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955862736637650666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ead7aea3bded02b43ad43fd28e62a541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4400022791848699739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,6 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69193940904092e49a59fb52a17d2f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  centerRotation: {fileID: 0}
+  objectPool: {fileID: 0}
   angleX: 0
   angleY: 0
   num: 0

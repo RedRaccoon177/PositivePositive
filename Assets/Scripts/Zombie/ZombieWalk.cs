@@ -19,6 +19,7 @@ public class ZombieWalk : ZombieState
     //}
     public override void Enter(ZombieController zombie)
     {
+        Debug.Log("1¤±¤¤¤·");
         zombie.Animator.SetBool("IsWalk", true);
         RandomMoveRange(zombie);
     }
@@ -38,6 +39,10 @@ public class ZombieWalk : ZombieState
         DirectionAddForce(zombie);
         DirectionRotation(zombie);
     }
+    public override void OnCollisionEnter2D(ZombieController zombie, Collision2D collision)
+    {
+        DirectionChangeWall(zombie);
+    }
     void ResetDiectionRange()
     {
         maxRandNum = 100;
@@ -47,11 +52,11 @@ public class ZombieWalk : ZombieState
         downRange = 100;
         increaseRange = 0;
     }
-    //void DirectionChangeWall(ZombieController zombie)
-    //{
-    //    zombie.directionX *= -1;
-    //    zombie.directionY *= -1;
-    //}
+    void DirectionChangeWall(ZombieController zombie)
+    {
+        zombie.directionX *= -1;
+        zombie.directionY *= -1;
+    }
     void DirectionAddForce(ZombieController zombie)
     {
         if (zombie.directionX == -1 || zombie.directionX == 1)
@@ -111,4 +116,5 @@ public class ZombieWalk : ZombieState
             ResetDiectionRange();
         }
     }
+
 }
