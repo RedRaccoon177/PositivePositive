@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormController : MonoBehaviour
+public class WormRotationController : MonoBehaviour
 {
     public ZombieObjectPooling objPooling { get; set; }
     public ZombieController zombieInfo { get; set; }

@@ -35,7 +35,7 @@ public class ZombieObjectPooling : MonoBehaviour
             obj.GetComponent<RotationCircle>().num = i;
             obj.GetComponent<RotationCircle>().radius = 5f;
             obj.GetComponent<RotationCircle>().rotationSpeed = 50f;
-            obj.GetComponent<WormController>().objPooling = this;
+            obj.GetComponent<WormRotationController>().objPooling = this;
             //obj.GetComponent<WormController>().zombieii= gameObject;
             //obj.GetComponent<RotationCircle>().objectPool = this;
             //StartSetting(obj, i);

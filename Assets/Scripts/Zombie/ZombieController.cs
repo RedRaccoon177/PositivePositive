@@ -72,6 +72,7 @@ public class ZombieController : MonoBehaviour
     public ZombieJumpReady jumpReady { get; private set; }
     public ZombieWalk walk { get; private set; }
     public ZombieIdle idle { get; private set; }
+    public ZombieWormBullet wormBullet { get; private set; }
     // ___________ 컴포넌트 _____________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
