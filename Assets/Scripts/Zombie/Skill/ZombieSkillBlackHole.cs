@@ -58,7 +58,7 @@ public class ZombieSkillBlackHole : ZombieState
     }
     public void BlackHoleCreat(ZombieController zombie)
     {
-        randX = Random.Range(-15, 15);
+        randX = Random.Range(-15, 8);
         randY = Random.Range(-15, 15);
         zombie.BlackHoleSkillPrepeb.transform.position = new Vector2(randX, randY);
         zombie.BlackHoleSkillPrepeb.SetActive(true);

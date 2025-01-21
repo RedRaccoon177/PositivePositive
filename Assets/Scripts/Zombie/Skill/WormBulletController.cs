@@ -5,35 +5,25 @@ using UnityEngine;
 public class WormBulletController : MonoBehaviour
 {
     Rigidbody2D wormBulletRigid;
+    //public GameObject zombieInfo { get; set; }
+    public GameObject playerInfo { get; set; }
+    public ZombieWormBulletPool zombieBulletPool;
     // 유도탄인지 구분
-    int randBullet;
-    int randX;
-    int randY;
-
-    void Start()
-    {
-        wormBulletRigid = gameObject.AddComponent<Rigidbody2D>();
-        randBullet = Random.Range(0, 2);
-        //randX =
-        //randY =
-    }
+    Vector2 tempVector;
 
     void Update()
     {
-        if (randBullet == 0)
-        {
-            wormBulletRigid.velocity = new Vector2();
-        }
-        else if (randBullet == 1)
-        {
-            wormBulletRigid.velocity = new Vector2();
-        }
+        wormBulletRigid = gameObject.GetComponent<Rigidbody2D>();
+        tempVector = new Vector2(playerInfo.transform.position.x, playerInfo.transform.position.y);
+        tempVector.Normalize();
+        wormBulletRigid.velocity = tempVector * 15;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Ground")
         {
+            zombieBulletPool.ReturnObject(gameObject);
         }
     }
 }

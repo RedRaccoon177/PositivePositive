@@ -1,7 +1,3 @@
-using System.Collections;
-using System.ComponentModel;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieIdle : ZombieState
@@ -14,7 +10,7 @@ public class ZombieIdle : ZombieState
         zombie.Rigid.velocity = Vector3.zero;
         zombie.directionX = 0;
         zombie.directionY = 0;
-        zombie.randState = UnityEngine.Random.Range(0,3);
+        zombie.randState = 3;//UnityEngine.Random.Range(0,3);
         zombie.zomObjPool.AllActiveTrue();
     }
 
@@ -39,25 +35,10 @@ public class ZombieIdle : ZombieState
             {
                 zombie.ChangeState(zombie.skillBlackHole);
             }
+            else if (zombie.randState == 3)
+            {
+                zombie.ChangeState(zombie.skillWormBullet);
+            }
         }
     }
-    //public IEnumerator IdleWait(ZombieController zombie)
-    //{
-    //    zombie.zomObjPool.AllActiveTrue();
-    //    yield return new WaitForSeconds(2f);
-    //    if (zombie.randState == 0)
-    //    {
-    //        zombie.ChangeState(zombie.walk);
-    //    }
-    //    else if (zombie.randState == 1)
-    //    {
-    //        zombie.ChangeState(zombie.jumpReady);
-    //        //Debug.Log("스킬상태");
-    //    }
-    //    else if (zombie.randState == 2)
-    //    {
-    //        zombie.ChangeState(zombie.skillBlackHole);
-    //    }
-    //}
-
 }

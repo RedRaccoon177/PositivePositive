@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 6017567999148572077}
   - component: {fileID: 272837026278081159}
   - component: {fileID: 3905779418029863313}
+  - component: {fileID: 8447696358840299222}
   m_Layer: 0
-  m_Name: Worm
-  m_TagString: Untagged
+  m_Name: WormBullet
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980484715322198681}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: -2.46, z: 0}
-  m_LocalScale: {x: 9, y: 9, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0001360385, w: 1}
+  m_LocalPosition: {x: -1.0963558, y: -1.3067015, z: 0}
+  m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,14 +117,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980484715322198681}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -164,7 +165,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0035320353, y: -0.0047093444}
@@ -180,3 +181,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13055208, y: 0.06174387}
   m_EdgeRadius: 0
+--- !u!114 &8447696358840299222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980484715322198681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e40c9559990ba7449bfaa3b3412741e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombieBulletPool: {fileID: 0}
