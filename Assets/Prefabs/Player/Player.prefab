@@ -196,6 +196,7 @@ MonoBehaviour:
   throwHook: {fileID: 4210394866240633432}
   boostCool: 2
   boostPower: 0.5
+  attackPower: 45
   jumpPower: 18
   groundMoveSpeed: 5
   swingSpeed: 3
