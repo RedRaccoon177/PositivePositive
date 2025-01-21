@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class ZombieTrigger : MonoBehaviour
 {
-    public GameObject aa;
+    public GameObject zombiInfo;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("∆Æ∏Æ∞≈ πﬂµø");
         if (collision.gameObject.tag == "Player")
         {
             if (gameObject.transform.GetComponentInParent<BoxCollider2D>() == null)
             {
-                Debug.Log("≥Œ≥Œ");
+                Debug.Log("ÎÑêÎÑê");
             }
-            // ¿Ã∞« ∏¯√£æ∆ø»
-            transform.GetComponentInParent<BoxCollider2D>().isTrigger = true; 
-            // ¿Ã∞« √£æ∆ø»
-            aa.GetComponentInParent<BoxCollider2D>().isTrigger = true; 
+            // Ïù¥Í±¥ ÏïàÎêå
+            //gameObject.transform.GetComponentInParent<BoxCollider2D>().isTrigger = true;
+            zombiInfo.GetComponent<BoxCollider2D>().isTrigger = true; 
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -25,7 +23,7 @@ public class ZombieTrigger : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //transform.GetComponentInParent<BoxCollider2D>().isTrigger = true; 
-            aa.GetComponentInParent<BoxCollider2D>().isTrigger = false;
+            zombiInfo.GetComponent<BoxCollider2D>().isTrigger = false;
         }
     }
 }
