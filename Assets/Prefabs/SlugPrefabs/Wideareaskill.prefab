@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7103628088833906074}
   - component: {fileID: 3980803592458957151}
   - component: {fileID: -178247402401448771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wideareaskill
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,3 +120,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  duration: 50
+  stopYPosition: -0.22

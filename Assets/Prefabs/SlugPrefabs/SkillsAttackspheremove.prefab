@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 216411137171739429}
   - component: {fileID: 8617183774480247407}
   - component: {fileID: 4396326745607231149}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SkillsAttackspheremove
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0a98752b0ff8b4185741428d19701e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedPower: -10
+  speedPower: 10
+  damage: 10
 --- !u!1 &6988125886221897114
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2504056361240355945}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Attackspheremove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +193,7 @@ GameObject:
   - component: {fileID: 8913326713845491416}
   - component: {fileID: 8190246238387079527}
   - component: {fileID: 3903473995070797969}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Attackspheremove1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

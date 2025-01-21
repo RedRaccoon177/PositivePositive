@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 5169342209510106844}
   - component: {fileID: 5428228961785362784}
   - component: {fileID: -8778696811399214532}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skillsfalling
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

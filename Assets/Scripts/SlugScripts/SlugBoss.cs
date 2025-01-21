@@ -1,83 +1,98 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlugBoss : MonoBehaviour
 {
-    //¡å ¿ÀºêÁ§Æ® ÇÁ¸®ÆÕ
-    public GameObject fallskill; // ¶³¾îÁö´Â ½ºÅ³ ÇÁ¸®ÆÕ
-    public GameObject skillPrefab; // ¹ß»çÃ¼ ÇÁ¸®ÆÕ 
-    public GameObject wideareaPreafab; // ±¸Ã¼ ÇÁ¸®ÆÕ
+    //â–¼ ì˜¤ë¸Œì íŠ¸ í”„ë¦¬íŒ¹
+    public GameObject fallskill; // ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ í”„ë¦¬íŒ¹
+    public GameObject skillPrefab; // ë°œì‚¬ì²´ í”„ë¦¬íŒ¹ 
+    public GameObject wideareaPreafab; // êµ¬ì²´ í”„ë¦¬íŒ¹
 
-    //¡å ¹ß»ç À§Ä¡
-    public Transform firePointFront1; // Á¤¸é ¹ß»ç À§Ä¡1
-    public Transform firePointFront2; // Á¤¸é ¹ß»ç À§Ä¡2
-    public Transform firePointFront3; // Á¤¸é ¹ß»ç À§Ä¡3
-    public Transform firePointUp1; // À§ÂÊ ¹ß»ç À§Ä¡1
-    public Transform firePointUp2; // À§ÂÊ ¹ß»ç À§Ä¡2
-    public Transform firePointUp3; // À§ÂÊ ¹ß»ç À§Ä¡3
-    public Transform spawnPoint; // ±¸Ã¼°¡ »ı¼ºµÇ´Â À§Ä¡
+    //â–¼ ë°œì‚¬ ìœ„ì¹˜
+    public Transform firePointFront1; // ì •ë©´ ë°œì‚¬ ìœ„ì¹˜1
+    public Transform firePointFront2; // ì •ë©´ ë°œì‚¬ ìœ„ì¹˜2
+    public Transform firePointFront3; // ì •ë©´ ë°œì‚¬ ìœ„ì¹˜3
+    public Transform firePointUp1; // ìœ„ìª½ ë°œì‚¬ ìœ„ì¹˜1
+    public Transform firePointUp2; // ìœ„ìª½ ë°œì‚¬ ìœ„ì¹˜2
+    public Transform firePointUp3; // ìœ„ìª½ ë°œì‚¬ ìœ„ì¹˜3
+    public Transform spawnPoint; // êµ¬ì²´ê°€ ìƒì„±ë˜ëŠ” ìœ„ì¹˜
 
-    //¡å Å¸ÀÌ¸Ó¿Í ÄğÅ¸ÀÓ
-    public float fireInterval = 5f; // ¹ß»ç °£°İ (ÃÊ ´ÜÀ§) 
-    private float coolTime; // ½ºÅ³ ÄğÅ¸ÀÓÀ» ÃßÀû
-    private float fireTimer; // ¹ß»ç Áö¿¬ ¼Óµµ
+    //â–¼ íƒ€ì´ë¨¸ì™€ ì¿¨íƒ€ì„
+    public float fireInterval = 5f; // ë°œì‚¬ ê°„ê²© (ì´ˆ ë‹¨ìœ„) 
+    private float coolTime; // ìŠ¤í‚¬ ì¿¨íƒ€ì„ì„ ì¶”ì 
+    private float fireTimer; // ë°œì‚¬ ì§€ì—° ì†ë„
 
-    //¡å ¹ß»ç °ü·Ã º¯¼ö
-    private float delaySpeed; // ¹ß»ç Áö¿¬ ¼Óµµ
-    private float count; // ¹ß»ç È½¼ö
-    private bool isHorizontalAttack = true; // ¼öÆò °ø°İ ¿©ºÎ
+    //â–¼ ë°œì‚¬ ê´€ë ¨ ë³€ìˆ˜
+    private float delaySpeed; // ë°œì‚¬ ì§€ì—° ì†ë„
+    private float count; // ë°œì‚¬ íšŸìˆ˜
+    private bool isHorizontalAttack = true; // ìˆ˜í‰ ê³µê²© ì—¬ë¶€
 
-    //¡å º¸½º »óÅÂ º¯¼ö
-    public int maxFallingSkills = 10;  // ÃÖ´ë ¶³¾îÁö´Â ½ºÅ³ °³¼ö
-    public float slugBossHealth = 100f; // º¸½ºÀÇ Ã¼·Â
-    public float slugAttackDamage = 10f; // º¸½ºÀÇ °ø°İ µ¥¹ÌÁö
+    //â–¼ ë³´ìŠ¤ ìƒíƒœ ë³€ìˆ˜
+    public int maxFallingSkills = 10;  // ìµœëŒ€ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜
+    public float slugBossHealth = 100f; // ë³´ìŠ¤ì˜ ì²´ë ¥
+    float slugBossMax = 100;
+    public float slugAttackDamage = 10f; // ë³´ìŠ¤ì˜ ê³µê²© ë°ë¯¸ì§€
+    private bool isWideAreaSkillActivated = false; // êµ¬ì²´ ìŠ¤í‚¬ì´ í™œì„±í™” ë˜ì—ˆëŠ”ì§€
+    int damage = 10;
 
-
+    private MonsterHPObserver hpObserver; // MonsterHPObserver ê°ì²´
 
     void Start()
     {
-        coolTime = 0f; // ½ºÅ³ ÄğÅ¸ÀÓ ÃÊ±âÈ­
-        fireTimer = 0f; // ¹ß»ç Å¸ÀÌ¸Ó ÃÊ±âÈ­
+        coolTime = 0f; // ìŠ¤í‚¬ ì¿¨íƒ€ì„ ì´ˆê¸°í™”
+        fireTimer = 0f; // ë°œì‚¬ íƒ€ì´ë¨¸ ì´ˆê¸°í™”
+
+        // hpObserver ì´ˆê¸°í™”
+        hpObserver = GetComponent<MonsterHPObserver>();
+
+        // ì²´ë ¥ ë³€í™”ë¥¼ ì˜µì €ë²„ì—ê²Œ ì•Œë¦¼
+        if(hpObserver != null)
+        {
+            hpObserver.NotifyHealthChange(100f, slugBossHealth);
+        }
+       
     }
 
     void Update()
     {
-        if (slugBossHealth <= 0)
+        if (slugBossHealth <=0 && !isWideAreaSkillActivated)
         {
-           ActivateWideAreaSkill();// º¸½º Ã¼·ÂÀÌ 0 ÀÌÇÏÀÏ ¶§ ±¸Ã¼ ½ºÅ³ ¹ßµ¿
-           return;
+            ActivateWideAreaSkill();// ë³´ìŠ¤ ì²´ë ¥ì´ 0 ì´í•˜ì¼ ë•Œ êµ¬ì²´ ìŠ¤í‚¬ ë°œë™
+            isWideAreaSkillActivated = true; // êµ¬ì²´ ìŠ¤í‚¬ í™œì„±í™” ìƒíƒœë¡œ ì„¤ì •
+            return;
         }
 
-        coolTime += Time.deltaTime; // ½ºÅ³ ÄğÅ¸ÀÓ Áõ°¡
+        coolTime += Time.deltaTime; // ìŠ¤í‚¬ ì¿¨íƒ€ì„ ì¦ê°€
 
-        if (coolTime > 3.5f) // ÄğÅ¸ÀÓÀÌ Áö³ª¸é ¶³¾îÁö´Â ½ºÅ³ »ı¼º
+        if (coolTime > 3.5f) // ì¿¨íƒ€ì„ì´ ì§€ë‚˜ë©´ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ìƒì„±
         {
             for(int i = 0; i <3; i++)
             {
-              Instantiate(fallskill); // ¶³¾îÁö´Â ½ºÅ³ 3°³ »ı¼º 
+              Instantiate(fallskill); // ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ 3ê°œ ìƒì„± 
             }
-            coolTime = 0; // ÄğÅ¸ÀÓ ÃÊ±âÈ­
+            coolTime = 0; // ì¿¨íƒ€ì„ ì´ˆê¸°í™”
         }
-        // 0 - ½ÇÁ¦½Ã°£
-        fireTimer -= Time.deltaTime; // ¹ß»ç Å¸ÀÌ¸Ó °¨¼Ò
+        // 0 - ì‹¤ì œì‹œê°„
+        fireTimer -= Time.deltaTime; // ë°œì‚¬ íƒ€ì´ë¨¸ ê°ì†Œ
 
-        if (fireTimer <= 0f) // ¹ß»ç Å¸ÀÌ¸Ó°¡ 0 ÀÌÇÏÀÏ °æ¿ì
+        if (fireTimer <= 0f) // ë°œì‚¬ íƒ€ì´ë¨¸ê°€ 0 ì´í•˜ì¼ ê²½ìš°
         {
-            if (count < 8) // ¹ß»ç È½¼ö°¡ 8º¸´Ù ÀûÀ» °æ¿ì
+            if (count < 8) // ë°œì‚¬ íšŸìˆ˜ê°€ 8ë³´ë‹¤ ì ì„ ê²½ìš°
             {
-                delaySpeed -= Time.deltaTime; // ¹ß»ç Áö¿¬ ¼Óµµ °¨¼Ò
+                delaySpeed -= Time.deltaTime; // ë°œì‚¬ ì§€ì—° ì†ë„ ê°ì†Œ
 
-                if (delaySpeed < -0.1f) // ¹ß»ç Áö¿¬ ¼Óµµ°¡ -0.1f ÀÌÇÏÀÏ °æ¿ì
+                if (delaySpeed < -0.1f) // ë°œì‚¬ ì§€ì—° ì†ë„ê°€ -0.1f ì´í•˜ì¼ ê²½ìš°
                 {
-                    count++; // ¹ß»ç È½¼ö Áõ°¡
-                    delaySpeed = 0f; // ¹ß»ç Áö¿¬ ¼Óµµ ÃÊ±âÈ­
-                    PerformAttack(); // °ø°İ ¼öÇà
+                    count++; // ë°œì‚¬ íšŸìˆ˜ ì¦ê°€
+                    delaySpeed = 0f; // ë°œì‚¬ ì§€ì—° ì†ë„ ì´ˆê¸°í™”
+                    PerformAttack(); // ê³µê²© ìˆ˜í–‰
                 }
             }
             else
             {
-                count = 0; // ¹ß»ç È½¼ö ÃÊ±âÈ­
-                fireTimer = fireInterval; // ¹ß»ç Å¸ÀÌ¸Ó ÃÊ±âÈ­ 
-                isHorizontalAttack = !isHorizontalAttack; // °ø°İ ¹æÇâ º¯°æ
+                count = 0; // ë°œì‚¬ íšŸìˆ˜ ì´ˆê¸°í™”
+                fireTimer = fireInterval; // ë°œì‚¬ íƒ€ì´ë¨¸ ì´ˆê¸°í™” 
+                isHorizontalAttack = !isHorizontalAttack; // ê³µê²© ë°©í–¥ ë³€ê²½
             }
         }
     }
@@ -86,35 +101,51 @@ public class SlugBoss : MonoBehaviour
     {
         if (isHorizontalAttack)
         {
-            // ¼öÆò °ø°İ: Á¤¸é ¹× À§ÂÊ ¹ß»ç
-            Instantiate(skillPrefab, firePointFront1.position, transform.rotation); // Á¤¸é ¹ß»ç
-            Instantiate(skillPrefab, firePointUp1.position, firePointUp1.rotation); // À§ÂÊ ¹ß»ç
-            Instantiate(skillPrefab, firePointFront3.position, transform.rotation); // Á¤¸é ¹ß»ç
+            // ìˆ˜í‰ ê³µê²©: ì •ë©´ ë° ìœ„ìª½ ë°œì‚¬
+            Instantiate(skillPrefab, firePointFront1.position, transform.rotation); // ì •ë©´ ë°œì‚¬
+            Instantiate(skillPrefab, firePointUp1.position, firePointUp1.rotation); // ìœ„ìª½ ë°œì‚¬
+            Instantiate(skillPrefab, firePointFront3.position, transform.rotation); // ì •ë©´ ë°œì‚¬
         }
         else
         {
-            // À§ÂÊ °ø°İ: Á¤¸é ¹× À§ÂÊ ¹ß»ç
-            Instantiate(skillPrefab, firePointUp2.position, firePointUp2.rotation); // À§ÂÊ ¹ß»ç
-            Instantiate(skillPrefab, firePointFront2.position, transform.rotation); // Á¤¸é ¹ß»ç
-            Instantiate(skillPrefab, firePointUp3.position, firePointUp3.rotation); // À§ÂÊ ¹ß»ç
+            // ìœ„ìª½ ê³µê²©: ì •ë©´ ë° ìœ„ìª½ ë°œì‚¬
+            Instantiate(skillPrefab, firePointUp2.position, firePointUp2.rotation); // ìœ„ìª½ ë°œì‚¬
+            Instantiate(skillPrefab, firePointFront2.position, transform.rotation); // ì •ë©´ ë°œì‚¬
+            Instantiate(skillPrefab, firePointUp3.position, firePointUp3.rotation); // ìœ„ìª½ ë°œì‚¬
         }
     }
 
     void ActivateWideAreaSkill()
     {
-        //¡å ±¸Ã¼ ½ºÅ³ »ı¼º
+        //â–¼ êµ¬ì²´ ìŠ¤í‚¬ ìƒì„±
         Instantiate(wideareaPreafab, spawnPoint.position, Quaternion.identity);
 
         CancelInvoke("PerformAttack");
         CancelInvoke("Update");
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage()
     {
-        slugBossHealth -= damage; // µ¥¹ÌÁö¸¦ ¹ŞÀ¸¸é Ã¼·Â °¨¼Ò
-        if (slugBossHealth <= 0)
+        slugBossHealth -= damage; // ë°ë¯¸ì§€ë¥¼ ë°›ìœ¼ë©´ ì²´ë ¥ ê°ì†Œ
+
+        if (hpObserver != null)
         {
-            slugBossHealth = 0;  // Ã¼·ÂÀÌ 0 ÀÌÇÏ°¡ µÇ¸é
-            ActivateWideAreaSkill(); // ±¸Ã¼ ½ºÅ³ ¹ßµ¿
+            hpObserver.NotifyHealthChange(slugBossMax, slugBossHealth);
+        }
+
+        if (slugBossHealth <= 0 && !isWideAreaSkillActivated)
+        {
+            slugBossHealth = 0;  // ì²´ë ¥ì´ 0 ì´í•˜ê°€ ë˜ë©´
+            ActivateWideAreaSkill(); // êµ¬ì²´ ìŠ¤í‚¬ ë°œë™
+            isWideAreaSkillActivated = true; // êµ¬ì²´ ìŠ¤í‚¬ í™œì„±í™” ìƒíƒœë¡œ ì„¤ì •
+        }
+        GetComponent<MonsterHPObserver>().NotifyHealthChange(slugBossMax, slugBossHealth);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag =="Player")
+        {
+            TakeDamage();
         }
     }
 }

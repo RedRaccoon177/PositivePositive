@@ -4,26 +4,47 @@ using UnityEngine;
 
 public class WideareaskillScripts : MonoBehaviour
 {
-    public float speed = 20f; // ±¸Ã¼ ³»·Á¿À´Â ¼Óµµ
-    public float duration = 50f; // ½ºÅ³ÀÌ ¸Ó¹«¸£´Â ½Ã°£
-    public float stopYPosition = -0.22f; // ¸ØÃß´Â À§Ä¡
+    public float speed = 20f; // êµ¬ì²´ ë‚´ë ¤ì˜¤ëŠ” ì†ë„
+    public float duration = 50f; // ìŠ¤í‚¬ì´ ë¨¸ë¬´ë¥´ëŠ” ì‹œê°„
+    public float stopYPosition = -0.22f; // ë©ˆì¶”ëŠ” ìœ„ì¹˜
+    public float explosionDelay = 5f; // êµ¬ì²´ê°€ í„°ì§€ê¸° ì „ ëŒ€ê¸° ì‹œê°„
+
+    public float explosionTimer; // í„°ì§€ê¸° ì „ íƒ€ì´ë¨¸
+
+    private bool isActivated = false; // êµ¬ì²´ ìŠ¤í‚¬ì˜ ì´ˆê¸° í™œì„±í™” ìƒíƒœ
+
 
     void Start()
     {
-        Destroy(gameObject, duration); // ÁöÁ¤µÈ ½Ã°£ ÈÄ ¿ÀºêÁ§Æ® ÆÄ±«
+        Destroy(gameObject, duration); // ì§€ì •ëœ ì‹œê°„ í›„ ì˜¤ë¸Œì íŠ¸ íŒŒê´´
+        explosionTimer = explosionDelay;
     }
     void Update()
     {
         if (transform.position.y > stopYPosition)
         {
-            //¡å ±¸Ã¼°¡ ³»·Á¿À´Â ¼Óµµ ¼³Á¤
+            //â–¼ êµ¬ì²´ê°€ ë‚´ë ¤ì˜¤ëŠ” ì†ë„ ì„¤ì •
             transform.position += Vector3.down * speed * Time.deltaTime;
         }
         else
         {
-            //¡å ¸ØÃß´Â À§Ä¡ ¼³Á¤
+            //â–¼ ë©ˆì¶”ëŠ” ìœ„ì¹˜ ì„¤ì •
             transform.position = new Vector3(transform.position.x, stopYPosition, transform.position.z);
+
+            //â–¼ êµ¬ì²´ê°€ í„°ì§€ê¸° ì „ íƒ€ì´ë¨¸ ê°ì†Œ
+            explosionTimer -= Time.deltaTime;
+
+            //â–¼ íƒ€ì´ë¨¸ê°€ 0 ì´í•˜ê°€ ë˜ë©´ êµ¬ì²´ íŒŒê´´
+            if(explosionTimer <= 0f)
+            {
+                Destroy(gameObject); // êµ¬ì²´ ì˜¤ë¸Œì íŠ¸ íŒŒê´´
+            }
         }
+    }
+
+    public void ActivateWideAreaSkill()
+    {
+        isActivated = true;
     }
 }
 
