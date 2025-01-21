@@ -11,15 +11,14 @@ public class WormRotationController : MonoBehaviour
     {
         zombieInfo  = transform.GetComponentInParent<ZombieController>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // 플레이어 로프
         if (collision.gameObject.tag == "Wall")
         {
             gameObject.SetActive(false);
             zombieInfo.ChangeState(zombieInfo.zombieHitted);
-            //objPooling.ReturnObject(gameObject);
-            // 옵저버
+            objPooling.ReturnObject(gameObject);
         }
     }
 

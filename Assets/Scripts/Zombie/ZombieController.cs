@@ -66,6 +66,7 @@ public class ZombieController : MonoBehaviour
     public short directionX { get; set; }
     public short directionY { get; set; }
     // ______________ 상태 ___________________
+    public ZombieDie zombiDie { get; private set; }
     public ZombieHitted zombieHitted { get; set; }
     public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
@@ -105,6 +106,7 @@ public class ZombieController : MonoBehaviour
     private void Awake()
     {
         //________ 상태 _____________
+        zombiDie = new ZombieDie();
         zombieHitted = new ZombieHitted();
         jump = new ZombieJump();
         jumpReady = new ZombieJumpReady();
@@ -114,6 +116,7 @@ public class ZombieController : MonoBehaviour
     }
     void Start()
     {
+        
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
         wormHaveCount = 0;
         wormMaxCount = 4;
@@ -154,5 +157,4 @@ public class ZombieController : MonoBehaviour
     {
         StartCoroutine(coroutine);
     }
-
 }

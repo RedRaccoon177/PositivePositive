@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ZombieJumpReady : ZombieState
 {
+    float tempPosX;
+    float tempPosY;
     public override void Enter(ZombieController zombie)
     {
         zombie.Animator.SetTrigger("JumpReady");
@@ -50,37 +52,21 @@ public class ZombieJump : ZombieState
         zombie.Animator.SetBool("IsJump", true);
         zombie.JumpSkillRange.SetActive(false);
     }
-    public override void Update(ZombieController zombie)
-    {
-        //zombie.Rigid.AddForce(zombie.mosterToPlayer*10);
-    }
     public override void FixUpdate(ZombieController zombie)
     {
-        //if (zombie.ray2d.point == (Vector2)zombie.transform.position)
-        //{
-        //}
-        zombie.Rigid.velocity = zombie.mosterToPlayer * 10;
         zombie.deltaTime += Time.deltaTime;
-        if (zombie.deltaTime > 2)
+        if (zombie.deltaTime > 3) 
         {
-            //Debug.Log(zombie.deltaTime);
-            zombie.deltaTime = 0;
-            zombie.Animator.SetBool("IsJump", false);
             zombie.ChangeState(zombie.idle);
         }
+        zombie.Rigid.velocity = zombie.mosterToPlayer * 10;
     }
     public override void OnCollisionEnter2D(ZombieController zombie, Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Ground")
         {
-            //Debug.Log("닿음");
-            // 레이캐스트
-            // 감지되었다면!
-            // if (zombie.ray2d.collider != null)
-            // {
             zombie.Animator.SetBool("IsJump", false);
             zombie.ChangeState(zombie.idle);
-            // }
         }
     }
 
