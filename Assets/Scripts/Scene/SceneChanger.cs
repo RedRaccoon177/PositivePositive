@@ -12,7 +12,7 @@ public class SceneChanger : MonoBehaviour
     }
 
     string toLoad = "";
-    Image loadingImg;
+    [SerializeField] Image loadingImg;
 
     private void Awake()
     {
@@ -27,10 +27,18 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    //로드하고자하는 씬 이름 집어넣으면 로딩씬 -> 이름적은 씬으로 넘어감
+    //로드하고자하는 씬 이름 집어넣으면 로딩씬 -> 이름적은 씬으로 넘어감 / ""적으면 재시작
     public void ChangeSceneWithLoad(string sceneName)
     {
-        toLoad = sceneName;
+        if (Time.timeScale <= 0.1f)
+        {
+            Time.timeScale = 1;
+        }
+        Debug.Log(sceneName + " 로딩 진입");
+        if (sceneName != "")
+        {
+            toLoad = sceneName;
+        }
         SceneManager.LoadScene("LoadingScene"); //Async였다? 보장 못함. Load 가능할수도?
         StartCoroutine(Loading());
     }
@@ -40,6 +48,7 @@ public class SceneChanger : MonoBehaviour
     {
         yield return null;
         loadingImg = GameObject.Find("LoadingProgress").GetComponent<Image>();
+        loadingImg.fillAmount = 0;
         AsyncOperation asyncOp = SceneManager.LoadSceneAsync(toLoad);
         asyncOp.allowSceneActivation = false;
         float timer = 0.0f;

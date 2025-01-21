@@ -10,7 +10,7 @@ public class SuwakoGetHitState : SuwakoState
     public float monsterHPfillAmount;
 
     // 체력 변화 알림을 위한 이벤트
-    public event Action<float> OnHealthChanged;
+    //public event Action<float> OnHealthChanged;
 
     //하이라이키창 ui의 스크립트를 가져와서, enter 활성화 하기
     MonsterHP monsterHP;
@@ -27,7 +27,14 @@ public class SuwakoGetHitState : SuwakoState
     {
         suwako.suwakoHP -= damage;
         suwako.suwakoHP = Mathf.Clamp(suwako.suwakoHP, 0, maxHealth); // 체력을 0~최대값 사이로 제한
-        NotifyHealthChanged(suwako);
+        //테스트용 승리
+        if (suwako.suwakoHP <= 0)
+        {
+            suwako.suwakoHP = 0;
+            GameManager.Instance.Victory();
+        }
+        //NotifyHealthChanged(suwako);
+        suwako.GetComponent<MonsterHPObserver>().NotifyHealthChange(maxHealth, suwako.suwakoHP);
     }
 
     public override void Update(SuwakoController suwako)
@@ -42,11 +49,11 @@ public class SuwakoGetHitState : SuwakoState
     }
 
     // 옵저버들에게 체력 변화를 알림
-    private void NotifyHealthChanged(SuwakoController suwako)
-    {
-        if (OnHealthChanged != null)
-        {
-            OnHealthChanged(monsterHPfillAmount); // 체력 비율을 전달
-        }
-    }
+    //private void NotifyHealthChanged(SuwakoController suwako)
+    //{
+    //    if (OnHealthChanged != null)
+    //    {
+    //        OnHealthChanged(monsterHPfillAmount); // 체력 비율을 전달
+    //    }
+    //}
 }

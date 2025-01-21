@@ -5,35 +5,28 @@ using UnityEngine.UI;
 
 public class PlayerHp : MonoBehaviour
 {
-    Image playerHp;
+    public Image playerHp;
+    PlayerHPObserver playerHPObserver;
     // Start is called before the first frame update
     void Start()
     {
-        playerHp = GetComponent<Image>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
+        playerHPObserver = GameObject.FindWithTag("Player").GetComponent<PlayerHPObserver>();
+        if (playerHPObserver != null )
         {
-            Debug.Log("체력 감소");
-            DecreasePlayerHp();
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("체력 증가");
-            IncreasePlayerHp();
-
+            playerHPObserver.OnHealthChanged += HPUpdate;
         }
     }
 
-    public void DecreasePlayerHp()
+    private void OnDestroy()
     {
-        playerHp.fillAmount -= 0.2f;
+        if (playerHPObserver != null)
+        {
+            playerHPObserver.OnHealthChanged -= HPUpdate;
+        }
     }
-    public void IncreasePlayerHp()
+
+    public void HPUpdate(float HP)
     {
-        playerHp.fillAmount += 0.2f;
+        playerHp.fillAmount = HP;
     }
 }

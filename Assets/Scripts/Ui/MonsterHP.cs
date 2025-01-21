@@ -7,19 +7,16 @@ using UnityEngine.UI;
 public class MonsterHP : MonoBehaviour
 {
     public Image healthBarFill; // 체력바의 Fill 영역
-    public SuwakoGetHitState getHitState; // Subject (체력 시스템)
-
-    public GameObject suwako;
-
+    //MonsterHPObserver 보스 오브젝트에 붙이고 보스에서 연결해줘야함
+    public MonsterHPObserver observer; // Subject (체력 시스템)
 
     private void Start()
     {
-        getHitState = suwako.GetComponent<SuwakoController>().GetHitState;
 
         // 체력 변화 이벤트 구독
-        if (getHitState != null)
+        if (observer != null)
         {
-            getHitState.OnHealthChanged += UpdateHealthBar;
+            observer.OnHealthChanged += UpdateHealthBar;
         }
     }
 
@@ -27,9 +24,9 @@ public class MonsterHP : MonoBehaviour
     void OnDisable()
     {
         // 체력 변화 이벤트 구독 해지
-        if (getHitState != null)
+        if (observer != null)
         {
-            getHitState.OnHealthChanged -= UpdateHealthBar;
+            observer.OnHealthChanged -= UpdateHealthBar;
         }
     }
 
