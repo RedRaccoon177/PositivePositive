@@ -14,14 +14,14 @@ public class ZombieIdle : ZombieState
         zombie.Rigid.velocity = Vector3.zero;
         zombie.directionX = 0;
         zombie.directionY = 0;
-        zombie.randState = UnityEngine.Random.Range(1,1);
+        zombie.randState = UnityEngine.Random.Range(0,0);
         zombie.zomObjPool.AllActiveTrue();
     }
 
     public override void Update(ZombieController zombie)
     {
         zombie.deltaTime += Time.deltaTime;
-        if (zombie.deltaTime > 3)
+        if (zombie.deltaTime > 100)
         {
             zombie.zomObjPool.AllActiveFalse();
             zombie.deltaTime = 0;

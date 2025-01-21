@@ -7,13 +7,18 @@ public class GameOverUI : MonoBehaviour
 {
     [SerializeField]
     float duration = 1f; // 선명해지는 데 걸리는 시간
-
+    public Button menuBtn;
+    public Button retryBtn;
     private Image[] childImages; // 모든 자식의 Image 배열
 
     void Start()
     {
         // 자식 오브젝트의 Image 컴포넌트를 모두 가져오기
         childImages = GetComponentsInChildren<Image>();
+        //이거는 인자 없는 메소드 달아줄 때
+        menuBtn.onClick.AddListener(SceneChanger.Instance.MoveToTitleScene);
+        //이거는 인자 있는 메소드 달아야 될 때 쓰는 람다식
+        retryBtn.onClick.AddListener(() => SceneChanger.Instance.ChangeSceneWithLoad(""));
 
         // 모든 자식 오브젝트의 색상을 초기화
         foreach (var Image in childImages)

@@ -7,6 +7,9 @@ public class SuwakoIdleState : SuwakoState
     float idleTime = 0;
     int whatState = 0;
 
+
+    int weakCount = 0;
+
     public override void Enter(SuwakoController suwako)
     {
         suwako.animator.SetBool("IsIdle", true);
@@ -24,14 +27,18 @@ public class SuwakoIdleState : SuwakoState
 
         //false로 다시 바꿔야함.
         isIdle = false;
+
+        weakCount = 6;
+
     }
     public override void Update(SuwakoController suwako)
     {
         if (isIdle == true)
         {
             //상태를 랜덤값으로 돌려라
-            whatState = Random.Range(8, 9);
+            whatState = Random.Range(9, 10);
         }
+
 
         if (whatState == 0)
         {
@@ -63,12 +70,11 @@ public class SuwakoIdleState : SuwakoState
         {
             suwako.ChangeState(suwako.skill2_RiverFlowing);
         }
-        //임시로 만든 타격 시임.
-        else if( whatState == 99)
-        {
-            suwako.ChangeState(suwako.GetHitState);
-        } 
 
+        if (whatState == 9)
+        {
+            suwako.ChangeState(suwako.weakPointState);
+        }
 
     }
 

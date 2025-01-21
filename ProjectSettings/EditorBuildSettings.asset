@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScenes/ZombieStageScene.unity
     guid: 5abb3e65ef7675b44bb88a3304dad226
   - enabled: 1
-    path: Assets/Scenes/MainScenes/New Scene 4.unity
+    path: Assets/Scenes/MainScenes/MsgStageScene.unity
     guid: 8a979498cd664ac4fa46e1a798e5db79
+  - enabled: 1
+    path: Assets/Scenes/SuwakoScenes/SuwakoBossSecen.unity
+    guid: da3299d3593ba9844b45b2df79b5e1f7
   m_configObjects: {}

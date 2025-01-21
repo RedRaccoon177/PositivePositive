@@ -11,6 +11,7 @@ public class SuwakoController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
+    public BoxCollider2D weakPointCollider;
     
     [SerializeField]
     float _suwakoHP = 20;
@@ -20,9 +21,8 @@ public class SuwakoController : MonoBehaviour
         set { _suwakoHP = value; }
     }
 
-
-    //공격 받았을 때 상태 스크립트들
-    public SuwakoGetHitState GetHitState { get; private set; }
+    //약점 상태 스크립트
+    public SuwakoWeakPointState weakPointState { get; private set; }
 
     //움직임 상태 스크립트들
     public SuwakoIdleState idleState { get; private set; }
@@ -37,8 +37,6 @@ public class SuwakoController : MonoBehaviour
     public SuwakoSkill1_JumpORFlyShootingBullet skill1_JumpORFlyShootingBullet {  get; private set; }
     public SuwakoSkill2_RiverFlowing skill2_RiverFlowing { get; private set; }
 
-    //스와코 탄알 발사하는 곳 위치
-    public Transform bullet0Fire { get; private set; }
 
     //좌우 이동 변수
     float _xORy = 5;
@@ -81,10 +79,10 @@ public class SuwakoController : MonoBehaviour
     public bool isLanding =false;
     public bool isRiverSkill =false;
 
+
     // 자식 객체를 저장할 리스트
     public List<GameObject> childObjects
     { get; private set; }
-
 
     //상태 변환
     public void ChangeState(SuwakoState newstate)
@@ -98,15 +96,18 @@ public class SuwakoController : MonoBehaviour
         childObjects = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        //boxCollider = GetComponent<BoxCollider2D>();
+        //weakPointCollider = GetComponent<BoxCollider2D>();
 
+        //자식 객체 직접 지정
         foreach (Transform child in transform)
         {
             childObjects.Add(child.gameObject);
         }
 
-        //타격 받은 상태 스크립트들
-        GetHitState = new SuwakoGetHitState();
+
+        //약점 상태 스크립트
+        weakPointState = new SuwakoWeakPointState();
 
         //움직임 상태 스크립트들
         idleState = new SuwakoIdleState();
@@ -120,6 +121,7 @@ public class SuwakoController : MonoBehaviour
         skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();
         skill1_JumpORFlyShootingBullet = new SuwakoSkill1_JumpORFlyShootingBullet();
         skill2_RiverFlowing = new SuwakoSkill2_RiverFlowing();
+
     }
 
     void Start()
@@ -140,7 +142,6 @@ public class SuwakoController : MonoBehaviour
         //상태 OnCollisionEnter2D
         currentState.OnCollisionEnter2D(this, collision);
     }
-
     void FixedUpdate()
     {
         //상태 FixUpdate

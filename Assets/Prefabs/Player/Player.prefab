@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2345646381718034012}
   - component: {fileID: 3074962183439776176}
+  - component: {fileID: 1983937499347394023}
   - component: {fileID: 3039639173040410006}
   - component: {fileID: 7720435292575393875}
   - component: {fileID: 2924747652531483079}
@@ -157,6 +158,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1983937499347394023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781082230513164788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f7ec9d6b9d66f40ace7768ee3d0cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3039639173040410006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 4490267424116723463}
-  HP: 5
+  MaxHP: 5
   isJump: 0
   isWall: 0
   blockMove: 0

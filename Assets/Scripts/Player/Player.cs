@@ -25,8 +25,10 @@ public class Player : MonoBehaviour
     PlayerActs playerActs;
     Animator animator;
     [SerializeField] SpriteRenderer playerSprite;
+    PlayerHPObserver observer;
 
-    public int HP;
+    public int MaxHP;
+    int HP;
     public bool isJump = false;
     public bool isWall = false;
     public bool blockMove = false;
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        observer = GetComponent<PlayerHPObserver>();
 
         startScaleX = transform.localScale.x;
         curBoostCool = boostCool;
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
         groundActs = new GroundActs();
 
         playerActs = groundActs;
+        HP = MaxHP;
     }
 
     // Update is called once per frame
@@ -300,12 +304,14 @@ public class Player : MonoBehaviour
         if (isInvincible == false)
         {
             HP -= damage;
+            observer.NotifyHealthChange(MaxHP, HP);
             if (HP <= 0)
             {
                 HP = 0;
                 animator.SetTrigger("Die");
                 throwHook.enabled = false;
                 enabled = false;
+                GameManager.Instance.GameOver();
                 //게임오버 띄우기
                 return;
             }
@@ -353,7 +359,7 @@ public class Player : MonoBehaviour
             isWall = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))
         {
             GetHit(1);
             //Destroy(collision.gameObject);
@@ -366,6 +372,11 @@ public class Player : MonoBehaviour
         {
             isJump = false;
             isCharging = false;
+        }
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")) && isInvincible == false)
+        {
+            GetHit(1);
+            //Destroy(collision.gameObject);
         }
     }
 

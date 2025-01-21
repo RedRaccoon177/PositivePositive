@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,7 +7,7 @@ public class SuwakoBullet1Controller : MonoBehaviour
 {
     int bulletNum = 1;
     SuwakoBulletPool pool;
-    string[] excludedTags = { "Bullet", "Monster", "Untagged" };
+    string[] excludedTags = { "Bullet", "Enemy", "Untagged" };
 
     private void Start()
     {
