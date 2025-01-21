@@ -59,7 +59,12 @@ public class SuwakoIdleState : SuwakoState
         {
             suwako.ChangeState(suwako.skill0_ShootingBullet);
         }
-        else if( whatState == 8)
+        else if (whatState == 8)
+        {
+            suwako.ChangeState(suwako.skill2_RiverFlowing);
+        }
+        //임시로 만든 타격 시임.
+        else if( whatState == 99)
         {
             suwako.ChangeState(suwako.GetHitState);
         } 

@@ -12,9 +12,6 @@ public class SuwakoGetHitState : SuwakoState
     // 체력 변화 알림을 위한 이벤트
     //public event Action<float> OnHealthChanged;
 
-    //하이라이키창 ui의 스크립트를 가져와서, enter 활성화 하기
-    MonsterHP monsterHP;
-
     public override void Enter(SuwakoController suwako)
     {
         //스와코 데미지 받는 애니메이션 삽입.
