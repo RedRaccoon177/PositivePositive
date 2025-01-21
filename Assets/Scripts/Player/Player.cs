@@ -359,7 +359,7 @@ public class Player : MonoBehaviour
             isWall = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))
         {
             GetHit(1);
             //Destroy(collision.gameObject);
@@ -372,6 +372,11 @@ public class Player : MonoBehaviour
         {
             isJump = false;
             isCharging = false;
+        }
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")) && isInvincible == false)
+        {
+            GetHit(1);
+            //Destroy(collision.gameObject);
         }
     }
 
