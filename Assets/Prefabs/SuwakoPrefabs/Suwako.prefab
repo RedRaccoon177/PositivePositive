@@ -236,7 +236,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9069650742969480953}
-  - component: {fileID: 2564913690602923619}
   m_Layer: 0
   m_Name: Umbrage
   m_TagString: Untagged
@@ -261,20 +260,6 @@ Transform:
   - {fileID: 7004737571794238108}
   m_Father: {fileID: 4886472463954979059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2564913690602923619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1644036738035129796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acdc7ce6e15f8040821ffa8e4ffc7fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetScale: {x: 10, y: 10, z: 10}
-  duration: 1
 --- !u!1 &2652888858942877663
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,8 +634,10 @@ MonoBehaviour:
   rb: {fileID: 0}
   animator: {fileID: 0}
   boxCollider: {fileID: 0}
+  _suwakoHP: 20
   isSkill0End: 0
   isLanding: 0
+  isRiverSkill: 0
 --- !u!1 &4747470371559431331
 GameObject:
   m_ObjectHideFlags: 0

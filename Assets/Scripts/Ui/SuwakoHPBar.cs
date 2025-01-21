@@ -4,13 +4,11 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MonsterHP : MonoBehaviour
+public class SuwakoHPBar : MonoBehaviour
 {
     public Image healthBarFill; // 체력바의 Fill 영역
     public SuwakoGetHitState getHitState; // Subject (체력 시스템)
-
     public GameObject suwako;
-
 
     private void Start()
     {
@@ -22,7 +20,6 @@ public class MonsterHP : MonoBehaviour
             getHitState.OnHealthChanged += UpdateHealthBar;
         }
     }
-
 
     void OnDisable()
     {

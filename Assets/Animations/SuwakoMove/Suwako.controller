@@ -140,8 +140,8 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 6
-    m_ConditionEvent: IsSkills
-    m_EventTreshold: 3
+    m_ConditionEvent: IsRiverSkill
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -120492594820044866}
   m_Solo: 0
@@ -1478,7 +1478,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 6
     m_ConditionEvent: IsRiverSkill
-    m_EventTreshold: 2
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2795038072246459885}
   m_Solo: 0
@@ -1936,7 +1936,7 @@ AnimatorStateMachine:
     m_Position: {x: -690, y: 610, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3228797161267709172}
-    m_Position: {x: 540, y: 130, z: 0}
+    m_Position: {x: 470, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 702975516776952275}
     m_Position: {x: -690, y: 670, z: 0}
@@ -1963,7 +1963,7 @@ AnimatorStateMachine:
     m_Position: {x: -690, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2795038072246459885}
-    m_Position: {x: 650, y: 250, z: 0}
+    m_Position: {x: 650, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -120492594820044866}
     m_Position: {x: 760, y: 130, z: 0}

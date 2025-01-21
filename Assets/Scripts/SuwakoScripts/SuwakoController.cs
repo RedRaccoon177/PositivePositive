@@ -11,28 +11,14 @@ public class SuwakoController : MonoBehaviour
     public Rigidbody2D rb;
     public Animator animator;
     public BoxCollider2D boxCollider;
-
+    
     [SerializeField]
     float _suwakoHP = 20;
     public float suwakoHP 
     {
-        get => _suwakoHP; 
-        set 
-        {
-            if (_suwakoHP >= 0)
-            {
-                _suwakoHP = value;
-            }
-            else if (_suwakoHP < 0)
-            {
-                _suwakoHP = 0;
-            }
-
-        }
+        get => _suwakoHP;
+        set { _suwakoHP = value; }
     }
-    float maxHealth = 20;
-
-    float monsterHPfillAmount;
 
 
     //공격 받았을 때 상태 스크립트들
@@ -49,6 +35,7 @@ public class SuwakoController : MonoBehaviour
     //스킬 상태 스크립트들
     public SuwakoSkill0_ShootingBullet skill0_ShootingBullet {  get; private set; }
     public SuwakoSkill1_JumpORFlyShootingBullet skill1_JumpORFlyShootingBullet {  get; private set; }
+    public SuwakoSkill2_RiverFlowing skill2_RiverFlowing { get; private set; }
 
     //스와코 탄알 발사하는 곳 위치
     public Transform bullet0Fire { get; private set; }
@@ -92,6 +79,12 @@ public class SuwakoController : MonoBehaviour
     //애니메이션을 위한 변수들
     public bool isSkill0End =false;
     public bool isLanding =false;
+    public bool isRiverSkill =false;
+
+    // 자식 객체를 저장할 리스트
+    public List<GameObject> childObjects
+    { get; private set; }
+
 
     //상태 변환
     public void ChangeState(SuwakoState newstate)
@@ -102,7 +95,17 @@ public class SuwakoController : MonoBehaviour
 
     private void Awake()
     {
-        //
+        childObjects = new List<GameObject>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        foreach (Transform child in transform)
+        {
+            childObjects.Add(child.gameObject);
+        }
+
+        //타격 받은 상태 스크립트들
         GetHitState = new SuwakoGetHitState();
 
         //움직임 상태 스크립트들
@@ -113,26 +116,14 @@ public class SuwakoController : MonoBehaviour
         fallingState = new SuwakoFallingState();
         landingState = new SuwakoLandingState();
 
-        monsterHPfillAmount = suwakoHP / maxHealth;
+        //스킬 상태 스크립트들
+        skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();
+        skill1_JumpORFlyShootingBullet = new SuwakoSkill1_JumpORFlyShootingBullet();
+        skill2_RiverFlowing = new SuwakoSkill2_RiverFlowing();
     }
 
     void Start()
     {
-        foreach (Transform child in transform)
-        {
-
-        }
-
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
-
-
-        //스킬 상태 스크립트들
-        skill0_ShootingBullet = new SuwakoSkill0_ShootingBullet();
-        skill1_JumpORFlyShootingBullet = new SuwakoSkill1_JumpORFlyShootingBullet();
-
-
         //상태 스타트문
         ChangeState(idleState);
     }

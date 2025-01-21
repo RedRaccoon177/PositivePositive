@@ -1,18 +1,30 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SuwakoBullet2Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    int bulletNum = 2;
+    SuwakoBulletPool pool;
+    string[] excludedTags = { "Bullet", "Monster", "Untagged", "Ground" };
+
+    private void Start()
     {
-        
+        pool = SuwakoBulletPool.bulletPoolInstace;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (!excludedTags.Contains(collision.tag))
+        {
+            OnBulletDestroy(gameObject);
+        }
+    }
+
+    public void OnBulletDestroy(GameObject bullet)
+    {
+        // 오브젝트 풀로 반환
+        pool.ReturnObject(bullet, bulletNum);
     }
 }
