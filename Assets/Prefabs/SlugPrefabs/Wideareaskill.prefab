@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7103628088833906074}
   - component: {fileID: 3980803592458957151}
   - component: {fileID: -178247402401448771}
+  - component: {fileID: 7577130298520094565}
   m_Layer: 7
   m_Name: Wideareaskill
   m_TagString: Bullet
@@ -125,6 +126,41 @@ MonoBehaviour:
   stopYPosition: -0.22
   explosionDelay: 5
   explosionTimer: 30
+--- !u!58 &7577130298520094565
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5070338031096984415}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.4800345
 --- !u!1 &5849074808175527411
 GameObject:
   m_ObjectHideFlags: 0
