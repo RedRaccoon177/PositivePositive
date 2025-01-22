@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 public class SuwakoSkill0_ShootingBullet : SuwakoState
 {
     //몇번째 총알을 사용 할 것인지 변수
-    int bulletNum = 0;
+    int bulletNum = 3;
     //오브젝트 풀링
     SuwakoBulletPool pool;
 
@@ -35,7 +35,7 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
     {
         if (changeState == true && suwako.isSkill0End == false)
         {
-            suwako.ChangeState(suwako.landingState);
+            suwako.ChangeState(suwako.idleState);
         }
         else if (suwako.isSkill0End == true && changeState == false)
         {
@@ -47,6 +47,7 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
     {
         Vector2 direction = (targetTransform.position - startTransform.position).normalized;
 
+        // 탄막의 회전값을 방향에 맞게 설정
         bullet.GetComponent<Rigidbody2D>().AddForce(direction * speedPower, ForceMode2D.Impulse);
     }
 
@@ -60,7 +61,7 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
 
             //오브젝트풀링으로 총알 만듬
             GameObject bullet = pool.GetObject(bulletNum);
-            bullet.transform.position = startTransform.position;
+
             if (suwako.RiORLe == -1)
             {
                 startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
@@ -73,6 +74,10 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
             {
                 startTransform.rotation = Quaternion.Euler(0, 0, (i * angle) - 50);
             }
+
+            bullet.transform.rotation = startTransform.rotation;
+            bullet.transform.position = startTransform.position;
+
             MoveToAttack(bullet);
         }
         changeState = true;
