@@ -31,7 +31,7 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && transform.parent.GetComponent<Player>().blockMove == false)
+        if (Input.GetMouseButtonDown(0) && transform.parent.GetComponent<Player>().blockMove == false && transform.parent.GetComponent<Player>().GetAttackMode() == false)
         {
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.parent.GetComponent<Player>().SetBoost(true);
