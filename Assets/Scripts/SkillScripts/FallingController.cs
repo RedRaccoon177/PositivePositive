@@ -4,72 +4,72 @@ using UnityEngine;
 
 public class FallingController : MonoBehaviour
 {
-    //¡å ÇöÀç »ı¼ºµÈ ¶³¾îÁö´Â ½ºÅ³ °³¼ö¸¦ ÃßÀûÇÏ´Â º¯¼ö
+    //â–¼ í˜„ì¬ ìƒì„±ëœ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜ë¥¼ ì¶”ì í•˜ëŠ” ë³€ìˆ˜
     private static int currentFallingSkills = 0;
-    //¡å ÃÖ´ë »ı¼º °¡´ÉÇÑ ¶³¾îÁö´Â ½ºÅ³ °³¼ö
-    public static int maxFallingSkills = 10;
-    //¡å ÃÖ¼Ò »ı¼º °¡´ÉÇÑ ¶³¾îÁö´Â ½ºÅ³ °³¼ö
-    public static int minFallingSkills = 5;
-    //¡å x,y.z ´ãÀ» tempPosition ¼±¾ğ
+    //â–¼ ìµœëŒ€ ìƒì„± ê°€ëŠ¥í•œ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜
+    public static int maxFallingSkills = 5;
+    //â–¼ ìµœì†Œ ìƒì„± ê°€ëŠ¥í•œ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜
+    public static int minFallingSkills = 3;
+    //â–¼ x,y.z ë‹´ì„ tempPosition ì„ ì–¸
     Vector3 tempPosition; 
-    //¡å ¶³¾îÁö´Â ¼Óµµ ¼±¾ğ
+    //â–¼ ë–¨ì–´ì§€ëŠ” ì†ë„ ì„ ì–¸
     float moveSpeed;
     float startLine;
 
     void Start()
     {
-        //¡å ÇöÀç ½ºÅ³ °³¼ö°¡ ÃÖ´ë °³¼ö¸¦ ³ÑÁö ¾Ê¾ÒÀ» °æ¿ì¿¡¸¸ »ı¼º
+        //â–¼ í˜„ì¬ ìŠ¤í‚¬ ê°œìˆ˜ê°€ ìµœëŒ€ ê°œìˆ˜ë¥¼ ë„˜ì§€ ì•Šì•˜ì„ ê²½ìš°ì—ë§Œ ìƒì„±
         if (currentFallingSkills < maxFallingSkills)
         {
-            //¡å ¶³¾îÁö´Â ½ºÅ³ °³¼ö Áõ°¡
+            //â–¼ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜ ì¦ê°€
             currentFallingSkills++;
 
-            //¡å transform.positionÀ» tempPosition¿¡ ´ã±â
+            //â–¼ transform.positionì„ tempPositionì— ë‹´ê¸°
             tempPosition = transform.position;
-            //¡å ¶³¾îÁö´Â ¼Óµµ¸¦ ·£´ı°ªÀ¸·Î ÁöÁ¤
-            moveSpeed = Random.Range(0.5f, 0.7f);
-            //¡å ½ÃÀÛ ¶óÀÎ ·£´ı°ªÀ¸·Î ÁöÁ¤
-            startLine = Random.Range(22f, 23f);
+            //â–¼ ë–¨ì–´ì§€ëŠ” ì†ë„ë¥¼ ëœë¤ê°’ìœ¼ë¡œ ì§€ì •
+            moveSpeed = Random.Range(0.2f, 0.2f);
+            //â–¼ ì‹œì‘ ë¼ì¸ ëœë¤ê°’ìœ¼ë¡œ ì§€ì •
+            startLine = Random.Range(11.0f, 12.0f);
             tempPosition.y = startLine;
-            //¡å xÁÂÇ¥ ·£´ı°ªÀ¸·Î ÁöÁ¤
-            tempPosition.x = Random.Range(-8.2f, 2);
-            //¡å À§Ä¡ ¾÷µ¥ÀÌÆ®
+            //â–¼ xì¢Œí‘œ ëœë¤ê°’ìœ¼ë¡œ ì§€ì •
+            tempPosition.x = Random.Range(-8.2f, 11.0f);
+            //â–¼ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
             transform.position = tempPosition;
         }
         else
         {
-            // ÃÖ´ë °³¼ö¸¦ ÃÊ°úÇÏ¸é ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+            // ìµœëŒ€ ê°œìˆ˜ë¥¼ ì´ˆê³¼í•˜ë©´ ì˜¤ë¸Œì íŠ¸ë¥¼ íŒŒê´´
             Destroy(gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //¡å Ãæµ¹ÇÑ °´Ã¼°¡ º®ÀÏ °æ¿ì
+        //â–¼ ì¶©ëŒí•œ ê°ì²´ê°€ ë²½ì¼ ê²½ìš°
         if (collision.gameObject.tag == "Wall")  
         {
-            //¡å ¶³¾îÁö´Â ½ºÅ³ °³¼ö °¨¼Ò
+            //â–¼ ë–¨ì–´ì§€ëŠ” ìŠ¤í‚¬ ê°œìˆ˜ ê°ì†Œ
             currentFallingSkills--;
-            //¡å °´Ã¼ ÆÄ±«
+            //â–¼ ê°ì²´ íŒŒê´´
             Destroy(gameObject);
             
         }
     }
     private void FixedUpdate()
     {
-        //¡å moveSpeed¸¦ -1 ¾¿ tempPosition.y¿¡ ¹İº¹ÇØ¼­ ³Ö±â
+        //â–¼ moveSpeedë¥¼ -1 ì”© tempPosition.yì— ë°˜ë³µí•´ì„œ ë„£ê¸°
         tempPosition.y -= moveSpeed;
 
-        //¡å y°¡ -6º¸´Ù ÀÛ¾ÆÁö¸é
-        if (tempPosition.y < -9) 
+        //â–¼ yê°€ -6ë³´ë‹¤ ì‘ì•„ì§€ë©´
+        if (tempPosition.y < -6) 
         {
-            //¡å y¿¡ +30 ´õÇÏ±â
-            tempPosition.y += 30;
-            //¡å xÁÂÇ¥¸¦ ·£´ø°ªÀ¸·Î ÁöÁ¤ÇÏ¿© ¹İº¹
-            tempPosition.x = Random.Range(-7.2f, 1.98f); 
-            //¡å moveSpeed¸¦ ·£´ı°ªÀ¸·Î ÁöÁ¤ÇØ¼­ ¹İº¹
-            moveSpeed = Random.Range(0.5f, 0.7f); 
+            //â–¼ yì— +30 ë”í•˜ê¸°
+            tempPosition.y += 18;
+            //â–¼ xì¢Œí‘œë¥¼ ëœë˜ê°’ìœ¼ë¡œ ì§€ì •í•˜ì—¬ ë°˜ë³µ
+            tempPosition.x = Random.Range(-8.2f, 11.0f); 
+            //â–¼ moveSpeedë¥¼ ëœë¤ê°’ìœ¼ë¡œ ì§€ì •í•´ì„œ ë°˜ë³µ
+            moveSpeed = Random.Range(0.2f, 0.2f); 
         }
-        //¡å tempPositionÀ» transform.position¿¡ ´ã¾ÆÁÖ±â
+        //â–¼ tempPositionì„ transform.positionì— ë‹´ì•„ì£¼ê¸°
         transform.position = tempPosition;
     }
     
