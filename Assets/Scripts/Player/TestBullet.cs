@@ -14,6 +14,6 @@ public class TestBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddForce(transform.up * 10);
+        rb.AddForce(transform.right * 3);
     }
 }

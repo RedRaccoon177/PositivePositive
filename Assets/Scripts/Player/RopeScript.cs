@@ -157,6 +157,10 @@ public class RopeScript : MonoBehaviour
     {
         if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy")))
         {
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall"))
+            {
+                transform.SetParent(collision.gameObject.transform);
+            }
             rb.velocity = Vector2.zero;
             transform.position = dest;
             triggered = true;
