@@ -20,10 +20,10 @@ public class ZoomSuwakoState : SuwakoState
 
     IEnumerator ShowUIStart(SuwakoController suwako)
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.5f);
         ui.SetActive(true);
 
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3.2f);
         ui.SetActive(false);
 
         startShow = false;
