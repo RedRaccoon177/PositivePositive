@@ -62,7 +62,7 @@ public class ZombieController : MonoBehaviour
         }
     }
 
-    public int zombieHp;
+    public float zombieHp;
     public short directionX { get; set; }
     public short directionY { get; set; }
     // ______________ 상태 ___________________
@@ -72,6 +72,7 @@ public class ZombieController : MonoBehaviour
     public ZombieJumpReady jumpReady { get; private set; }
     public ZombieWalk walk { get; private set; }
     public ZombieIdle idle { get; private set; }
+    public ZombieWormBullet wormBullet { get; private set; }
     // ___________ 컴포넌트 _____________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
@@ -81,6 +82,7 @@ public class ZombieController : MonoBehaviour
     public Vector2 mapBounds { get; set; }
     public Vector2 mosterToPlayer;
     public bool jumpOn = false;
+    public bool isHitted = false;
     // ______________ 스킬 1 WormShield ___________________
 
     public int wormMaxCount { get; set; }
@@ -100,6 +102,16 @@ public class ZombieController : MonoBehaviour
         zombieState.Enter(this);
         deltaTime = 0;
     }
+    private void Awake()
+    {
+        //________ 상태 _____________
+        zombieHitted = new ZombieHitted();
+        jump = new ZombieJump();
+        jumpReady = new ZombieJumpReady();
+        walk = new ZombieWalk();
+        idle = new ZombieIdle();
+        skillBlackHole = new ZombieSkillBlackHole();
+    }
     void Start()
     {
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
@@ -107,13 +119,6 @@ public class ZombieController : MonoBehaviour
         wormMaxCount = 4;
         zombieHp = 20;
         distance = 100f;
-        //______________________
-        zombieHitted = new ZombieHitted();
-        jump = new ZombieJump();
-        jumpReady = new ZombieJumpReady();
-        walk = new ZombieWalk();
-        idle = new ZombieIdle();
-        skillBlackHole = new ZombieSkillBlackHole();
         //_____________________
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
@@ -150,12 +155,4 @@ public class ZombieController : MonoBehaviour
         StartCoroutine(coroutine);
     }
 
-    public void IncreaseHp()
-    {
-        zombieHp -= 1;
-    }
-    public void DecreaseHp()
-    {
-        zombieHp += 1;
-    }
 }

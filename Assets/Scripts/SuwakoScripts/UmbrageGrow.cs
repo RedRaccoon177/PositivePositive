@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,29 +8,31 @@ public class UmbrageGrow : MonoBehaviour
     Vector3 targetScaleDown = new Vector3(0f, 0f, 0f);  // 성장 이후 다시 줄이기
     float duration = 1f; // 커지는 데 걸리는 시간
 
-    public bool isGrow = true;
+    public GameObject suwako;
 
-    SuwakoController suwako;
+    SuwakoSkill2_RiverFlowing skill2_RiverFlowing;
+
 
     void Start()
     {
-        suwako = GetComponent<SuwakoController>();
-        isGrow = true;
+        skill2_RiverFlowing = suwako.GetComponent<SuwakoController>().skill2_RiverFlowing;
     }
 
     void Update()
     {
-        if (isGrow == true)
+        if (skill2_RiverFlowing.isGrow == true)
         {
-            StartCoroutine(ScaleOverTime(targetScaleUP, duration));
+            suwako.GetComponent<SuwakoController>().animator.SetInteger("IsRiverSkill", 1);
+            StartCoroutine(ScaleOverTime(targetScaleUP, duration, suwako));
         }
-        else if (isGrow == false)
+        else if (skill2_RiverFlowing.isGrow == false)
         {
-            StartCoroutine(ScaleOverTime(targetScaleDown, duration));
+            suwako.GetComponent<SuwakoController>().childObjects[7].GetComponent<UmbrageGrow>().enabled = false;
+            StartCoroutine(ScaleOverTime(targetScaleDown, duration, suwako));
         }
     }
 
-    IEnumerator ScaleOverTime(Vector3 target, float time)
+    IEnumerator ScaleOverTime(Vector3 target, float time, GameObject suwako)
     {
         Vector3 initialScale = transform.localScale; // 현재 크기
         float elapsedTime = 0f;
@@ -50,5 +52,4 @@ public class UmbrageGrow : MonoBehaviour
         // 최종 크기 설정 (정밀도 문제 방지)
         transform.localScale = target;
     }
-
 }

@@ -155,7 +155,7 @@ public class RopeScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy")))
+        if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("WeakPoint")))
         {
             if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall"))
             {
@@ -169,7 +169,7 @@ public class RopeScript : MonoBehaviour
             player.GetComponentInParent<Player>().IsHookAttach(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
 
-            if (collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("WeakPoint"))
             {
                 player.GetComponentInParent<Player>().AttackEnemy(collision.gameObject);
             }
