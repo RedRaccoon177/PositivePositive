@@ -61,4 +61,11 @@ public class ThrowHook : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall")))
+        {
+            transform.parent.GetComponent<Player>().SetRopeCharging(false);
+        }
+    }
 }

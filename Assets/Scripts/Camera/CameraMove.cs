@@ -89,7 +89,7 @@ public class CameraMove : MonoBehaviour
         {
             boss = null;
         }
-        zoomPlayer = state;
+        zoomPlayer = !state;
     }
 
     //얘는 그냥 버튼테스트용임

@@ -206,7 +206,10 @@ public class Player : MonoBehaviour
             playerActs = ropeActs;
             curBoostCool += Time.deltaTime;
             rigid.drag = 0;
-            rigid.freezeRotation = false;
+            if (isCharging == false)
+            {
+                rigid.freezeRotation = false;
+            }
             canSwingCharge = true;
             SetAnimState("IsSwing", true);
             if (curBoostCool > boostCool)
@@ -235,12 +238,18 @@ public class Player : MonoBehaviour
         animator.SetTrigger("ThrowRope");
     }
 
+    //캐릭터 rotation을 갈고리를 바라보게하고 z축 고정한 다음 up으로 돌진
     public IEnumerator HookCharge(Vector3 playerPos, Vector3 hookPos)
     {
         Debug.Log("dist " + Vector2.Distance(playerPos, hookPos));
         if (Vector2.Distance(playerPos, hookPos) >= 0.55f)
         {
             isCharging = true;
+            throwHook.GetCurHook().GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
+            float angle = Mathf.Atan2(transform.position.y - hookPos.y, transform.position.x - hookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+
+            rigid.freezeRotation = true;
             //float startTime = Time.time;
 
             Vector2 rayDir = ((Vector2)hookPos - (Vector2)throwHook.transform.position).normalized;
@@ -253,6 +262,9 @@ public class Player : MonoBehaviour
             Debug.Log("velo " + vel);
             while (isCharging)
             {
+                angle = Mathf.Atan2(transform.position.y - hookPos.y, transform.position.x - hookPos.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                vel = (hookPos - playerPos).normalized * boostPower / Time.deltaTime;
                 rigid.velocity = vel;
                 //rigid.MovePosition((Vector2)rigid.transform.position + direction * 200 * Time.deltaTime);
                 //transform.position = Vector3.Lerp(playerPos, hookPos, (Time.time - startTime) / chargeTime);
@@ -263,11 +275,27 @@ public class Player : MonoBehaviour
                     Destroy(throwHook.GetCurHook().transform.GetChild(childIndex).gameObject);
                     throwHook.GetCurHook().GetComponent<RopeScript>().SetLineRenderCount(childIndex);
                 }
+
+                Debug.Log("Dist hook " + Vector2.Distance(throwHook.transform.position, hookPos));
+                if (Vector2.Distance(throwHook.transform.position, hookPos) <= 0.2f)
+                {
+                    Debug.Log("Dist close");
+                    rigid.velocity = Vector2.zero;
+                    isCharging = false;
+                }
                 yield return null;
             }
             throwHook.transform.position = hit.point;
             throwHook.GetCurHook().GetComponent<HingeJoint2D>().connectedBody = rigid;
+            rigid.freezeRotation = false;
+            yield return null;
         }
+
+    }
+
+    public void SetRopeCharging(bool value)
+    {
+        isCharging=value;
     }
 
     public IEnumerator WallJump()
@@ -325,7 +353,10 @@ public class Player : MonoBehaviour
         if (isInvincible == false)
         {
             HP -= damage;
-            isInvincible = true;
+<<<<<<< Updated upstream
+=======
+            StartCoroutine(PlayerBlink());
+>>>>>>> Stashed changes
             observer.NotifyHealthChange(MaxHP, HP);
             if (HP <= 0)
             {
@@ -338,13 +369,13 @@ public class Player : MonoBehaviour
                 return;
             }
             Debug.Log("아프다");
-            StartCoroutine(PlayerBlink());
             StartCoroutine(HitReact());
         }
     }
 
     IEnumerator PlayerBlink()
     {
+        isInvincible = true;
         float delay = invincibleTime / 5 / 2;
         for (int i = 0; i < 5; i++)
         {
@@ -381,18 +412,10 @@ public class Player : MonoBehaviour
             isWall = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             GetHit(1);
             //Destroy(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Bullet") && isInvincible == false)
-        {
-            GetHit(1);
         }
     }
 
@@ -402,11 +425,6 @@ public class Player : MonoBehaviour
         {
             isJump = false;
             isCharging = false;
-        }
-        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")) && isInvincible == false)
-        {
-            GetHit(1);
-            //Destroy(collision.gameObject);
         }
     }
 

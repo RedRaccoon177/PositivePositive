@@ -9,7 +9,8 @@ TagManager:
   - Enemy
   - Bullet
   - WeakPoint
-  - Monster
+  - RopeLastPoint
+  - OutSideWall
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Wall0
+    uniqueID: 1108538079
+    locked: 0
+  - name: Wall1
+    uniqueID: 678249567
+    locked: 0
+  - name: Wall2
+    uniqueID: 2650548173
+    locked: 0
+  - name: Enemy
+    uniqueID: 2032646131
+    locked: 0
+  - name: Player
+    uniqueID: 288610675
     locked: 0
