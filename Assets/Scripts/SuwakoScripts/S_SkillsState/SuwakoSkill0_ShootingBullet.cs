@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,8 +55,8 @@ public class SuwakoSkill0_ShootingBullet : SuwakoState
         for (int i = 0; i < 16; i++)
         {
             //좌표들
-            startTransform = suwako.gameObject.transform.GetChild(4);
-            targetTransform = suwako.gameObject.transform.GetChild(4).transform.GetChild(0);
+            startTransform = suwako.childObjects[4].transform;
+            targetTransform = suwako.childObjects[4].transform.GetChild(0).transform;
 
             //오브젝트풀링으로 총알 만듬
             GameObject bullet = pool.GetObject(bulletNum);

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8275828684959573786}
   - component: {fileID: 2498924001082263456}
   - component: {fileID: -5503321973818478713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hook
   m_TagString: RopeLastPoint
   m_Icon: {fileID: 0}

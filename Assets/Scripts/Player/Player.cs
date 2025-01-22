@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     public ThrowHook throwHook;
     public float boostCool = 2.0f;
     public float boostPower;
+    [SerializeField] float attackPower;
     float curBoostCool;
     public float jumpPower;
     public float groundMoveSpeed;
@@ -88,6 +89,23 @@ public class Player : MonoBehaviour
         else
         {
             SetAnimState("IsFall", false);
+        }
+        if (rigid.freezeRotation == true)
+        {
+            if (facingRight == -1)
+            {
+                if (Rigid.velocity.x < -groundMoveSpeed)
+                {
+                    Rigid.velocity = new Vector2(Mathf.Lerp(Rigid.velocity.x, -groundMoveSpeed, 0.7f), Rigid.velocity.y);
+                }
+            }
+            else if (facingRight == 1)
+            {
+                if (Rigid.velocity.x > groundMoveSpeed)
+                {
+                    Rigid.velocity = new Vector2(Mathf.Lerp(Rigid.velocity.x, groundMoveSpeed, 0.7f), Rigid.velocity.y);
+                }
+            }
         }
 
         if (blockMove == false)
@@ -164,10 +182,9 @@ public class Player : MonoBehaviour
                 if (Input.GetMouseButtonDown(0))
                 {
                     Vector2 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * (boostPower / Time.deltaTime);
+                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * attackPower;
                     rigid.velocity = vel;
                     attackMode = false;
-                    isInvincible = false;
                 }
             }
         }
@@ -260,6 +277,10 @@ public class Player : MonoBehaviour
         blockMove = false;
     }
 
+    public bool GetAttackMode()
+    {
+        return attackMode;
+    }
     public bool GetCanBoost()
     {
         return canBoost;
@@ -348,6 +369,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall")) && isJump == true)
         {
             isJump = false;
@@ -359,7 +381,7 @@ public class Player : MonoBehaviour
             isWall = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))
         {
             GetHit(1);
             //Destroy(collision.gameObject);
@@ -372,6 +394,11 @@ public class Player : MonoBehaviour
         {
             isJump = false;
             isCharging = false;
+        }
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet")) && isInvincible == false)
+        {
+            GetHit(1);
+            //Destroy(collision.gameObject);
         }
     }
 
@@ -386,6 +413,10 @@ public class Player : MonoBehaviour
         {
             isJump = true;
             isWall = false;
+        }
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("WeakPoint")))
+        {
+            isInvincible = false;
         }
     }
 }

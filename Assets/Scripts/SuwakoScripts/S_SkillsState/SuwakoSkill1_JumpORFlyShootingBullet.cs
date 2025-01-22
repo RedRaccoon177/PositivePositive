@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.VersionControl;
@@ -61,8 +61,8 @@ public class SuwakoSkill1_JumpORFlyShootingBullet : SuwakoState
             {
                 
                 //좌표들
-                parentTransform = suwako.gameObject.transform.GetChild(5);
-                childTransform = suwako.gameObject.transform.GetChild(5).transform.GetChild(0);
+                parentTransform = suwako.childObjects[5].transform;
+                childTransform = suwako.childObjects[5].transform.GetChild(0).transform;
 
                 //오브젝트풀링으로 총알 만듬
                 GameObject bullet = pool.GetObject(bulletNum);
