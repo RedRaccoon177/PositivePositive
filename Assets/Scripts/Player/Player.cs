@@ -325,6 +325,7 @@ public class Player : MonoBehaviour
         if (isInvincible == false)
         {
             HP -= damage;
+            isInvincible = true;
             observer.NotifyHealthChange(MaxHP, HP);
             if (HP <= 0)
             {
@@ -344,7 +345,6 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerBlink()
     {
-        isInvincible = true;
         float delay = invincibleTime / 5 / 2;
         for (int i = 0; i < 5; i++)
         {
@@ -385,6 +385,14 @@ public class Player : MonoBehaviour
         {
             GetHit(1);
             //Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet") && isInvincible == false)
+        {
+            GetHit(1);
         }
     }
 
