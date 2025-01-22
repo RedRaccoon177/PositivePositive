@@ -53,7 +53,7 @@ public class RopeScript : MonoBehaviour
                 colPos = transform.position;
                 Debug.Log(hit.collider.name);
                 triggered = true;
-                if (hit.collider.CompareTag("Enemy"))
+                if (hit.collider.CompareTag("WeakPoint"))
                 {
                     player.GetComponentInParent<Player>().AttackEnemy(hit.collider.gameObject);
                 }

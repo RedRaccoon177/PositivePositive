@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +43,7 @@ public class SuwakoJumpingState : SuwakoState
         if (suwako.rb.velocity.y < 0)
         {
             suwako.animator.SetBool("IsJump", false);
+            
             if (isSkill1 == 0)
             {
                 suwako.ChangeState(suwako.fallingState);

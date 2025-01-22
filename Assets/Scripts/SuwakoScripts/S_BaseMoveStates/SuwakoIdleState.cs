@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SuwakoIdleState : SuwakoState
 {
-    bool isIdle = true;
     float idleTime = 0;
-    int whatState = 0;
 
     public override void Enter(SuwakoController suwako)
     {
@@ -16,60 +14,77 @@ public class SuwakoIdleState : SuwakoState
         suwako.animator.SetBool("IsLanding", false);
         suwako.animator.SetInteger("IsSkills", 0);
         suwako.animator.SetInteger("IsRiverSkill", 0);
+        suwako.animator.SetBool("IsWeakPoint", false);
 
+        //idleTime 대기 시간 초로 지정하기
+        idleTime = Time.time + 2;
 
-        //idle 상태 3초간 유지를 위한 식
-        idleTime = Time.time + 3;
-        whatState = 0;
+        suwako.moveORskillORweak = 999;
 
-        //false로 다시 바꿔야함.
-        isIdle = false;
     }
     public override void Update(SuwakoController suwako)
     {
-        if (isIdle == true)
+        //강제로 idle 상태 idleTime만큼 대기
+        if (Time.time > idleTime)
         {
-            //상태를 랜덤값으로 돌려라
-            whatState = Random.Range(8, 9);
-        }
-
-        if (whatState == 0)
-        {
-            if (Time.time >= idleTime)
+            if (suwako.stateCount < 3)
             {
-                isIdle = true;
+                //기본 상태
+                suwako.moveORskillORweak = 0;
+            }
+            else if (suwako.stateCount == 3)
+            {
+                suwako.moveORskillORweak = 1;
+            }
+            else if (suwako.stateCount > 3)
+            {
+                suwako.moveORskillORweak = 2;
             }
         }
-        else if (1 <= whatState && whatState <= 4)
-        {
-            //좌우로 이동하는 상태
-            suwako.ChangeState(suwako.walkFrontState);
-        }
-        else if (whatState == 5)
-        {
-            //날아 오르는 상태
-            suwako.ChangeState(suwako.flyingState);
-        }
-        else if (whatState == 6)
-        {
-            //점프한 상태
-            suwako.ChangeState(suwako.jumpingState);
-        }
-        else if(whatState == 7)
-        {
-            suwako.ChangeState(suwako.skill0_ShootingBullet);
-        }
-        else if (whatState == 8)
-        {
-            suwako.ChangeState(suwako.skill2_RiverFlowing);
-        }
-        //임시로 만든 타격 시임.
-        else if( whatState == 99)
-        {
-            suwako.ChangeState(suwako.GetHitState);
-        } 
 
+        //기본 상태 진입
+        if (suwako.moveORskillORweak == 0)
+        {
+            suwako.whatBaseState = Random.Range(0, 5);
+            suwako.stateCount++;
 
+            if (0 <= suwako.whatBaseState && suwako.whatBaseState <= 1)
+            {
+                //좌우로 이동하는 상태
+                suwako.ChangeState(suwako.walkFrontState);
+            }
+            else if (suwako.whatBaseState == 2)
+            {
+                //날아 오르는 상태
+                suwako.ChangeState(suwako.flyingState);
+            }
+            else if (suwako.whatBaseState == 3)
+            {
+                //점프한 상태
+                suwako.ChangeState(suwako.jumpingState);
+            }
+        }
+        else if(suwako.moveORskillORweak == 1)
+        {
+            suwako.whatBaseState = Random.Range(0, 2);
+            suwako.stateCount++;
+
+            if (suwako.whatBaseState == 0)
+            {
+                suwako.ChangeState(suwako.skill0_ShootingBullet);
+            }
+            else if (suwako.whatBaseState == 1)
+            {
+                suwako.ChangeState(suwako.skill2_RiverFlowing);
+            }
+        }
+        else if(suwako.moveORskillORweak == 2)
+        {
+            suwako.stateCount = 0;
+            suwako.ChangeState(suwako.weakPointState);
+        }
+
+        
     }
 
     public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)
