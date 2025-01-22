@@ -7,6 +7,7 @@ public class SlugBoss : MonoBehaviour
     public GameObject fallskill; // 떨어지는 스킬 프리팹
     public GameObject skillPrefab; // 발사체 프리팹 
     public GameObject wideareaPreafab; // 구체 프리팹
+    public Animator animator;
 
     //▼ 발사 위치
     public Transform firePointFront1; // 정면 발사 위치1
@@ -28,6 +29,7 @@ public class SlugBoss : MonoBehaviour
     private bool isHorizontalAttack = true; // 수평 공격 여부
 
     //▼ 보스 상태 변수
+    public bool MonsterDeath;
     public int maxFallingSkills = 10;  // 최대 떨어지는 스킬 개수
     public float slugBossHealth = 100f; // 보스의 체력
     float slugBossMax = 100;
@@ -37,10 +39,14 @@ public class SlugBoss : MonoBehaviour
 
     private MonsterHPObserver hpObserver; // MonsterHPObserver 객체
 
+    bool isFire;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         coolTime = 0f; // 스킬 쿨타임 초기화
         fireTimer = 0f; // 발사 타이머 초기화
+        isFire = false;
 
         // hpObserver 초기화
         hpObserver = GetComponent<MonsterHPObserver>();
@@ -99,19 +105,24 @@ public class SlugBoss : MonoBehaviour
 
     void PerformAttack()
     {
-        if (isHorizontalAttack)
+        if (isFire == false)
         {
-            // 수평 공격: 정면 및 위쪽 발사
-            Instantiate(skillPrefab, firePointFront1.position, transform.rotation); // 정면 발사
-            Instantiate(skillPrefab, firePointUp1.position, firePointUp1.rotation); // 위쪽 발사
-            Instantiate(skillPrefab, firePointFront3.position, transform.rotation); // 정면 발사
-        }
-        else
-        {
-            // 위쪽 공격: 정면 및 위쪽 발사
-            Instantiate(skillPrefab, firePointUp2.position, firePointUp2.rotation); // 위쪽 발사
-            Instantiate(skillPrefab, firePointFront2.position, transform.rotation); // 정면 발사
-            Instantiate(skillPrefab, firePointUp3.position, firePointUp3.rotation); // 위쪽 발사
+
+
+            if (isHorizontalAttack)
+            {
+                // 수평 공격: 정면 및 위쪽 발사
+                Instantiate(skillPrefab, firePointFront1.position, transform.rotation); // 정면 발사
+                Instantiate(skillPrefab, firePointUp1.position, firePointUp1.rotation); // 위쪽 발사
+                Instantiate(skillPrefab, firePointFront3.position, transform.rotation); // 정면 발사
+            }
+            else
+            {
+                // 위쪽 공격: 정면 및 위쪽 발사
+                Instantiate(skillPrefab, firePointUp2.position, firePointUp2.rotation); // 위쪽 발사
+                Instantiate(skillPrefab, firePointFront2.position, transform.rotation); // 정면 발사
+                Instantiate(skillPrefab, firePointUp3.position, firePointUp3.rotation); // 위쪽 발사
+            }
         }
     }
 
@@ -135,8 +146,10 @@ public class SlugBoss : MonoBehaviour
         if (slugBossHealth <= 0 && !isWideAreaSkillActivated)
         {
             slugBossHealth = 0;  // 체력이 0 이하가 되면
+            animator.SetTrigger("MonsterDeath");
             ActivateWideAreaSkill(); // 구체 스킬 발동
             isWideAreaSkillActivated = true; // 구체 스킬 활성화 상태로 설정
+            isFire = true;
         }
         GetComponent<MonsterHPObserver>().NotifyHealthChange(slugBossMax, slugBossHealth);
     }
