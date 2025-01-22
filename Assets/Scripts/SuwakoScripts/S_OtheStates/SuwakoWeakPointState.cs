@@ -14,6 +14,8 @@ public class SuwakoWeakPointState : SuwakoState
 
     public override void Enter(SuwakoController suwako)
     {
+        suwako.gameObject.tag = "WeakPoint";
+        suwako.gameObject.layer = LayerMask.GetMask("WeakPoint");
         maxHealth = 20;
         damage = 1;
         hitCount = 0;
@@ -22,7 +24,7 @@ public class SuwakoWeakPointState : SuwakoState
         //박스콜라이더 온 오프, 물리 방어, 파티클 실행
         suwako.boxCollider.enabled = false;
         suwako.weakPointCollider.enabled = true;
-        suwako.rb.bodyType = RigidbodyType2D.Kinematic;
+        suwako.rb.mass = 1000;
         suwako.childObjects[8].SetActive(true);
         suwako.animator.SetBool("IsIdle", false);
         suwako.animator.SetBool("IsWeakPoint", true);
@@ -71,10 +73,12 @@ public class SuwakoWeakPointState : SuwakoState
 
     void ReturnIdle(SuwakoController suwako)
     {
+        suwako.gameObject.tag = "Enemy";
+        suwako.gameObject.layer = LayerMask.GetMask("Enemy");
         suwako.animator.SetBool("IsWeakPoint", false);
         suwako.boxCollider.enabled = true;
         suwako.weakPointCollider.enabled = false;
-        suwako.rb.bodyType = RigidbodyType2D.Dynamic;
+        suwako.rb.mass = 1000;
         suwako.childObjects[8].SetActive(false);
         suwako.ChangeState(suwako.idleState);
     }

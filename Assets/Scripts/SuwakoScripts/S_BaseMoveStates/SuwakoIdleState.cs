@@ -33,7 +33,7 @@ public class SuwakoIdleState : SuwakoState
         //if (test == true)
         //{
         //    test = false;
-        //    suwako.ChangeState(suwako.skill2_RiverFlowing);
+        //    suwako.ChangeState(suwako.weakPointState);
         //}
 
         if (suwako.isEndStart == true)

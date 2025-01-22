@@ -28,5 +28,8 @@ public class ZoomSuwakoState : SuwakoState
 
         startShow = false;
         Camera.main.GetComponent<CameraMove>().ZoomBoss(suwako.gameObject, startShow);
+
+        suwako.isEndStart = true;
+        suwako.ChangeState(suwako.idleState);
     }
 }
