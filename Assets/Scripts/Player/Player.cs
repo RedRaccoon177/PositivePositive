@@ -353,10 +353,7 @@ public class Player : MonoBehaviour
         if (isInvincible == false)
         {
             HP -= damage;
-<<<<<<< Updated upstream
-=======
             StartCoroutine(PlayerBlink());
->>>>>>> Stashed changes
             observer.NotifyHealthChange(MaxHP, HP);
             if (HP <= 0)
             {
