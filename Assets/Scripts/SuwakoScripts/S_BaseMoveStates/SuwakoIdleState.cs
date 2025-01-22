@@ -36,7 +36,7 @@ public class SuwakoIdleState : SuwakoState
         //    suwako.ChangeState(suwako.skill2_RiverFlowing);
         //}
 
-        if(suwako.isEndStart == true)
+        if (suwako.isEndStart == true)
         {
             //강제로 idle 상태 idleTime만큼 대기
             if (Time.time > idleTime)
@@ -97,6 +97,10 @@ public class SuwakoIdleState : SuwakoState
                 suwako.stateCount = 0;
                 suwako.ChangeState(suwako.weakPointState);
             }
+        }
+        else if (suwako.isEndStart == false)
+        {
+            suwako.ChangeState(suwako.zoomSuwakoState);
         }
     }
 

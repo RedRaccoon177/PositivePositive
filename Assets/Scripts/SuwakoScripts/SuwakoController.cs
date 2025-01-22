@@ -29,6 +29,9 @@ public class SuwakoController : MonoBehaviour
         set { _suwakoHP = value; }
     }
 
+    //시작 상태 스크립트
+    public ZoomSuwakoState zoomSuwakoState { get; private set; }
+
     //약점 상태 스크립트
     public SuwakoWeakPointState weakPointState { get; private set; }
 
@@ -111,6 +114,8 @@ public class SuwakoController : MonoBehaviour
             childObjects.Add(child.gameObject);
         }
 
+        //시작 상태 스크립트
+        zoomSuwakoState = new ZoomSuwakoState();
 
         //약점 상태 스크립트
         weakPointState = new SuwakoWeakPointState();
