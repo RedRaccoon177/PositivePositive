@@ -21,7 +21,6 @@ public class WormRotationController : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.GetComponent<Player>().GetAttackMode());
         if (collision.gameObject.tag == "Player" && test ==  true)
         {
             gameObject.SetActive(false);
