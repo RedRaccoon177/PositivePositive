@@ -1,13 +1,12 @@
 using UnityEngine;
 
-// ¸ğµç »óÅÂ°¡ State¸¦ µé°í ÀÖÁö¸¸ , ÇÏ³ªÀÇ State¸¦ °øÀ¯ÇÏ´Â°ÍÀÌ ¾Æ´Ñ °¢°¢ÀÇ State¸¦ µé°í ÀÖÀ½
+// ëª¨ë“  ìƒíƒœê°€ Stateë¥¼ ë“¤ê³  ìˆì§€ë§Œ , í•˜ë‚˜ì˜ Stateë¥¼ ê³µìœ í•˜ëŠ”ê²ƒì´ ì•„ë‹Œ ê°ê°ì˜ Stateë¥¼ ë“¤ê³  ìˆìŒ
 abstract public class ZombieState
 {
     abstract public void Enter(ZombieController zombie);
     virtual public void OnCollisionEnter2D(ZombieController zombie, Collision2D collision) { }
     virtual public void Update(ZombieController zombie) { }
     virtual public void FixUpdate(ZombieController zombie) { }
-
 }
 
 

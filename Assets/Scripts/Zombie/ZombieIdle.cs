@@ -1,64 +1,51 @@
-using System.Collections;
-using System.ComponentModel;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieIdle : ZombieState
 {
+    float stateTime;
     public override void Enter(ZombieController zombie)
     {
         zombie.Animator.SetBool("IsWalk", false);
+        zombie.Animator.SetBool("IsHittedd", false);
         zombie.Animator.SetBool("IsJump", false);
+        zombie.Animator.SetBool("IsJumpReady", false);
         zombie.Animator.SetBool("SkillBlack", false);
         zombie.Rigid.velocity = Vector3.zero;
         zombie.directionX = 0;
         zombie.directionY = 0;
-        zombie.randState = UnityEngine.Random.Range(0,0);
+        zombie.randState = Random.Range(0,13);
         zombie.zomObjPool.AllActiveTrue();
     }
 
     public override void Update(ZombieController zombie)
     {
-        zombie.deltaTime += Time.deltaTime;
-        if (zombie.deltaTime > 100)
+        stateTime += Time.deltaTime;
+        if (stateTime > 2)
         {
+            stateTime = 0;
             zombie.zomObjPool.AllActiveFalse();
-            zombie.deltaTime = 0;
-            Debug.Log("시간 조건문");
-            zombie.deltaTime = 0;
-            if (zombie.randState == 0)
+            if (zombie.isWalked == false)
             {
+                zombie.isWalked = true;
                 zombie.ChangeState(zombie.walk);
             }
-            else if (zombie.randState == 1)
+            else if(zombie.isWalked == true)
             {
-                zombie.ChangeState(zombie.jumpReady);
-                //Debug.Log("스킬상태");
-            }
-            else if (zombie.randState == 2)
-            {
-                zombie.ChangeState(zombie.skillBlackHole);
+                zombie.isWalked = false;
+                if (0 <= zombie.randState  && zombie.randState <= 6)
+                {
+                    //zombie.Animator.SetBool("JumpReady", true);
+                    zombie.ChangeState(zombie.jumpReady);
+                }
+                else if (6 < zombie.randState && zombie.randState <= 8)
+                {
+                    zombie.ChangeState(zombie.skillBlackHole);
+                }
+                else if (8 < zombie.randState && zombie.randState < 13)
+                {
+                    zombie.ChangeState(zombie.skillWormBullet);
+                }
             }
         }
     }
-    //public IEnumerator IdleWait(ZombieController zombie)
-    //{
-    //    zombie.zomObjPool.AllActiveTrue();
-    //    yield return new WaitForSeconds(2f);
-    //    if (zombie.randState == 0)
-    //    {
-    //        zombie.ChangeState(zombie.walk);
-    //    }
-    //    else if (zombie.randState == 1)
-    //    {
-    //        zombie.ChangeState(zombie.jumpReady);
-    //        //Debug.Log("스킬상태");
-    //    }
-    //    else if (zombie.randState == 2)
-    //    {
-    //        zombie.ChangeState(zombie.skillBlackHole);
-    //    }
-    //}
-
 }

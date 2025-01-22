@@ -19,7 +19,7 @@ public class ZombieHp : MonoBehaviour
         {
             Debug.Log("getHitState : " + getHitState);
             // 이벤트 발생시 이거 실행해라
-            getHitState.OnHealthChanged += UpdateHealthBar;
+            //getHitState.OnHealthChanged += UpdateHealthBar;
         }
     }
 
@@ -29,7 +29,7 @@ public class ZombieHp : MonoBehaviour
         // 체력 변화 이벤트 구독 해지
         if (getHitState != null)
         {
-            getHitState.OnHealthChanged -= UpdateHealthBar;
+            //getHitState.OnHealthChanged -= UpdateHealthBar;
         }
     }
 

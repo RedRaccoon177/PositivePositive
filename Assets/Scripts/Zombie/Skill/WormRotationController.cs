@@ -6,20 +6,26 @@ public class WormRotationController : MonoBehaviour
 {
     public ZombieObjectPooling objPooling { get; set; }
     public ZombieController zombieInfo { get; set; }
+    bool test = false;
     //public GameObject zombieii;
     private void Start()
     {
         zombieInfo  = transform.GetComponentInParent<ZombieController>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 플레이어 로프
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "RopeLastPoint")
+        {
+            test = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && test ==  true)
         {
             gameObject.SetActive(false);
             zombieInfo.ChangeState(zombieInfo.zombieHitted);
-            //objPooling.ReturnObject(gameObject);
-            // 옵저버
+            test = false;
         }
     }
 
