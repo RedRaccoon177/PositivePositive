@@ -34,9 +34,10 @@ public class SuwakoIdleState : SuwakoState
         if (test == true)
         {
             test = false;
-            suwako.ChangeState(suwako.skill0_ShootingBullet);
+            suwako.ChangeState(suwako.skill2_RiverFlowing);
         }
-        ////강제로 idle 상태 idleTime만큼 대기
+
+        //강제로 idle 상태 idleTime만큼 대기
         //if (Time.time > idleTime)
         //{
         //    if (suwako.stateCount < 3)
@@ -76,7 +77,7 @@ public class SuwakoIdleState : SuwakoState
         //        suwako.ChangeState(suwako.jumpingState);
         //    }
         //}
-        //else if(suwako.moveORskillORweak == 1)
+        //else if (suwako.moveORskillORweak == 1)
         //{
         //    suwako.whatBaseState = Random.Range(0, 2);
         //    suwako.stateCount++;
@@ -90,13 +91,11 @@ public class SuwakoIdleState : SuwakoState
         //        suwako.ChangeState(suwako.skill2_RiverFlowing);
         //    }
         //}
-        //else if(suwako.moveORskillORweak == 2)
+        //else if (suwako.moveORskillORweak == 2)
         //{
         //    suwako.stateCount = 0;
         //    suwako.ChangeState(suwako.weakPointState);
         //}
-
-        
     }
 
     public override void OnCollisionEnter2D(SuwakoController suwako, Collision2D collision)

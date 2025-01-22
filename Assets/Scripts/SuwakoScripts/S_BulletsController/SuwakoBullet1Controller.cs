@@ -7,7 +7,7 @@ public class SuwakoBullet1Controller : MonoBehaviour
 {
     int bulletNum = 1;
     SuwakoBulletPool pool;
-    string[] excludedTags = { "Bullet", "Enemy", "Untagged" };
+    string[] excludedTags = { "Bullet", "Enemy", "Untagged", "Wall" };
 
     private void Start()
     {
