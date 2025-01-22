@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8878280501545535879}
   - component: {fileID: 7855805078974224916}
   - component: {fileID: 2377475077870642005}
+  - component: {fileID: 826339602846718332}
   m_Layer: 6
   m_Name: SideWall
   m_TagString: OutSideWall
@@ -134,3 +135,17 @@ PolygonCollider2D:
       - {x: 0.79999995, y: 0.87}
       - {x: 0.7977172, y: -0.87670636}
   m_UseDelaunayMesh: 0
+--- !u!114 &826339602846718332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588185646256105965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3670412bccaa93c4282d7ebaa077e925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 1
+  frequency: 1
