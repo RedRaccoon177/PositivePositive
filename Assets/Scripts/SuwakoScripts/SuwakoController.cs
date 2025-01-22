@@ -16,7 +16,10 @@ public class SuwakoController : MonoBehaviour
     public Animator animator;
     public BoxCollider2D boxCollider;
     public BoxCollider2D weakPointCollider;
-    
+
+    public bool isEndStart = false;
+
+
     //스와코 체력
     [SerializeField]
     float _suwakoHP = 20;

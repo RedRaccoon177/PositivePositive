@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1639116166}
-  zoomSize: 0
+  zoomSize: 5
   cameraLimit:
     center: {x: 19.6, y: 15}
     mapSize: {x: 30, y: 17}
@@ -4600,8 +4600,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3050084854064077717, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753173019}
   m_SourcePrefab: {fileID: 100100000, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+--- !u!1 &1739665428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3050084854064077717, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+  m_PrefabInstance: {fileID: 1739665427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1751127941
 GameObject:
   m_ObjectHideFlags: 0
@@ -4691,10 +4699,22 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4274532099241318643, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
   m_PrefabInstance: {fileID: 1739665427}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1739665428}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34d1e95fe29a6d54d89babe587343010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1753173019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739665428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf4b2676c6bbe3459133db45d827c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1770018138
