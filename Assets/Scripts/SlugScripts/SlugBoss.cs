@@ -8,6 +8,7 @@ public class SlugBoss : MonoBehaviour
     public GameObject skillPrefab; // 발사체 프리팹 
     public GameObject wideareaPreafab; // 구체 프리팹
     public Animator animator;
+    public float deltaTime;
 
     //▼ 발사 위치
     public Transform firePointFront1; // 정면 발사 위치1
@@ -61,6 +62,7 @@ public class SlugBoss : MonoBehaviour
 
     void Update()
     {
+        deltaTime += Time.deltaTime;
         if (slugBossHealth <=0 && !isWideAreaSkillActivated)
         {
             ActivateWideAreaSkill();// 보스 체력이 0 이하일 때 구체 스킬 발동
@@ -91,7 +93,10 @@ public class SlugBoss : MonoBehaviour
                 {
                     count++; // 발사 횟수 증가
                     delaySpeed = 0f; // 발사 지연 속도 초기화
-                    PerformAttack(); // 공격 수행
+                    if (deltaTime > 5)
+                    {
+                        PerformAttack(); // 공격 수행
+                    }
                 }
             }
             else
@@ -105,6 +110,8 @@ public class SlugBoss : MonoBehaviour
 
     void PerformAttack()
     {
+        
+        
         if (isFire == false)
         {
 
@@ -124,6 +131,7 @@ public class SlugBoss : MonoBehaviour
                 Instantiate(skillPrefab, firePointUp3.position, firePointUp3.rotation); // 위쪽 발사
             }
         }
+        
     }
 
     void ActivateWideAreaSkill()
