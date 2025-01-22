@@ -13,12 +13,12 @@ public class WormRotationController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 플레이어 로프
-        if (collision.gameObject.tag == "Wall")
+        Debug.Log("aas");
+        if (collision.gameObject.tag == "RopeLastPoint")
         {
+            Debug.Log("안녕ㅁㅁ");
             gameObject.SetActive(false);
             zombieInfo.ChangeState(zombieInfo.zombieHitted);
-            objPooling.ReturnObject(gameObject);
         }
     }
 

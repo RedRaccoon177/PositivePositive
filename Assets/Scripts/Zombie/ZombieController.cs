@@ -86,13 +86,12 @@ public class ZombieController : MonoBehaviour
     public Vector2 mosterToPlayer;
     public bool jumpOn = false;
     public bool isHitted = false;
+    public bool isDie = false;
     // ______________ 스킬 1 WormShield ___________________
 
     public int wormMaxCount { get; set; }
     public int wormHaveCount { get; set; }
     public bool wormCreated { get; set; }
-
-
     public float deltaTime { get; set; }
     public int randState;
     public int randDirect;
@@ -121,6 +120,8 @@ public class ZombieController : MonoBehaviour
     {
         zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
         zomBulletObjPool = gameObject.GetComponent<ZombieWormBulletPool>();
+        zomBulletObjPool.CreatObject();
+        zomObjPool.CreatObject();
         wormHaveCount = 0;
         wormMaxCount = 4;
         zombieHp = 20;
@@ -129,8 +130,6 @@ public class ZombieController : MonoBehaviour
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        zomObjPool.CreatObject();
-        zomBulletObjPool.CreatObject();
         ChangeState(idle);
         
     }

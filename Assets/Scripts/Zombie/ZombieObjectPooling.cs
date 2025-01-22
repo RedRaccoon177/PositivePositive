@@ -36,9 +36,6 @@ public class ZombieObjectPooling : MonoBehaviour
             obj.GetComponent<RotationCircle>().radius = 5f;
             obj.GetComponent<RotationCircle>().rotationSpeed = 50f;
             obj.GetComponent<WormRotationController>().objPooling = this;
-            //obj.GetComponent<WormController>().zombieii= gameObject;
-            //obj.GetComponent<RotationCircle>().objectPool = this;
-            //StartSetting(obj, i);
             pool.Enqueue(obj);
         }
     }
@@ -47,7 +44,6 @@ public class ZombieObjectPooling : MonoBehaviour
     /// </summary>
     public void AllActiveTrue()
     {
-        // Debug.Log(pool.Count);    
         if (pool.Count < 4)
         {
             return;
@@ -64,13 +60,12 @@ public class ZombieObjectPooling : MonoBehaviour
     }
     public void AllActiveFalse()
     {
-        Debug.Log("아ㅏㅏ");
-        for (int i = 2; i < poolMaxCount + 2; i++)
+        for (int i = 1; i < poolMaxCount + 1; i++)
         {
-            Debug.Log(gameObject.transform.GetChild(i).gameObject.name  + ": i");
             gameObject.transform.GetChild(i).gameObject.SetActive(false);
             pool.Enqueue(gameObject.transform.GetChild(i).gameObject);
         }
+
     }
     /// <summary>
     /// 몬스터 주변을 도는 worm들 90, 180, 270, 360도 위치에 생성되게 하는 함수
@@ -81,6 +76,5 @@ public class ZombieObjectPooling : MonoBehaviour
     {
         obj.GetComponent<RotationCircle>().CreatWormShield(i);
         obj.transform.position = new Vector2(obj.GetComponent<RotationCircle>().angleX, obj.GetComponent<RotationCircle>().angleY);
-
     }
 }

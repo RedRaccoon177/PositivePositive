@@ -7,7 +7,7 @@ public class ZombieJumpReady : ZombieState
     float tempPosY;
     public override void Enter(ZombieController zombie)
     {
-        zombie.Animator.SetTrigger("JumpReady");
+        zombie.Animator.SetBool("JumpReady",true);
         zombie.mosterToPlayer = zombie.PlayerInfo.transform.position - zombie.transform.position;
         // 180도 더한 이유 - 유니티 내 좌표계에서 시계방향으로 각도회전을 하는데, 그것을 이용해 내 이미지의 기준인 180도를 더해주었다.
         zombie.transform.rotation = Quaternion.Euler(0, 0, 180 + Mathf.Atan2(zombie.mosterToPlayer.y, zombie.mosterToPlayer.x) * Mathf.Rad2Deg);
@@ -20,7 +20,7 @@ public class ZombieJumpReady : ZombieState
         Debug.DrawRay(zombie.transform.position, zombie.mosterToPlayer * zombie.distance, Color.green);
         if (zombie.jumpOn == true)
         {
-            zombie.jumpOn = false;
+            zombie.Animator.SetBool("JumpReady",false);
             zombie.ChangeState(zombie.jump);
         }
     }
@@ -57,6 +57,7 @@ public class ZombieJump : ZombieState
         zombie.deltaTime += Time.deltaTime;
         if (zombie.deltaTime > 3) 
         {
+            zombie.Animator.SetBool("IsJump", false);
             zombie.ChangeState(zombie.idle);
         }
         zombie.Rigid.velocity = zombie.mosterToPlayer * 10;

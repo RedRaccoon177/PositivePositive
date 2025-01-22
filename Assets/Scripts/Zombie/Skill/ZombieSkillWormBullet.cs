@@ -18,13 +18,15 @@ public class ZombieSkillWormBullet : ZombieState
     {
         zombie.deltaTime += Time.deltaTime;
         changeTime += Time.deltaTime;
-        if (zombie.deltaTime > 0.5F)
+        if (zombie.deltaTime > 1)
         {
             zombie.deltaTime = 0;
             zombie.zomBulletObjPool.WormBulletActiveTrue(zombie);
         }
-        if (changeTime >3)
+        if (changeTime >2)
         {
+            changeTime = 0;
+            zombie.Animator.SetBool("IsSkillWormBullet", false);
             zombie.ChangeState(zombie.idle);
         }
     }

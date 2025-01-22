@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -5503321973818478713}
   m_Layer: 0
   m_Name: Hook
-  m_TagString: RopeLastPont
+  m_TagString: RopeLastPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

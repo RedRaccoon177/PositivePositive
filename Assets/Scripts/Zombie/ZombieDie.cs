@@ -8,6 +8,12 @@ public class ZombieDie : ZombieState
     public override void Enter(ZombieController zombie)
     {
         zombie.Animator.SetBool("IsDie",true);
-        // 게임 승리
+    }
+    public override void Update(ZombieController zombie)
+    {
+        if (zombie.isDie == true)
+        {
+            GameManager.Instance.Victory();
+        }
     }
 }
