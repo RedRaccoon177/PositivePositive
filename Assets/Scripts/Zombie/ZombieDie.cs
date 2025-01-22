@@ -13,7 +13,8 @@ public class ZombieDie : ZombieState
     {
         if (zombie.isDie == true)
         {
-            GameManager.Instance.Victory();
+            Camera.main.GetComponent<CameraMove>().ZoomBoss(zombie.gameObject,true);
+            //GameManager.Instance.Victory();
         }
     }
 }

@@ -19,6 +19,7 @@ public class ZombieWalk : ZombieState
     //}
     public override void Enter(ZombieController zombie)
     {
+        zombie.Animator.SetBool("IsHittedd", false);
         zombie.Animator.SetBool("IsWalk", true);
         RandomMoveRange(zombie);
     }

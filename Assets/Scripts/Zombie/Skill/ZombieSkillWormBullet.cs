@@ -7,6 +7,7 @@ public class ZombieSkillWormBullet : ZombieState
     float changeTime;
     public override void Enter(ZombieController zombie)
     {
+        zombie.Animator.SetBool("IsHittedd", false);
         zombie.Animator.SetBool("IsSkillWormBullet",true);
     }
     public override void FixUpdate(ZombieController zombie)

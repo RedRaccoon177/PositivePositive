@@ -17,6 +17,7 @@ public class ZombieSkillBlackHole : ZombieState
 
     public override void Enter(ZombieController zombie)
     {
+        zombie.Animator.SetBool("IsHittedd", false);
         zombie.Animator.SetBool("SkillBlack",true);
         // 블랙홀 지속시간
         blackHoleDuration = 4;
@@ -42,8 +43,8 @@ public class ZombieSkillBlackHole : ZombieState
     }
     public void BlackHoleCreat(ZombieController zombie)
     {
-        randX = Random.Range(5, 28);
-        randY = Random.Range(-10, 6);
+        randX = Random.Range(-15, 15);
+        randY = Random.Range(-10, 8);
         zombie.BlackHoleSkillPrepeb.transform.position = new Vector2(randX, randY);
         zombie.BlackHoleSkillPrepeb.SetActive(true);
     }

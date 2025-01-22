@@ -11,6 +11,7 @@ TagManager:
   - WeakPoint
   - Monster
   - RopeLastPoint
+  - OutSideWall
   layers:
   - Default
   - TransparentFX

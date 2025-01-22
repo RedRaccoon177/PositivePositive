@@ -63,6 +63,7 @@ public class ZombieController : MonoBehaviour
         }
     }
 
+    public bool isWalked = false;
     public float zombieHp;
     public short directionX { get; set; }
     public short directionY { get; set; }

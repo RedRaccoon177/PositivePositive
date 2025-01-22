@@ -21,6 +21,7 @@ public class ZombieHitted : ZombieState
     public void TakeDamage(ZombieController zombie)
     {
         zombie.zombieHp -= damage;
+        Debug.Log(zombie.zombieHp);
         zombie.zombieHp = Mathf.Clamp(zombie.zombieHp, 0, maxHealth); // 체력을 0~최대값 사이로 제한
         if(zombie.zombieHp == 0)
         {
