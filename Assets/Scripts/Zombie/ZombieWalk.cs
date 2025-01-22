@@ -44,6 +44,7 @@ public class ZombieWalk : ZombieState
 
         if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Ground")
         {
+            Debug.Log("ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
             DirectionChangeWall(zombie);    
         }
     }
