@@ -9,7 +9,7 @@ public class CameraMove : MonoBehaviour
     bool zoomPlayer = true;
     public float zoomSize;
 
-    [Tooltip ("카메라 바운더리 설정")]
+    [Tooltip("카메라 바운더리 설정")]
     [System.Serializable]
     public struct CameraLimit
     {

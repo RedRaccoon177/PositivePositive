@@ -18,7 +18,7 @@ public class SlugBoss : MonoBehaviour
     public Transform spawnPoint; // 구체가 생성되는 위치
 
     //▼ 타이머와 쿨타임
-    public float fireInterval = 5f; // 발사 간격 (초 단위) 
+    public float fireInterval = 10f; // 발사 간격 (초 단위) 
     private float coolTime; // 스킬 쿨타임을 추적
     private float fireTimer; // 발사 지연 속도
 

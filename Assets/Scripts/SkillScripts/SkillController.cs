@@ -6,27 +6,38 @@ using UnityEngine.UIElements;
 
 public class SkillController : MonoBehaviour
 {
-    public float speedPower = -10; // ½ºÅ³ ¼Óµµ
-    public float damage = 10f;    // ½ºÅ³ÀÇ µ¥¹ÌÁö
+    public float speedPower = -10; // ìŠ¤í‚¬ ì†ë„
+    public float damage = 10f;    // ìŠ¤í‚¬ì˜ ë°ë¯¸ì§€
+    public float delayTime = 10f; // ìŠ¤í‚¬ ì´ë™ ë”œë ˆì´ ì‹œê°„
+    public bool isMoving = false; // ìŠ¤í‚¬ì´ ì´ë™ ì¤‘ì¸ì§€ ì—¬ë¶€
 
-    void Start(){}
+    void Start()
+    {
+        //ë”œë ˆì´ í›„ ìŠ¤í‚¬ ì´ë™ ì‹œì‘
+        StartCoroutine(DelayMovement());
+    }
 
     void Update()
     {   
-        transform.Translate(0.08f, 0, 0); // ½ºÅ³ ÀÌµ¿
+        transform.Translate(0.08f, 0, 0); // ìŠ¤í‚¬ ì´ë™
 
         if (transform.position.x < -10)
         {
-            Destroy(gameObject); // ½ºÅ³ÀÌ È­¸é ¹ÛÀ¸·Î ³ª°¡¸é ¿ÉÁ§ ÆÄ±«
+            Destroy(gameObject); // ìŠ¤í‚¬ì´ í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ ì˜µì  íŒŒê´´
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator DelayMovement()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        yield return new WaitForSeconds(delayTime);
+        isMoving = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
-            //collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }
