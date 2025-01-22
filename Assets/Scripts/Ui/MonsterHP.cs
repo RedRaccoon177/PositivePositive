@@ -35,7 +35,6 @@ public class MonsterHP : MonoBehaviour
     {
         if (healthBarFill != null)
         {
-            Debug.Log(healthPercent);
             healthBarFill.fillAmount = healthPercent; // fillAmount 값 적용
         }
     }

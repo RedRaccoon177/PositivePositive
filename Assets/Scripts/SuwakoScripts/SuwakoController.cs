@@ -6,6 +6,10 @@ using UnityEngine.UIElements;
 
 public class SuwakoController : MonoBehaviour
 {
+    public int moveORskillORweak = 0;
+    public int whatBaseState = 0;
+    public int stateCount = 0;
+
     //유닛 가장 필요한 변수들
     public SuwakoState currentState;
     public Rigidbody2D rb;
@@ -13,6 +17,7 @@ public class SuwakoController : MonoBehaviour
     public BoxCollider2D boxCollider;
     public BoxCollider2D weakPointCollider;
     
+    //스와코 체력
     [SerializeField]
     float _suwakoHP = 20;
     public float suwakoHP 
@@ -96,8 +101,6 @@ public class SuwakoController : MonoBehaviour
         childObjects = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        //boxCollider = GetComponent<BoxCollider2D>();
-        //weakPointCollider = GetComponent<BoxCollider2D>();
 
         //자식 객체 직접 지정
         foreach (Transform child in transform)
