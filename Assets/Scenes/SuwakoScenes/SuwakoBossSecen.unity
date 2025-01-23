@@ -1644,6 +1644,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1244197447}
     m_Modifications:
+    - target: {fileID: 3696051176772793484, guid: a9e89e04f6948934da850791b6b2594c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696051176772793484, guid: a9e89e04f6948934da850791b6b2594c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.47
+      objectReference: {fileID: 0}
     - target: {fileID: 4106162540177265263, guid: a9e89e04f6948934da850791b6b2594c, type: 3}
       propertyPath: m_Name
       value: Ground5
@@ -4539,6 +4547,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 743616548747795337, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+      propertyPath: m_Size.x
+      value: 2.6112356
+      objectReference: {fileID: 0}
+    - target: {fileID: 743616548747795337, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.009853125
+      objectReference: {fileID: 0}
     - target: {fileID: 1736770846446132102, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_SortingLayer
       value: 4
