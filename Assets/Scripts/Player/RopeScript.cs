@@ -46,7 +46,7 @@ public class RopeScript : MonoBehaviour
     {
         if (triggered == false)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms", "WeakPoint"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms", "WeakPoint", "OutLineMap"));
             Debug.DrawRay(transform.position, transform.up, new Color(1, 0, 0));
             if (hit.collider != null)
             {
