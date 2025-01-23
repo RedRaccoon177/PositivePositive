@@ -29,6 +29,7 @@ public class GameTitleBtnClick : MonoBehaviour
     }
     public void OnClickBossSecond()
     {
+        SceneChanger.Instance.ChangeSceneWithLoad("StageZombie");
         Debug.Log("보스2 클릭");
     }
     public void OnClickBossThird()
