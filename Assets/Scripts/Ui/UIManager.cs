@@ -12,8 +12,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //titleBtn.onClick.AddListener(SceneChanger.Instance.MoveToTitleScene);
-        //GameManager.Instance.SetUIManager(this);
+        titleBtn.onClick.AddListener(SceneChanger.Instance.MoveToTitleScene);
+        GameManager.Instance.SetUIManager(this);
     }
 
     public void GameOverUI()

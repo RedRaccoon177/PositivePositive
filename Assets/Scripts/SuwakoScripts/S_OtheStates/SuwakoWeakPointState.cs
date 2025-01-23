@@ -65,7 +65,7 @@ public class SuwakoWeakPointState : SuwakoState
         {
             suwako.suwakoHP = 0;
             suwako.animator.SetTrigger("IsDead");
-            suwako.rb.isKinematic = true;
+            suwako.rb.mass = 1000;
             GameManager.Instance.Victory();
         }
         suwako.GetComponent<MonsterHPObserver>().NotifyHealthChange(maxHealth, suwako.suwakoHP);
@@ -78,7 +78,7 @@ public class SuwakoWeakPointState : SuwakoState
         suwako.animator.SetBool("IsWeakPoint", false);
         suwako.boxCollider.enabled = true;
         suwako.weakPointCollider.enabled = false;
-        suwako.rb.mass = 1000;
+        suwako.rb.mass = 1;
         suwako.childObjects[8].SetActive(false);
         suwako.ChangeState(suwako.idleState);
     }

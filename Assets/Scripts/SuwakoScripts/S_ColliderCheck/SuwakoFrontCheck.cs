@@ -13,7 +13,7 @@ public class SuwakoFrontCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Ground" || collision.tag == "Wall")
+        if (collision.tag == "Ground" || collision.tag == "OutSideWall")
         {
             if (suwako.RiORLe == -1)
             {
