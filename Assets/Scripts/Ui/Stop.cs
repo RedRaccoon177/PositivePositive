@@ -38,4 +38,9 @@ public class Stop : MonoBehaviour
         stopUi.SetActive(false);
         isPaused = false;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
