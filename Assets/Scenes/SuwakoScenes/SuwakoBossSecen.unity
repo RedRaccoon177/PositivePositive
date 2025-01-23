@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3039639173040410006, guid: 4ba1ec22e7d6d8c4ea0b2e9c00d4f025, type: 3}
       propertyPath: MaxHP
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3781082230513164788, guid: 4ba1ec22e7d6d8c4ea0b2e9c00d4f025, type: 3}
       propertyPath: m_Name
@@ -4561,7 +4561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4778240525763285150, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: _suwakoHP
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4886472463954979059, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_LocalPosition.x
