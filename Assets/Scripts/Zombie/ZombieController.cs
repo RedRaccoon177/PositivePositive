@@ -69,6 +69,7 @@ public class ZombieController : MonoBehaviour
     public short directionY { get; set; }
     // ______________ 상태 ___________________
     public ZombieDie zombiDie { get; private set; }
+    public ZombieStart zombieStart { get; private set; }
     public ZombieHitted zombieHitted { get; set; }
     public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
@@ -93,6 +94,7 @@ public class ZombieController : MonoBehaviour
     public int wormMaxCount { get; set; }
     public int wormHaveCount { get; set; }
     public bool wormCreated { get; set; }
+    public bool isStart;
     public float deltaTime { get; set; }
     public int randState;
     public int randDirect;
@@ -107,6 +109,7 @@ public class ZombieController : MonoBehaviour
     private void Awake()
     {
         //________ 상태 _____________
+        zombieStart = new ZombieStart();
         skillWormBullet = new ZombieSkillWormBullet();
         zombiDie = new ZombieDie();
         zombieHitted = new ZombieHitted();
@@ -131,7 +134,7 @@ public class ZombieController : MonoBehaviour
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        ChangeState(idle);
+        ChangeState(zombieStart);
         
     }
 
