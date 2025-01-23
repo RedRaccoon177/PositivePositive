@@ -16,7 +16,7 @@ public class SuwakoWeakPointState : SuwakoState
     {
         suwako.gameObject.tag = "WeakPoint";
         suwako.gameObject.layer = LayerMask.GetMask("WeakPoint");
-        maxHealth = 20;
+        maxHealth = suwako.suwakoMaxHP;
         damage = 1;
         hitCount = 0;
         endTime = 0;

@@ -21,6 +21,12 @@ public class SuwakoController : MonoBehaviour
 
 
     //스와코 체력
+    float _suwakoMaxHP;
+    public float suwakoMaxHP
+    {
+        get => _suwakoMaxHP;
+        set { _suwakoMaxHP = value; }
+    }
     [SerializeField]
     float _suwakoHP = 20;
     public float suwakoHP 
@@ -107,7 +113,7 @@ public class SuwakoController : MonoBehaviour
         childObjects = new List<GameObject>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        _suwakoMaxHP = suwakoHP;
         //자식 객체 직접 지정
         foreach (Transform child in transform)
         {

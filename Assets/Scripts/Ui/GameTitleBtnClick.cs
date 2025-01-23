@@ -24,16 +24,17 @@ public class GameTitleBtnClick : MonoBehaviour
     public void OnClickBossFirst()
     {
         //이런 식으로 씬매니저 인스턴스에서 ChangeSceneWithLoad안에 씬 이름 넣으면 됨
-        SceneChanger.Instance.ChangeSceneWithLoad("SuwakoBossSecen");
+        SceneChanger.Instance.ChangeSceneWithLoad("ZombieStageScene");
         Debug.Log("보스1 클릭");
     }
     public void OnClickBossSecond()
     {
-        SceneChanger.Instance.ChangeSceneWithLoad("StageZombie");
+        SceneChanger.Instance.ChangeSceneWithLoad("SuwakoStageScene");
         Debug.Log("보스2 클릭");
     }
     public void OnClickBossThird()
     {
+        SceneChanger.Instance.ChangeSceneWithLoad("MsgStageScene");
         Debug.Log("보스3 클릭");
     }
     public void OnClickPopUpExit()

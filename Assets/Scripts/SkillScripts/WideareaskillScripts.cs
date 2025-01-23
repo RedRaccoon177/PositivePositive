@@ -42,6 +42,10 @@ public class WideareaskillScripts : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        GameManager.Instance.Victory();
+    }
     public void ActivateWideAreaSkill()
     {
         isActivated = true;
