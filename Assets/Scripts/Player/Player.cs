@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
 
     public void SetRopeCharging(bool value)
     {
-        isCharging=value;
+        isCharging = value;
     }
 
     public IEnumerator WallJump()
@@ -352,6 +352,7 @@ public class Player : MonoBehaviour
     {
         if (isInvincible == false)
         {
+            isInvincible = true;
             HP -= damage;
             StartCoroutine(PlayerBlink());
             observer.NotifyHealthChange(MaxHP, HP);
@@ -372,7 +373,6 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerBlink()
     {
-        isInvincible = true;
         float delay = invincibleTime / 5 / 2;
         for (int i = 0; i < 5; i++)
         {
