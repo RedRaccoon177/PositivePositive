@@ -4620,16 +4620,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8442329315631080132, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
+      propertyPath: m_Size.x
+      value: 2.680436
+      objectReference: {fileID: 0}
+    - target: {fileID: 8442329315631080132, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_Size.y
       value: 2.0183582
       objectReference: {fileID: 0}
     - target: {fileID: 8442329315631080132, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_Offset.x
-      value: -0.017706513
+      value: -0.0010665655
       objectReference: {fileID: 0}
     - target: {fileID: 8442329315631080132, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_Offset.y
-      value: 0.3226623
+      value: 0.32266235
       objectReference: {fileID: 0}
     - target: {fileID: 8983337067450767128, guid: 8ae889f09187e87428d8d63a522eec40, type: 3}
       propertyPath: m_Enabled
