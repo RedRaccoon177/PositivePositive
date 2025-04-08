@@ -30,7 +30,7 @@ public class GroundMoveLeft : MoveLeft
             player.SetAnimState("IsWalk", true);
             if (player.Rigid.velocity.x < -player.groundMoveSpeed)
             {
-                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x + Time.deltaTime / 2, player.Rigid.velocity.y);
+                player.Rigid.velocity = new Vector2(Mathf.Lerp(player.Rigid.velocity.x, -player.groundMoveSpeed, 0.7f), player.Rigid.velocity.y);
             }
             else
             {
@@ -49,7 +49,7 @@ public class GroundMoveRight : MoveRight
             player.SetAnimState("IsWalk", true);
             if (player.Rigid.velocity.x > player.groundMoveSpeed)
             {
-                player.Rigid.velocity = new Vector2(player.Rigid.velocity.x - Time.deltaTime / 2, player.Rigid.velocity.y);
+                player.Rigid.velocity = new Vector2(Mathf.Lerp(player.Rigid.velocity.x, player.groundMoveSpeed, 0.7f), player.Rigid.velocity.y);
             }
             else
             {

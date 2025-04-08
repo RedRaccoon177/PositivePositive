@@ -1,38 +1,51 @@
-using System.Collections;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZombieIdle : ZombieState
 {
+    float stateTime;
     public override void Enter(ZombieController zombie)
     {
         zombie.Animator.SetBool("IsWalk", false);
+        zombie.Animator.SetBool("IsHittedd", false);
+        zombie.Animator.SetBool("IsJump", false);
+        zombie.Animator.SetBool("IsJumpReady", false);
+        zombie.Animator.SetBool("SkillBlack", false);
         zombie.Rigid.velocity = Vector3.zero;
         zombie.directionX = 0;
         zombie.directionY = 0;
-        zombie.randState = UnityEngine.Random.Range(0, 3);
-        //Debug.Log(zombie.randState);
-        zombie.CorutinPlay(IdleWait(zombie));
-        //zombie.StartCoroutine(IdleWait(zombie));
-    }
-    public IEnumerator IdleWait(ZombieController zombie)
-    {
+        zombie.randState = Random.Range(0,13);
         zombie.zomObjPool.AllActiveTrue();
-        yield return new WaitForSeconds(2f);
-        if (zombie.randState == 0)
-        {
-            zombie.ChangeState(zombie.walk);
-        }
-        else if (zombie.randState == 1)
-        {
-            zombie.ChangeState(zombie.jumpReady);
-            //Debug.Log("스킬상태");
-        }
-        else if (zombie.randState == 2)
-        {
-            zombie.ChangeState(zombie.skillBlackHole);
-        }
     }
 
+    public override void Update(ZombieController zombie)
+    {
+        stateTime += Time.deltaTime;
+        if (stateTime > 2)
+        {
+            stateTime = 0;
+            zombie.zomObjPool.AllActiveFalse();
+            if (zombie.isWalked == false)
+            {
+                zombie.isWalked = true;
+                zombie.ChangeState(zombie.walk);
+            }
+            else if(zombie.isWalked == true)
+            {
+                zombie.isWalked = false;
+                if (0 <= zombie.randState  && zombie.randState <= 6)
+                {
+                    //zombie.Animator.SetBool("JumpReady", true);
+                    zombie.ChangeState(zombie.jumpReady);
+                }
+                else if (6 < zombie.randState && zombie.randState <= 8)
+                {
+                    zombie.ChangeState(zombie.skillBlackHole);
+                }
+                else if (8 < zombie.randState && zombie.randState < 13)
+                {
+                    zombie.ChangeState(zombie.skillWormBullet);
+                }
+            }
+        }
+    }
 }

@@ -25,8 +25,10 @@ public class Player : MonoBehaviour
     PlayerActs playerActs;
     Animator animator;
     [SerializeField] SpriteRenderer playerSprite;
+    PlayerHPObserver observer;
 
-    public int HP;
+    public int MaxHP;
+    int HP;
     public bool isJump = false;
     public bool isWall = false;
     public bool blockMove = false;
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
     public ThrowHook throwHook;
     public float boostCool = 2.0f;
     public float boostPower;
+    [SerializeField] float attackPower;
     float curBoostCool;
     public float jumpPower;
     public float groundMoveSpeed;
@@ -55,6 +58,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        observer = GetComponent<PlayerHPObserver>();
 
         startScaleX = transform.localScale.x;
         curBoostCool = boostCool;
@@ -63,6 +67,7 @@ public class Player : MonoBehaviour
         groundActs = new GroundActs();
 
         playerActs = groundActs;
+        HP = MaxHP;
     }
 
     // Update is called once per frame
@@ -84,6 +89,23 @@ public class Player : MonoBehaviour
         else
         {
             SetAnimState("IsFall", false);
+        }
+        if (rigid.freezeRotation == true)
+        {
+            if (facingRight == -1)
+            {
+                if (Rigid.velocity.x < -groundMoveSpeed)
+                {
+                    Rigid.velocity = new Vector2(Mathf.Lerp(Rigid.velocity.x, -groundMoveSpeed, 0.7f), Rigid.velocity.y);
+                }
+            }
+            else if (facingRight == 1)
+            {
+                if (Rigid.velocity.x > groundMoveSpeed)
+                {
+                    Rigid.velocity = new Vector2(Mathf.Lerp(Rigid.velocity.x, groundMoveSpeed, 0.7f), Rigid.velocity.y);
+                }
+            }
         }
 
         if (blockMove == false)
@@ -156,11 +178,11 @@ public class Player : MonoBehaviour
             }
             else
             {
-                transform.position = Vector2.Lerp(transform.position, attackingEnemy.transform.position, 0.5f);
+                transform.position = Vector2.Lerp(transform.position, attackingEnemy.transform.position, 0.2f);
                 if (Input.GetMouseButtonDown(0))
                 {
                     Vector2 mousePos = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0);
-                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * boostPower / Time.deltaTime;
+                    Vector2 vel = (mousePos - (Vector2)transform.position).normalized * attackPower;
                     rigid.velocity = vel;
                     attackMode = false;
                 }
@@ -184,7 +206,10 @@ public class Player : MonoBehaviour
             playerActs = ropeActs;
             curBoostCool += Time.deltaTime;
             rigid.drag = 0;
-            rigid.freezeRotation = false;
+            if (isCharging == false)
+            {
+                rigid.freezeRotation = false;
+            }
             canSwingCharge = true;
             SetAnimState("IsSwing", true);
             if (curBoostCool > boostCool)
@@ -213,12 +238,18 @@ public class Player : MonoBehaviour
         animator.SetTrigger("ThrowRope");
     }
 
+    //캐릭터 rotation을 갈고리를 바라보게하고 z축 고정한 다음 up으로 돌진
     public IEnumerator HookCharge(Vector3 playerPos, Vector3 hookPos)
     {
         Debug.Log("dist " + Vector2.Distance(playerPos, hookPos));
         if (Vector2.Distance(playerPos, hookPos) >= 0.55f)
         {
             isCharging = true;
+            throwHook.GetCurHook().GetComponent<RopeScript>().lastNode.GetComponent<HingeJoint2D>().connectedBody = null;
+            float angle = Mathf.Atan2(transform.position.y - hookPos.y, transform.position.x - hookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+
+            rigid.freezeRotation = true;
             //float startTime = Time.time;
 
             Vector2 rayDir = ((Vector2)hookPos - (Vector2)throwHook.transform.position).normalized;
@@ -231,6 +262,9 @@ public class Player : MonoBehaviour
             Debug.Log("velo " + vel);
             while (isCharging)
             {
+                angle = Mathf.Atan2(transform.position.y - hookPos.y, transform.position.x - hookPos.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                vel = (hookPos - playerPos).normalized * boostPower / Time.deltaTime;
                 rigid.velocity = vel;
                 //rigid.MovePosition((Vector2)rigid.transform.position + direction * 200 * Time.deltaTime);
                 //transform.position = Vector3.Lerp(playerPos, hookPos, (Time.time - startTime) / chargeTime);
@@ -241,11 +275,27 @@ public class Player : MonoBehaviour
                     Destroy(throwHook.GetCurHook().transform.GetChild(childIndex).gameObject);
                     throwHook.GetCurHook().GetComponent<RopeScript>().SetLineRenderCount(childIndex);
                 }
+
+                Debug.Log("Dist hook " + Vector2.Distance(throwHook.transform.position, hookPos));
+                if (Vector2.Distance(throwHook.transform.position, hookPos) <= 0.2f)
+                {
+                    Debug.Log("Dist close");
+                    rigid.velocity = Vector2.zero;
+                    isCharging = false;
+                }
                 yield return null;
             }
             throwHook.transform.position = hit.point;
             throwHook.GetCurHook().GetComponent<HingeJoint2D>().connectedBody = rigid;
+            rigid.freezeRotation = false;
+            yield return null;
         }
+
+    }
+
+    public void SetRopeCharging(bool value)
+    {
+        isCharging = value;
     }
 
     public IEnumerator WallJump()
@@ -255,6 +305,10 @@ public class Player : MonoBehaviour
         blockMove = false;
     }
 
+    public bool GetAttackMode()
+    {
+        return attackMode;
+    }
     public bool GetCanBoost()
     {
         return canBoost;
@@ -298,25 +352,27 @@ public class Player : MonoBehaviour
     {
         if (isInvincible == false)
         {
+            isInvincible = true;
             HP -= damage;
+            StartCoroutine(PlayerBlink());
+            observer.NotifyHealthChange(MaxHP, HP);
             if (HP <= 0)
             {
                 HP = 0;
                 animator.SetTrigger("Die");
                 throwHook.enabled = false;
                 enabled = false;
+                GameManager.Instance.GameOver();
                 //게임오버 띄우기
                 return;
             }
             Debug.Log("아프다");
-            StartCoroutine(PlayerBlink());
             StartCoroutine(HitReact());
         }
     }
 
     IEnumerator PlayerBlink()
     {
-        isInvincible = true;
         float delay = invincibleTime / 5 / 2;
         for (int i = 0; i < 5; i++)
         {
@@ -352,7 +408,16 @@ public class Player : MonoBehaviour
             isWall = true;
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Bullet"))
+        {
+            GetHit(1);
+            //Destroy(collision.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             GetHit(1);
             //Destroy(collision.gameObject);
@@ -379,6 +444,10 @@ public class Player : MonoBehaviour
         {
             isJump = true;
             isWall = false;
+        }
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("WeakPoint")))
+        {
+            isInvincible = false;
         }
     }
 }

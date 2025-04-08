@@ -1,0 +1,502 @@
+fileFormatVersion: 2
+guid: 13a5933c631e43c40980a8965b4d6c23
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: main_lev_build_80
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 800
+        width: 160
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d92c99c1914fc504e9f73cf631dbbe06
+      internalID: 1194470517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_113
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 576
+        width: 32
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293293c7f92e1ca4485d3b9055186be8
+      internalID: -2068592348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_118
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 576
+        width: 32
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73dd177127d8594aa62c56a173bb8b1
+      internalID: 876281339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_121
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 672
+        width: 64
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55c10555bc570704092ef1d9a46593a1
+      internalID: -1042730352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_124
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 640
+        width: 80
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38c706d6955e80446b1b8ab111adf20c
+      internalID: -1800792959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_130
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 576
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4724b70e38f5e474daf8188f839a7eee
+      internalID: -1222829786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_136
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 528
+        width: 224
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 589a9826381ad7e4f836c7c7d833068a
+      internalID: 863541084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: main_lev_build_138
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 528
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e9c7b472e8637f44b765137d12e332e
+      internalID: -1883594621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      main_lev_build_0: -1063905630
+      main_lev_build_1: -2049837118
+      main_lev_build_10: 1444586892
+      main_lev_build_100: -283476009
+      main_lev_build_101: -855999229
+      main_lev_build_102: 1009202641
+      main_lev_build_103: -1048355555
+      main_lev_build_104: -1383865774
+      main_lev_build_105: -1093684037
+      main_lev_build_106: 1041399569
+      main_lev_build_107: 437746772
+      main_lev_build_108: -98529896
+      main_lev_build_109: 1205373869
+      main_lev_build_11: 1876447910
+      main_lev_build_110: 1238618615
+      main_lev_build_111: -1970404718
+      main_lev_build_112: 717807358
+      main_lev_build_113: -2068592348
+      main_lev_build_114: -1938264312
+      main_lev_build_115: 2086159035
+      main_lev_build_116: -1181720615
+      main_lev_build_117: 607512980
+      main_lev_build_118: 876281339
+      main_lev_build_119: 772107773
+      main_lev_build_12: 1036563519
+      main_lev_build_120: -598999335
+      main_lev_build_121: -1042730352
+      main_lev_build_122: -1777336600
+      main_lev_build_123: 808424806
+      main_lev_build_124: -1800792959
+      main_lev_build_125: -945471749
+      main_lev_build_126: -196669146
+      main_lev_build_127: 672319527
+      main_lev_build_128: 1845819643
+      main_lev_build_129: -1317301198
+      main_lev_build_13: -641377588
+      main_lev_build_130: -1222829786
+      main_lev_build_131: 354980316
+      main_lev_build_132: 510638132
+      main_lev_build_133: 723997793
+      main_lev_build_134: 1791441177
+      main_lev_build_135: -123448033
+      main_lev_build_136: 863541084
+      main_lev_build_137: -1016945116
+      main_lev_build_138: -1883594621
+      main_lev_build_139: 765482896
+      main_lev_build_14: 1222085312
+      main_lev_build_140: -566144231
+      main_lev_build_141: 1408359249
+      main_lev_build_142: -879094558
+      main_lev_build_143: -385171855
+      main_lev_build_144: 785691615
+      main_lev_build_145: 826169435
+      main_lev_build_146: 91683983
+      main_lev_build_147: 1094436671
+      main_lev_build_148: -718197079
+      main_lev_build_149: 264046641
+      main_lev_build_15: 1499481408
+      main_lev_build_150: 2013924938
+      main_lev_build_151: -1393505345
+      main_lev_build_152: 645065919
+      main_lev_build_153: 2096164386
+      main_lev_build_154: -1340560837
+      main_lev_build_155: -765417963
+      main_lev_build_156: -1988687489
+      main_lev_build_157: -343543787
+      main_lev_build_158: -1424934309
+      main_lev_build_159: -1707439479
+      main_lev_build_16: 1371478814
+      main_lev_build_160: -1514414613
+      main_lev_build_161: -1915206822
+      main_lev_build_162: -1144650332
+      main_lev_build_163: 57277036
+      main_lev_build_164: 1841402798
+      main_lev_build_165: -1807297602
+      main_lev_build_166: 158576600
+      main_lev_build_167: 1396582432
+      main_lev_build_168: 1048370374
+      main_lev_build_169: 1478474762
+      main_lev_build_17: -1522733801
+      main_lev_build_170: 1429538648
+      main_lev_build_171: 758741116
+      main_lev_build_172: -1366752514
+      main_lev_build_173: -815270846
+      main_lev_build_174: -844449730
+      main_lev_build_175: 1649612968
+      main_lev_build_176: -1243430880
+      main_lev_build_177: 1518716133
+      main_lev_build_178: -1752329367
+      main_lev_build_179: 730282592
+      main_lev_build_18: -745654799
+      main_lev_build_180: 685624756
+      main_lev_build_181: 1624890178
+      main_lev_build_182: 269088708
+      main_lev_build_183: 918113375
+      main_lev_build_184: -739193034
+      main_lev_build_185: 1323879231
+      main_lev_build_186: -1782581602
+      main_lev_build_187: 874053414
+      main_lev_build_188: 950049097
+      main_lev_build_189: 155168607
+      main_lev_build_19: 392603967
+      main_lev_build_190: -158463617
+      main_lev_build_191: -2030552404
+      main_lev_build_192: 1120328898
+      main_lev_build_193: -2120718103
+      main_lev_build_194: 595639294
+      main_lev_build_195: 1333061566
+      main_lev_build_196: -423718953
+      main_lev_build_197: -741415015
+      main_lev_build_198: -1326036715
+      main_lev_build_199: 1609603687
+      main_lev_build_2: 626414816
+      main_lev_build_20: -1064747025
+      main_lev_build_200: 411139387
+      main_lev_build_201: -296378672
+      main_lev_build_202: 697376129
+      main_lev_build_203: -741344594
+      main_lev_build_204: -100305608
+      main_lev_build_205: -728757380
+      main_lev_build_206: 1240338921
+      main_lev_build_21: 1245806636
+      main_lev_build_22: -825678438
+      main_lev_build_23: 176490685
+      main_lev_build_24: -1458772185
+      main_lev_build_25: -1538994109
+      main_lev_build_26: 1356636777
+      main_lev_build_27: -1126354299
+      main_lev_build_28: 445848204
+      main_lev_build_29: -1688553383
+      main_lev_build_3: -1795769282
+      main_lev_build_30: 1996509120
+      main_lev_build_31: -269092703
+      main_lev_build_32: -639923506
+      main_lev_build_33: -690895089
+      main_lev_build_34: -585665899
+      main_lev_build_35: -326074363
+      main_lev_build_36: 1260757367
+      main_lev_build_37: 422192232
+      main_lev_build_38: 898852551
+      main_lev_build_39: -193966315
+      main_lev_build_4: 1885687876
+      main_lev_build_40: 1977898289
+      main_lev_build_41: 1967228015
+      main_lev_build_42: -2101068477
+      main_lev_build_43: 229411166
+      main_lev_build_44: 1701136661
+      main_lev_build_45: -511013279
+      main_lev_build_46: -727419668
+      main_lev_build_47: -324546714
+      main_lev_build_48: -654739074
+      main_lev_build_49: 436575720
+      main_lev_build_5: 617588887
+      main_lev_build_50: -1697405080
+      main_lev_build_51: 1972869429
+      main_lev_build_52: -1183865928
+      main_lev_build_53: 489536756
+      main_lev_build_54: 194245999
+      main_lev_build_55: 877825972
+      main_lev_build_56: -307963389
+      main_lev_build_57: -539181542
+      main_lev_build_58: -219114051
+      main_lev_build_59: -1784463202
+      main_lev_build_6: 1263688330
+      main_lev_build_60: -109443143
+      main_lev_build_61: 328905735
+      main_lev_build_62: 1859786914
+      main_lev_build_63: 31211893
+      main_lev_build_64: 1011572630
+      main_lev_build_65: 1668472786
+      main_lev_build_66: -1289826872
+      main_lev_build_67: 1422769471
+      main_lev_build_68: 1318205500
+      main_lev_build_69: 337002567
+      main_lev_build_7: -1113758307
+      main_lev_build_70: -2014910910
+      main_lev_build_71: -736414412
+      main_lev_build_72: 872500575
+      main_lev_build_73: -82702331
+      main_lev_build_74: -1020924017
+      main_lev_build_75: 1244418983
+      main_lev_build_76: -918690741
+      main_lev_build_77: 1747411491
+      main_lev_build_78: -376757667
+      main_lev_build_79: -1922441514
+      main_lev_build_8: -425010040
+      main_lev_build_80: 1194470517
+      main_lev_build_81: -17843563
+      main_lev_build_82: 1030063836
+      main_lev_build_83: -606855626
+      main_lev_build_84: 1639763104
+      main_lev_build_85: 783375343
+      main_lev_build_86: -1704637592
+      main_lev_build_87: 1502753967
+      main_lev_build_88: -853582350
+      main_lev_build_89: -297023564
+      main_lev_build_9: 296869511
+      main_lev_build_90: 1180460579
+      main_lev_build_91: -451013976
+      main_lev_build_92: -703230458
+      main_lev_build_93: 1601618316
+      main_lev_build_94: -1337557062
+      main_lev_build_95: -1581981519
+      main_lev_build_96: 2042679844
+      main_lev_build_97: -1844134273
+      main_lev_build_98: 2057538516
+      main_lev_build_99: 1365787802
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

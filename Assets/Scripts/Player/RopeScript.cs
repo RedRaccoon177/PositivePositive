@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TreeEditor;
 using UnityEngine;
 
 public class RopeScript : MonoBehaviour
@@ -46,14 +45,14 @@ public class RopeScript : MonoBehaviour
     {
         if (triggered == false)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms", "Enemy"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 0.1f, LayerMask.GetMask("Platforms", "WeakPoint", "OutLineMap"));
             Debug.DrawRay(transform.position, transform.up, new Color(1, 0, 0));
             if (hit.collider != null)
             {
                 colPos = transform.position;
                 Debug.Log(hit.collider.name);
                 triggered = true;
-                if (hit.collider.CompareTag("Enemy"))
+                if (hit.collider.CompareTag("WeakPoint"))
                 {
                     player.GetComponentInParent<Player>().AttackEnemy(hit.collider.gameObject);
                 }
@@ -155,8 +154,12 @@ public class RopeScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy")))
+        if (collision != null && (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("WeakPoint")))
         {
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall"))
+            {
+                transform.SetParent(collision.gameObject.transform);
+            }
             rb.velocity = Vector2.zero;
             transform.position = dest;
             triggered = true;
@@ -165,7 +168,7 @@ public class RopeScript : MonoBehaviour
             player.GetComponentInParent<Player>().IsHookAttach(true);
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
 
-            if (collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("WeakPoint"))
             {
                 player.GetComponentInParent<Player>().AttackEnemy(collision.gameObject);
             }

@@ -19,7 +19,7 @@ public class ZombieWalk : ZombieState
     //}
     public override void Enter(ZombieController zombie)
     {
-        Debug.Log("1������");
+        zombie.Animator.SetBool("IsHittedd", false);
         zombie.Animator.SetBool("IsWalk", true);
         RandomMoveRange(zombie);
     }
@@ -27,7 +27,7 @@ public class ZombieWalk : ZombieState
     public override void Update(ZombieController zombie)
     {
         zombie.deltaTime += Time.deltaTime;
-        if (zombie.deltaTime >= 4)
+        if (zombie.deltaTime >= 3)
         {
             zombie.deltaTime = 0;
             zombie.ChangeState(zombie.idle);
@@ -41,7 +41,12 @@ public class ZombieWalk : ZombieState
     }
     public override void OnCollisionEnter2D(ZombieController zombie, Collision2D collision)
     {
-        DirectionChangeWall(zombie);
+
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Ground")
+        {
+            Debug.Log("ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+            DirectionChangeWall(zombie);    
+        }
     }
     void ResetDiectionRange()
     {

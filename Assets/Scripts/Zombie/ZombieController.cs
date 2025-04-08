@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,10 +11,20 @@ public class ZombieController : MonoBehaviour
     Rigidbody2D rigid;
     ZombieState zombieState;
     public ZombieObjectPooling zomObjPool { get; set; }
+    public ZombieWormBulletPool zomBulletObjPool { get; set; }
     [SerializeField] GameObject playerInfo;
+    [SerializeField] GameObject wormPrepeb;
     [SerializeField] GameObject jumpSkillRange;
     [SerializeField] GameObject blackHoleSkillPrepeb;
-    
+
+    public GameObject WormPrepeb
+    {
+        get
+        {
+            return wormPrepeb;
+        }
+    }
+
     public GameObject BlackHoleSkillPrepeb
     {
         get
@@ -53,14 +63,21 @@ public class ZombieController : MonoBehaviour
         }
     }
 
+    public bool isWalked = false;
+    public float zombieHp;
     public short directionX { get; set; }
     public short directionY { get; set; }
     // ______________ 상태 ___________________
+    public ZombieDie zombiDie { get; private set; }
+    public ZombieStart zombieStart { get; private set; }
+    public ZombieHitted zombieHitted { get; set; }
     public ZombieSkillBlackHole skillBlackHole { get; private set; }
     public ZombieJump jump { get; private set; }
-    public ZombieJumpReady jumpReady { get; private set; } 
+    public ZombieJumpReady jumpReady { get; private set; }
     public ZombieWalk walk { get; private set; }
     public ZombieIdle idle { get; private set; }
+    public ZombieWormBullet wormBullet { get; private set; }
+    public ZombieSkillWormBullet skillWormBullet { get; private set; }
     // ___________ 컴포넌트 _____________________
     public Animator Animator { get { return animator; } }
     public Rigidbody2D Rigid { get { return rigid; } }
@@ -69,15 +86,15 @@ public class ZombieController : MonoBehaviour
     public RaycastHit2D ray2d { get; set; }
     public Vector2 mapBounds { get; set; }
     public Vector2 mosterToPlayer;
-    public bool jumpOn=false;
+    public bool jumpOn = false;
+    public bool isHitted = false;
+    public bool isDie = false;
     // ______________ 스킬 1 WormShield ___________________
 
     public int wormMaxCount { get; set; }
-    public int wormHaveCount{ get; set; }
+    public int wormHaveCount { get; set; }
     public bool wormCreated { get; set; }
-    
-
-
+    public bool isStart;
     public float deltaTime { get; set; }
     public int randState;
     public int randDirect;
@@ -89,25 +106,36 @@ public class ZombieController : MonoBehaviour
         zombieState.Enter(this);
         deltaTime = 0;
     }
-    void Start()
+    private void Awake()
     {
-        zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
-        wormHaveCount = 0;
-        wormMaxCount = 4;
-
-        distance = 100f;
-        //______________________
+        //________ 상태 _____________
+        zombieStart = new ZombieStart();
+        skillWormBullet = new ZombieSkillWormBullet();
+        zombiDie = new ZombieDie();
+        zombieHitted = new ZombieHitted();
         jump = new ZombieJump();
         jumpReady = new ZombieJumpReady();
         walk = new ZombieWalk();
         idle = new ZombieIdle();
         skillBlackHole = new ZombieSkillBlackHole();
+        
+    }
+    void Start()
+    {
+        zomObjPool = gameObject.GetComponent<ZombieObjectPooling>();
+        zomBulletObjPool = gameObject.GetComponent<ZombieWormBulletPool>();
+        zomBulletObjPool.CreatObject();
+        zomObjPool.CreatObject();
+        wormHaveCount = 0;
+        wormMaxCount = 4;
+        zombieHp = 20;
+        distance = 100f;
         //_____________________
         zombieCollider = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
-        zomObjPool.CreatObject();
-        ChangeState(idle);
+        ChangeState(zombieStart);
+        
     }
 
     void Update()
@@ -137,5 +165,4 @@ public class ZombieController : MonoBehaviour
     {
         StartCoroutine(coroutine);
     }
-
 }

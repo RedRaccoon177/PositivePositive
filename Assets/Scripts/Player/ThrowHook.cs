@@ -31,12 +31,12 @@ public class ThrowHook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && transform.parent.GetComponent<Player>().blockMove == false)
+        if (Input.GetMouseButtonDown(0) && transform.parent.GetComponent<Player>().blockMove == false && transform.parent.GetComponent<Player>().GetAttackMode() == false)
         {
             dest = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.parent.GetComponent<Player>().SetBoost(true);
             rayDir = (dest - (Vector2)transform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, 10, LayerMask.GetMask("Platforms", "Enemy"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, 10, LayerMask.GetMask("Platforms", "WeakPoint", "OutLineMap"));
             Debug.DrawRay(transform.position, transform.up, new Color(0, 1, 0));
 
             curHook = Instantiate(hook, transform.position, Quaternion.identity);
@@ -61,4 +61,11 @@ public class ThrowHook : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Wall")))
+        {
+            transform.parent.GetComponent<Player>().SetRopeCharging(false);
+        }
+    }
 }
