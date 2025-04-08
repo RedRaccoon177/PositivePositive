@@ -19,7 +19,6 @@ public class SuwakoController : MonoBehaviour
 
     public bool isEndStart = false;
 
-
     //스와코 체력
     float _suwakoMaxHP;
     public float suwakoMaxHP

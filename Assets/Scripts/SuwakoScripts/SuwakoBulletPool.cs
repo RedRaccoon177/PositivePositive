@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +25,7 @@ public class SuwakoBulletPool : MonoBehaviour
         }
 
         //각 100개씩 만듬과 동시에, 풀 저장소에 넣는다.
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1; i++)
         {
             for(int bulletNums = 0; bulletNums < bullets.Length; bulletNums++)
             {
